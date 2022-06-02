@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Orchid\Layouts\Wealth;
+
+use App\Models\WealthType;
+use Orchid\Screen\Field;
+use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Layouts\Rows;
+use Orchid\Screen\Fields\DateTimer;
+use Orchid\Screen\Fields\SimpleMDE;
+use Orchid\Screen\Fields\Relation;
+
+class WealthEditLayout extends Rows
+{
+    /**
+    * Data source.
+    *
+    * @var string
+    */
+   public $target = 'wealth';
+
+    /**
+     * Views.
+     *
+     * @return Field[]
+     */
+    public function fields(): array
+    {
+        return [
+            Input::make('name')
+                ->title(__('wealth_name'))
+                ->placeholder('proof_toto')
+                ->required()
+                ->help(__('wealth_name_help')),
+
+            DateTimer::make('validity_date')
+                ->title(__('wealth_validity_date'))
+                ->required()
+                ->allowInput()
+                ->format('d-m-Y'),
+
+            Input::make('conformity_level')
+                ->title(__('wealth_conformity_level'))
+                ->required(),
+
+            Relation::make('wealth_type')
+                ->fromModel(WealthType::class, 'name', 'id')
+                // ->fromQuery(User::where('balance', '!=', '0'), 'email')
+                ->title(__('wealth_type_select_title'))
+                ->required(),
+
+            SimpleMDE::make('description')
+                ->title('Description')
+                ->popover("Soyez concis s'il vous plait"),
+        ];
+    }
+}

@@ -1,0 +1,71 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Orchid\Screens;
+
+use Orchid\Screen\Actions\Link;
+use Orchid\Screen\Screen;
+use Orchid\Support\Facades\Layout;
+use Orchid\Screen\Actions\ModalToggle;
+use Orchid\Screen\Fields\Input;
+
+class PlatformScreen extends Screen
+{
+    /**
+     * Query data.
+     *
+     * @return array
+     */
+    public function query(): iterable
+    {
+        return [];
+    }
+
+    /**
+     * Display header name.
+     *
+     * @return string|null
+     */
+    public function name(): ?string
+    {
+        return 'Get Started';
+    }
+
+    /**
+     * Display header description.
+     *
+     * @return string|null
+     */
+    public function description(): ?string
+    {
+        return 'Welcome to your Orchid application.';
+    }
+
+    /**
+     * Button commands.
+     *
+     * @return \Orchid\Screen\Action[]
+     */
+    public function commandBar(): iterable
+    {
+        return [
+            ModalToggle::make('Language')
+                ->modal('Language')
+                ->icon('bubble'),
+        ];
+    }
+
+    /**
+     * Views.
+     *
+     * @return \Orchid\Screen\Layout[]
+     */
+    public function layout(): iterable
+    {
+        return [
+            Layout::view('welcome_admin'),
+            Layout::modal('Language', Layout::view('partials.language_switcher'))->title(__('select_language')),
+        ];
+    }
+}

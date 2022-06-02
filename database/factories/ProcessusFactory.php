@@ -1,0 +1,23 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ProcessusFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name'=>$this->faker->word(),
+            'manager_name'=>$this->faker->name(),
+            'label'=>$this->faker->word(),
+            'description'=>$this->faker->text(50),
+        ];
+    }
+}
