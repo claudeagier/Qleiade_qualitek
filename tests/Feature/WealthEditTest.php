@@ -34,9 +34,9 @@ class WealthEditTest extends TestCase
 
     public function test_create_wealth(){
         // $this->app['env'] = 'production';
-        $this->setUsertest();
+        $this->setUserQualityTest();
 
-        $parameters =  [
+        $parameters = ["wealth" => [
             'name' => 'test auto 1',
             'conformity_level' => 'high',
             'wealth_type' => '2',
@@ -47,7 +47,7 @@ class WealthEditTest extends TestCase
             'careers' => ['2'],
             'formations' => ['3'],
             'validity_date' => '22-06-2022',
-        ];
+        ]];
         $screen = $this->screen('platform.quality.wealths.create');
         $screen
             ->actingAs($this->user)
@@ -57,10 +57,14 @@ class WealthEditTest extends TestCase
 
     public function test_update_wealth(){
         // $this->app['env'] = 'production';
-        $this->setUsertest();
+
+        // create admin user to test
+        $this->setUserQualityTest();
+
         $id = Wealth::latest()->first()->id;
-        $params = [            
-            'name' => 'test auto 1',
+
+        $params =['wealth' => [            
+            'name' => 'test auto updated',
             'conformity_level' => 'high',
             'wealth_type' => '2',
             'description' => 'test automatique de création',
@@ -70,8 +74,9 @@ class WealthEditTest extends TestCase
             'careers' => ['2'],
             'formations' => ['3'],
             'validity_date' => '22-06-2022',
-        ];
-        $screen = $this->screen('platform.quality.wealths.create');
+        ]];
+        $screen = $this->screen('platform.quality.wealths.edit')
+        ->parameters(['wealth'=>$id]);
         $res = $screen
             ->actingAs($this->user)
             ->method('save', $params);
@@ -80,8 +85,9 @@ class WealthEditTest extends TestCase
     }
 
     public function test_delete_wealth(){
-        $this->setUsertest();
+        $this->setUserQualityTest();
         $id = Wealth::latest()->first()->id;
+        echo($id);
         $params = [
             'id' => $id
         ];

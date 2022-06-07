@@ -18,10 +18,10 @@ trait InteractsWithUsers
         return $this;
     }
 
-    public function setUserTest(){
+    public function setUserQualityTest(){
         $this->logout();
 
-        $suerId_test = 1;
+        $suerId_test = 3;
         $this->user = User::find($suerId_test);
         return $this;
     }
