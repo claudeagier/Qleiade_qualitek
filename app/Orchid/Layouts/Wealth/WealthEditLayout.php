@@ -29,29 +29,29 @@ class WealthEditLayout extends Rows
     public function fields(): array
     {
         return [
-            Input::make('name')
+            Input::make('wealth.name')
                 ->title(__('wealth_name'))
                 ->placeholder('proof_toto')
                 ->required()
                 ->help(__('wealth_name_help')),
 
-            DateTimer::make('validity_date')
+            DateTimer::make('wealth.validity_date')
                 ->title(__('wealth_validity_date'))
                 ->required()
                 ->allowInput()
                 ->format('d-m-Y'),
 
-            Input::make('conformity_level')
+            Input::make('wealth.conformity_level')
                 ->title(__('wealth_conformity_level'))
                 ->required(),
 
-            Relation::make('wealth_type')
+            Relation::make('wealth.wealth_type')
                 ->fromModel(WealthType::class, 'name', 'id')
                 // ->fromQuery(User::where('balance', '!=', '0'), 'email')
                 ->title(__('wealth_type_select_title'))
                 ->required(),
 
-            SimpleMDE::make('description')
+            SimpleMDE::make('wealth.description')
                 ->title('Description')
                 ->popover("Soyez concis s'il vous plait"),
         ];
