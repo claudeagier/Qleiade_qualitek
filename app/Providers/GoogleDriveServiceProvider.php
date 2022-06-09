@@ -32,6 +32,7 @@ class GoogleDriveServiceProvider extends ServiceProvider
             $credentials_file = base_path($config['credentialsFile']);
 
             $client = new GoogleClient();
+            //error but it work
             $client->setScopes(DriveService::DRIVE);
             $client->setAuthConfig($credentials_file);
             $client->useApplicationDefaultCredentials();
