@@ -15,5 +15,11 @@ class WealthTypeSeeder extends Seeder
     public function run()
     {
         WealthType::factory(10)->create();
+        $type = new WealthType();
+        $type->fill([
+            'name' => 'file',
+            'label' => 'file',
+            'description' => 'the ressource is a file'
+        ])->save();
     }
 }

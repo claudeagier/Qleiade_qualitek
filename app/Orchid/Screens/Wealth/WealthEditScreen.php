@@ -12,16 +12,18 @@ use App\Models\Formation;
 use App\Orchid\Layouts\Wealth\WealthEditLayout;
 
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Actions\Button;
 use Orchid\Support\Facades\Toast;
 use Orchid\Screen\Fields\Relation;
+use Orchid\Screen\Fields\Upload;
+use App\Http\Traits\InteractWithGdrive;
 
 class WealthEditScreen extends Screen
 {
+    use InteractWithGdrive;
 
     /**
      * @var Wealth
@@ -37,31 +39,17 @@ class WealthEditScreen extends Screen
      */
     public function query(Wealth $wealth): iterable
     {
-        $datas = ['wealth'=>$wealth];
+        $datas = ['wealth' => $wealth];
 
-        if($wealth->exists){
-            $formations =$this->formatEntityListToIdsArray($wealth->formations);
-            $indicators =$this->formatEntityListToIdsArray($wealth->indicators);
-            $actions =$this->formatEntityListToIdsArray($wealth->actions);
-            $careers =$this->formatEntityListToIdsArray($wealth->careers);
-            
-            $datas= [
+        if ($wealth->exists) {
+            $wealth->wealth_type = $wealth->wealthType->id;
+            $wealth->load('attachment');
+
+            $datas = [
                 'wealth' => $wealth,
-                'name' => $wealth->name,
-                'validity_date' => $wealth->validity_date,
-                'conformity_level' => $wealth->conformity_level,
-                'description' => $wealth->description,
-                'wealth_type' =>$wealth->wealthType->id,
-                'processus' => $wealth->processus->id,
-                'formations' => $formations,
-                'indicators' => $indicators,
-                'actions' => $actions,
-                'careers' => $careers,
             ];
         }
 
-        // var_dump($wealth->wealthType->id);
-        // die;
         return $datas;
     }
 
@@ -115,42 +103,60 @@ class WealthEditScreen extends Screen
     public function layout(): iterable
     {
         $wealthLayout = new WealthEditLayout();
+        $detailsLayout =
+            Layout::rows([
+                Relation::make('wealth.indicators')
+                    ->fromModel(Indicator::class, 'name')
+                    ->multiple()
+                    ->required()
+                    ->title(__('indicator_select_title')),
+
+                Relation::make('wealth.processus')
+                    ->fromModel(Processus::class, 'name')
+                    ->required()
+                    ->title(__('processus_select_title')),
+
+                Relation::make('wealth.actions')
+                    ->fromModel(Action::class, 'name')
+                    ->multiple()
+                    ->required()
+
+                    ->title(__('action_select_title')),
+
+                Relation::make('wealth.careers')
+                    ->fromModel(Career::class, 'name')
+                    ->multiple()
+                    ->required()
+                    ->popover("Ex.: cap 3 ans")
+                    ->title(__('career_select_title')),
+                    
+                Relation::make('wealth.formations')
+                    ->fromModel(Formation::class, 'name')
+                    ->multiple()
+                    ->title(__('formation_select_title')),
+            ]);
+        
+        $canSee = false;
+
+        $attachmentLayout = Layout::rows([
+            Upload::make('wealth.attachment')
+                ->title(__('Upload file'))
+                ->storage('public')
+        ]);
+        
+        $tabs = [
+            __('wealth') => $wealthLayout,
+            __('details') => $detailsLayout
+        ];
+
+        if($canSee){
+            $tabs[__('attachments')] = $attachmentLayout;
+        }
 
         $layout = [
-            Layout::columns([
-                $wealthLayout->title(__('wealth')),
-                Layout::rows([
-                    Relation::make('indicators')
-                        ->fromModel(Indicator::class, 'name')
-                        ->multiple()
-                        ->required()
-                        ->title(__('indicator_select_title')),
-
-                    Relation::make('processus')
-                        ->fromModel(Processus::class, 'name')
-                        ->required()
-                        ->title(__('processus_select_title')),
-
-                    Relation::make('actions')
-                        ->fromModel(Action::class, 'name')
-                        ->multiple()
-                        ->required()
-
-                        ->title(__('action_select_title')),
-
-                    Relation::make('careers')
-                        ->fromModel(Career::class, 'name')
-                        ->multiple()
-                        ->required()
-                        ->popover("Ex.: cap 3 ans")
-                        ->title(__('career_select_title')),
-                    Relation::make('formations')
-                        ->fromModel(Formation::class, 'name')
-                        ->multiple()
-                        ->title(__('formation_select_title')),
-                ])->title(__('details'))
-            ]),
+            Layout::tabs($tabs),
         ];
+
         return $layout;
     }
 
@@ -169,8 +175,8 @@ class WealthEditScreen extends Screen
             //     Rule::unique(Wealth::class, 'email')->ignore($wealth),
             // ],
         ]);
-        
-        $wealthData = $request->all();
+
+        $wealthData = $request->all('wealth')['wealth'];
 
         $wealth
             ->fill($wealthData)
@@ -179,17 +185,21 @@ class WealthEditScreen extends Screen
             ->save();
 
         //si l'indicateur exist et 
-        $indicators= Indicator::find($wealthData['indicators']);
+        $indicators = Indicator::find($wealthData['indicators']);
         $wealth->indicators()->sync($indicators);
 
-        $actions= Action::find($wealthData['actions']);
+        $actions = Action::find($wealthData['actions']);
         $wealth->actions()->sync($actions);
 
-        $careers= Career::find($wealthData['careers']);
+        $careers = Career::find($wealthData['careers']);
         $wealth->careers()->sync($careers);
 
-        $formations= Formation::find($wealthData['formations']);
+        $formations = Formation::find($wealthData['formations']);
         $wealth->formations()->sync($formations);
+
+        $wealth->attachment()->sync(
+            $request->input('wealth.attachment', [])
+        );
 
         Toast::success(__('Wealth_was_saved'));
 
@@ -218,15 +228,5 @@ class WealthEditScreen extends Screen
         Toast::success(__('Wealth_was_removed'));
 
         return redirect()->route('platform.quality.wealths');
-    }
-
-    protected function formatEntityListToIdsArray($myArray){
-        $ids = [];
-        foreach ($myArray as $item){
-            if ($item->id) {
-                array_push($ids, $item->id);
-            }
-        }
-        return $ids;
     }
 }
