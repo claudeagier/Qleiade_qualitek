@@ -12,7 +12,7 @@ use Orchid\Screen\Fields\DateTimer;
 use Orchid\Screen\Fields\SimpleMDE;
 use Orchid\Screen\Fields\Relation;
 
-class WealthEditLayout extends Rows
+class EditLayout extends Rows
 {
     /**
     * Data source.
@@ -29,6 +29,8 @@ class WealthEditLayout extends Rows
     public function fields(): array
     {
         return [
+            Input::make('wealth.id')
+                ->readonly(),
             Input::make('wealth.name')
                 ->title(__('wealth_name'))
                 ->placeholder('proof_toto')

@@ -3,27 +3,30 @@
 namespace App\Orchid\Screens\Wealth;
 
 use App\Models\Wealth;
-use App\Models\Indicator;
 use App\Models\WealthType;
-use App\Models\Processus;
+use App\Models\Indicator;
 use App\Models\Career;
 use App\Models\Action;
+use App\Models\File as FileModel;
 use App\Models\Formation;
-use App\Orchid\Layouts\Wealth\WealthEditLayout;
+use App\Http\Traits\FileManagement;
 
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Actions\Button;
 use Orchid\Support\Facades\Toast;
-use Orchid\Screen\Fields\Relation;
-use Orchid\Screen\Fields\Upload;
-use App\Http\Traits\InteractWithGdrive;
+
+use App\Orchid\Layouts\Wealth\EditLayout;
+use App\Orchid\Layouts\Wealth\AttachmentListener;
+use App\Orchid\Layouts\Wealth\DetailsLayout;
 
 class WealthEditScreen extends Screen
 {
-    use InteractWithGdrive;
+    use FileManagement;
 
     /**
      * @var Wealth
@@ -39,14 +42,16 @@ class WealthEditScreen extends Screen
      */
     public function query(Wealth $wealth): iterable
     {
-        $datas = ['wealth' => $wealth];
+        $datas = [
+            'wealth' => $wealth,
+            'attachment_visibity' => 'public'
+        ];
 
         if ($wealth->exists) {
             $wealth->wealth_type = $wealth->wealthType->id;
-            $wealth->load('attachment');
-
             $datas = [
                 'wealth' => $wealth,
+                'whoShouldSee' => $wealth->wealthType->name,
             ];
         }
 
@@ -102,62 +107,39 @@ class WealthEditScreen extends Screen
      */
     public function layout(): iterable
     {
-        $wealthLayout = new WealthEditLayout();
-        $detailsLayout =
-            Layout::rows([
-                Relation::make('wealth.indicators')
-                    ->fromModel(Indicator::class, 'name')
-                    ->multiple()
-                    ->required()
-                    ->title(__('indicator_select_title')),
-
-                Relation::make('wealth.processus')
-                    ->fromModel(Processus::class, 'name')
-                    ->required()
-                    ->title(__('processus_select_title')),
-
-                Relation::make('wealth.actions')
-                    ->fromModel(Action::class, 'name')
-                    ->multiple()
-                    ->required()
-
-                    ->title(__('action_select_title')),
-
-                Relation::make('wealth.careers')
-                    ->fromModel(Career::class, 'name')
-                    ->multiple()
-                    ->required()
-                    ->popover("Ex.: cap 3 ans")
-                    ->title(__('career_select_title')),
-                    
-                Relation::make('wealth.formations')
-                    ->fromModel(Formation::class, 'name')
-                    ->multiple()
-                    ->title(__('formation_select_title')),
-            ]);
-        
         $canSee = false;
 
-        $attachmentLayout = Layout::rows([
-            Upload::make('wealth.attachment')
-                ->title(__('Upload file'))
-                ->storage('public')
-        ]);
-        
         $tabs = [
-            __('wealth') => $wealthLayout,
-            __('details') => $detailsLayout
+            __('wealth') => EditLayout::class,
+            __('details') => DetailsLayout::class,
+            __('Visualisation') => AttachmentListener::class,
         ];
 
-        if($canSee){
-            $tabs[__('attachments')] = $attachmentLayout;
-        }
-
         $layout = [
-            Layout::tabs($tabs),
+            Layout::tabs($tabs)->activeTab(__('wealth')),
         ];
 
         return $layout;
+    }
+
+    /**
+     *
+     * @return string[]
+     */
+    public function asyncCanSee($payload)
+    {
+        //get wealthTypeName according to id
+
+        $type = WealthType::find($payload['wealth_type']);
+        $wealth = '';
+        if ($payload['id'] != "") {
+            $wealth = Wealth::find($payload['id'])->load('attachment');
+        }
+
+        return [
+            'wealth' => $wealth,
+            'whoShouldSee' => $type->name,
+        ];
     }
 
 
@@ -169,6 +151,7 @@ class WealthEditScreen extends Screen
      */
     public function save(Wealth $wealth, Request $request)
     {
+
         $request->validate([
             // 'wealth.email' => [
             //     'required',
@@ -197,9 +180,16 @@ class WealthEditScreen extends Screen
         $formations = Formation::find($wealthData['formations']);
         $wealth->formations()->sync($formations);
 
-        $wealth->attachment()->sync(
-            $request->input('wealth.attachment', [])
-        );
+
+        //upload data and save in bdd
+        if (isset($wealthData['file'])) {
+            $fileId = $this->saveFile($wealthData['file'], $wealth);
+            if ($fileId) {
+                $wealth->files()->sync($fileId);
+            } else {
+                Toast::error(__('File_not_uploaded'));
+            }
+        }
 
         Toast::success(__('Wealth_was_saved'));
 
@@ -222,11 +212,62 @@ class WealthEditScreen extends Screen
         $wealth->careers()->detach();
         $wealth->indicators()->detach();
 
+        //supprimer les fichiers oui ou non ?
+
         $wealth->delete();
         $wealth->delete();
 
         Toast::success(__('Wealth_was_removed'));
 
         return redirect()->route('platform.quality.wealths');
+    }
+
+    /**
+     * @param UploadedFile $file
+     *
+     * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     */
+    public function saveFile(UploadedFile $file, Wealth $wealth)
+    {
+
+        // récuperer le processus pour le copier au bon endroit
+        $processus = $wealth->processus->name;
+        $processusDirectoryId = $this->getDirectoryId($this->formatUrlPart($processus));
+        
+        // sur le drive
+        try {
+            $res = $file->storeAs($processusDirectoryId, $file->getClientOriginalName());
+        } catch (\Throwable $th) {
+            Toast::error(__('File_not_uploaded'));
+            return false;
+        }
+
+        //gdrive meta datas
+        $info = $this->getMetaData($res);
+        $sharedLink = "https://drive.google.com/file/d/"
+                      .explode('/', $info['path'])[1].
+                      "/view?usp=sharing";
+        
+        // save in db 
+        $fileToStore = new FileModel();
+        $fileToStore->fill([
+            'original_name' => $info['name'],
+            'gdrive_shared_link' => $sharedLink,
+            'gdrive_path_id' => $info['path'],
+            'mime_type' => $info['mimetype'],
+            'size' => $info['size'],
+            'user_id' => Auth::id(),
+        ]);
+
+        // enregistrement en bdd
+        $fileToStore->save();
+
+        // faire le lien avec la ressource
+        Toast::success(__('file_is_added'));
+
+        return $fileToStore->id;
     }
 }

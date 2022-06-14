@@ -7,7 +7,7 @@ use Orchid\Screen\Actions\Link;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 use App\Models\Wealth;
-use App\Orchid\Layouts\Wealth\WealthListLayout;
+use App\Orchid\Layouts\Wealth\ListLayout;
 use Illuminate\Http\Request;
 
 class WealthListScreen extends Screen
@@ -76,7 +76,7 @@ class WealthListScreen extends Screen
     public function layout(): iterable
     {
         return [
-            WealthListLayout::class
+            ListLayout::class
         ];
     }
     

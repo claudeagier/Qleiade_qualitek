@@ -9,7 +9,7 @@ use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\Button;
 
-class WealthListLayout extends Table
+class ListLayout extends Table
 {
     /**
      * Data source.
