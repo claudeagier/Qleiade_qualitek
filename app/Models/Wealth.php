@@ -5,11 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Screen\AsSource;
-use Orchid\Attachment\Attachable;
 
 class Wealth extends Model
 {
-    use HasFactory, AsSource, Attachable;
+    use HasFactory, AsSource;
 
     /**
      * The table associated with the model.
@@ -71,6 +70,16 @@ class Wealth extends Model
             "wealths_indicators",
             "wealth_id",
             "indicator_id"
+        );
+    }
+
+    public function files()
+    {
+        return $this->belongsToMany(
+            File::class,
+            "wealths_files",
+            "wealth_id",
+            "file_id"
         );
     }
 

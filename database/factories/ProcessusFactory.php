@@ -14,9 +14,9 @@ class ProcessusFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->word(),
+            'name'=>$this->faker->sentence(3),
             'manager_name'=>$this->faker->name(),
-            'label'=>$this->faker->word(),
+            'label'=>$this->faker->sentence(4),
             'description'=>$this->faker->text(50),
         ];
     }
