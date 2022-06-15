@@ -40,14 +40,20 @@ class InitStorage extends Command
      */
     public function handle()
     {
-
-        foreach (Storage::cloud()->allDirectories() as $dir) {
-            Storage::cloud()->deleteDirectory($dir);
+        if ($this->confirm('Do you wish to delete existing directories? [yes|no]', false)) {
+            $count=0;
+            foreach (Storage::cloud()->allDirectories() as $dir) {
+                Storage::cloud()->deleteDirectory($dir);
+                $count++;
+            }
+            
+            $this->info( $count.' directories are deleted');
         }
 
-        foreach  (Processus::all() as $proc){
+        foreach (Processus::all() as $proc) {
             $name = strtolower(str_replace(' ', '_', trim($proc->name)));
             Storage::cloud()->makeDirectory($name);
+            $this->info( $name.' are created');
         }
         return 0;
     }
