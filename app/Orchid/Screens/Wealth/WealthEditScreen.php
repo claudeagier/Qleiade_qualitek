@@ -11,6 +11,10 @@ use App\Models\File as FileModel;
 use App\Models\Formation;
 use App\Http\Traits\FileManagement;
 
+use App\Orchid\Layouts\Wealth\EditLayout;
+use App\Orchid\Layouts\Wealth\AttachmentListener;
+use App\Orchid\Layouts\Wealth\DetailsLayout;
+
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
@@ -21,9 +25,6 @@ use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Actions\Button;
 use Orchid\Support\Facades\Toast;
 
-use App\Orchid\Layouts\Wealth\EditLayout;
-use App\Orchid\Layouts\Wealth\AttachmentListener;
-use App\Orchid\Layouts\Wealth\DetailsLayout;
 
 class WealthEditScreen extends Screen
 {
@@ -50,7 +51,6 @@ class WealthEditScreen extends Screen
         
         if ($wealth->exists) {
             $wealth->wealth_type = $wealth->wealthType->id;
-
             if(count($wealth->files) >= 1 ){
                 $wealth->file = $wealth->files[0]; 
             }
@@ -135,9 +135,8 @@ class WealthEditScreen extends Screen
     public function asyncCanSee($payload)
     {
         //get wealthTypeName according to id
-
         $type = WealthType::find($payload['wealth_type']);
-        $wealth = '';
+
         if ($payload['id'] != "") {
             $wealth = Wealth::find($payload['id']);
         }else{
@@ -149,7 +148,6 @@ class WealthEditScreen extends Screen
             'whoShouldSee' => $type->name,
         ];
     }
-
 
     /**
      * @param Wealth    $wealth
@@ -186,7 +184,6 @@ class WealthEditScreen extends Screen
 
         $formations = Formation::find($wealthData['formations']);
         $wealth->formations()->sync($formations);
-
 
         //upload data and save in bdd
         if (isset($wealthData['file'])) {
@@ -278,21 +275,18 @@ class WealthEditScreen extends Screen
     }
 
      /**
-     * @param FileModel $file
      * @param Wealth $wealth
      *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      *
      */
     public function removeFile(Wealth $wealth){
-        //buter le lien avec wealth
-        // $wealthId = $file->wealths[0]->id;
-
-        // $file->wealths()->detach();
+        // récupérer le fichier
+        //mettre une boucle si on veut plusieurs fichiers
         $file = $wealth->files[0];
-
+        
+        //buter le lien avec wealth
         $wealth->files()->detach();
 
         //supprimer sur le drive
