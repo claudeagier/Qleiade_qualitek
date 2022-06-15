@@ -25,7 +25,6 @@ class CreateFilesTable extends Migration
                 ->on('users');
             $table->string('mime_type');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

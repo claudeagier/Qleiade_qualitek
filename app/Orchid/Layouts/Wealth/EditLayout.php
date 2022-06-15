@@ -30,7 +30,7 @@ class EditLayout extends Rows
     {
         return [
             Input::make('wealth.id')
-                ->readonly(),
+                ->hidden(),
             Input::make('wealth.name')
                 ->title(__('wealth_name'))
                 ->placeholder('proof_toto')

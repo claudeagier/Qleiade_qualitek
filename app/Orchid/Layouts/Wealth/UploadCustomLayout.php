@@ -2,10 +2,12 @@
 
 namespace App\Orchid\Layouts\Wealth;
 
-use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Layouts\Rows;
+use Orchid\Screen\Actions\Link;
+use Orchid\Screen\Fields\Relation;
+use App\Models\File as FileModel;
 
 class UploadCustomLayout extends Rows
 {
@@ -25,10 +27,8 @@ class UploadCustomLayout extends Rows
     {
         return [
             Input::make('wealth.file')
-                ->type('file'),
-            // Button::make(__('Save File'))
-            //     ->icon('check')
-            //     ->method('saveFile'),
+                ->type('file')
+                ->canSee(count($this->query['wealth']->files) < 1),
         ];
     }
 }

@@ -40,6 +40,11 @@ class InitStorage extends Command
      */
     public function handle()
     {
+
+        foreach (Storage::cloud()->allDirectories() as $dir) {
+            Storage::cloud()->deleteDirectory($dir);
+        }
+
         foreach  (Processus::all() as $proc){
             $name = strtolower(str_replace(' ', '_', trim($proc->name)));
             Storage::cloud()->makeDirectory($name);

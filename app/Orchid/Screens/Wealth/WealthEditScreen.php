@@ -11,9 +11,10 @@ use App\Models\File as FileModel;
 use App\Models\Formation;
 use App\Http\Traits\FileManagement;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
@@ -46,9 +47,14 @@ class WealthEditScreen extends Screen
             'wealth' => $wealth,
             'attachment_visibity' => 'public'
         ];
-
+        
         if ($wealth->exists) {
             $wealth->wealth_type = $wealth->wealthType->id;
+
+            if(count($wealth->files) >= 1 ){
+                $wealth->file = $wealth->files[0]; 
+            }
+
             $datas = [
                 'wealth' => $wealth,
                 'whoShouldSee' => $wealth->wealthType->name,
@@ -133,7 +139,9 @@ class WealthEditScreen extends Screen
         $type = WealthType::find($payload['wealth_type']);
         $wealth = '';
         if ($payload['id'] != "") {
-            $wealth = Wealth::find($payload['id'])->load('attachment');
+            $wealth = Wealth::find($payload['id']);
+        }else{
+            $wealth = new Wealth();
         }
 
         return [
@@ -151,7 +159,6 @@ class WealthEditScreen extends Screen
      */
     public function save(Wealth $wealth, Request $request)
     {
-
         $request->validate([
             // 'wealth.email' => [
             //     'required',
@@ -227,12 +234,11 @@ class WealthEditScreen extends Screen
      *
      * @throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return String
      *
      */
     public function saveFile(UploadedFile $file, Wealth $wealth)
     {
-
         // récuperer le processus pour le copier au bon endroit
         $processus = $wealth->processus->name;
         $processusDirectoryId = $this->getDirectoryId($this->formatUrlPart($processus));
@@ -269,5 +275,33 @@ class WealthEditScreen extends Screen
         Toast::success(__('file_is_added'));
 
         return $fileToStore->id;
+    }
+
+     /**
+     * @param FileModel $file
+     * @param Wealth $wealth
+     *
+     * @throws \Exception
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     */
+    public function removeFile(Wealth $wealth){
+        //buter le lien avec wealth
+        // $wealthId = $file->wealths[0]->id;
+
+        // $file->wealths()->detach();
+        $file = $wealth->files[0];
+
+        $wealth->files()->detach();
+
+        //supprimer sur le drive
+        Storage::cloud()->delete($file->gdrive_path_id);
+
+        // supprimer File dans la db
+        $file->delete();
+        
+        Toast::success(__('file_deleted'));
+        //refresh de la page
     }
 }
