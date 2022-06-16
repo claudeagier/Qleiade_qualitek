@@ -16,8 +16,7 @@ class IndicatorFactory extends Factory
         return [
             'name'=> $this->faker->word(),
             'label'=> $this->faker->word(),
-            'description'=>$this->faker->text(50),
-            'conformity_level'=>$this->faker->word()
+            'description'=>$this->faker->text(50)
         ];
     }
 }

@@ -25,6 +25,8 @@ class Wealth extends Model
     protected $fillable = [
         'name',
         'description',
+        //suivi de la preuve
+        'tracking',
         // 0 a 99
         'conformity_level',
         'validity_date',

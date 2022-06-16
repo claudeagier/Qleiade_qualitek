@@ -27,6 +27,10 @@ class Indicator extends Model
         'name',
         'label',
         'description',
+        //numéro indicateur 1 à 37
+        'indicater_number',
+        //numéro critère 1 à 7
+        'criteria_number',
         'conformity_level'
     ];
 

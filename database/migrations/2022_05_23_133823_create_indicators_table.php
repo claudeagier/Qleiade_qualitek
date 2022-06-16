@@ -19,8 +19,14 @@ class CreateIndicatorsTable extends Migration
             $table->foreign('quality_label_id')->references('id')->on('quality_label')->onDelete('cascade');
             $table->string('name');
             $table->string('label');
-            $table->string('description');
-            $table->string('conformity_level');
+            $table->string('indicater_number', 2)
+                ->nullable();
+            $table->string('criteria_number', 2)
+                ->nullable();
+            $table->string('description')
+                ->nullable();
+            $table->string('conformity_level', 2)
+                ->nullable();
             $table->timestamps();
         });
     }
