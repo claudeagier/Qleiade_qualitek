@@ -45,7 +45,6 @@ class WealthEditTest extends TestCase
             'processus' => '1',
             'actions' => ['3'],
             'careers' => ['2'],
-            'formations' => ['3'],
             'validity_date' => '22-06-2022',
         ]];
         $screen = $this->screen('platform.quality.wealths.create');
@@ -72,7 +71,6 @@ class WealthEditTest extends TestCase
             'processus' => '1',
             'actions' => ['3'],
             'careers' => ['2'],
-            'formations' => ['3'],
             'validity_date' => '22-06-2022',
         ]];
         $screen = $this->screen('platform.quality.wealths.edit')

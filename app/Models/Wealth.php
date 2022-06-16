@@ -25,6 +25,7 @@ class Wealth extends Model
     protected $fillable = [
         'name',
         'description',
+        // 0 a 99
         'conformity_level',
         'validity_date',
     ];
@@ -95,16 +96,6 @@ class Wealth extends Model
             "wealths_careers",
             "wealth_id",
             "career_id"
-        );
-    }
-
-    public function formations()
-    {
-        return $this->belongsToMany(
-            Formation::class,
-            "wealths_formations",
-            "wealth_id",
-            "formation_id"
         );
     }
 }

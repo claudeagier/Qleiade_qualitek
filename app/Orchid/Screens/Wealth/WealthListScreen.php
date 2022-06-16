@@ -87,7 +87,6 @@ class WealthListScreen extends Screen
     {
         $wealth = Wealth::findOrFail($request->get('id'));
 
-        $wealth->formations()->detach();
         $wealth->actions()->detach();
         $wealth->careers()->detach();
         $wealth->indicators()->detach();

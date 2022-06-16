@@ -8,7 +8,6 @@ use App\Models\Indicator;
 use App\Models\Career;
 use App\Models\Action;
 use App\Models\File as FileModel;
-use App\Models\Formation;
 use App\Http\Traits\FileManagement;
 
 use App\Orchid\Layouts\Wealth\EditLayout;
@@ -186,10 +185,7 @@ class WealthEditScreen extends Screen
             $careers = Career::find($wealthData['careers']);
             $wealth->careers()->sync($careers);
         }
-        if (isset($wealthData['formations'])) {
-            $formations = Formation::find($wealthData['formations']);
-            $wealth->formations()->sync($formations);
-        }
+
         //upload data and save in bdd
         if (isset($wealthData['file'])) {
             $fileId = $this->saveFile($wealthData['file'], $wealth);
@@ -216,7 +212,6 @@ class WealthEditScreen extends Screen
     public function remove(Wealth $wealth)
     {
         //gérer les relations
-        $wealth->formations()->detach();
         $wealth->actions()->detach();
         $wealth->careers()->detach();
         $wealth->indicators()->detach();
@@ -286,22 +281,46 @@ class WealthEditScreen extends Screen
      *
      *
      */
-    public function removeFile(Wealth $wealth)
+    public function removeFile(Wealth $wealth, $action)
     {
-        // récupérer le fichier
-        //mettre une boucle si on veut plusieurs fichiers
-        $file = $wealth->files[0];
+        foreach ($wealth->files as $file) {
+            switch ($action) {
+                case 'archive':
+                    $archId = $this->getDirectoryId('archive');
+                    Storage::cloud()->move($file->gdrive_path_id, $archId . "/" . $file->gdrive_path_id);
 
-        //buter le lien avec wealth
-        $wealth->files()->detach();
+                    $wealth->files()->detach($file->id);
 
-        //supprimer sur le drive
-        Storage::cloud()->delete($file->gdrive_path_id);
+                    $file->archived_at = now();
+                    $file->save();
 
-        // supprimer File dans la db
-        $file->delete();
+                    Toast::success(__('file_archive'));
+                    break;
 
-        Toast::success(__('file_deleted'));
-        //refresh de la page
+                case 'logic':
+                    Storage::cloud()->delete($file->gdrive_path_id);
+
+                    $wealth->files()->detach($file->id);
+
+                    $file->deleted_at = now();
+                    $file->save();
+                    Toast::success(__('file_deleted_logic'));
+                    break;
+
+                case 'eradicate':
+                    Storage::cloud()->delete($file->gdrive_path_id);
+
+                    $wealth->files()->detach($file->id);
+
+                    $file->delete();
+
+                    Toast::success(__('file_deleted_permanently'));
+                    break;
+
+                default:
+                    Toast::warning('File not deleted there are no actions', __('file_deleted_permanently'));
+                    break;
+            }
+        }
     }
 }

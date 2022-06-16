@@ -6,7 +6,6 @@ use App\Models\Indicator;
 use App\Models\Processus;
 use App\Models\Career;
 use App\Models\Action;
-use App\Models\Formation;
 
 use Orchid\Screen\Field;
 use Orchid\Screen\Layouts\Rows;
@@ -32,6 +31,7 @@ class DetailsLayout extends Rows
             Relation::make('wealth.indicators')
                 ->fromModel(Indicator::class, 'name')
                 ->multiple()
+                ->required()
                 ->title(__('indicator_select_title')),
 
             Relation::make('wealth.processus')
@@ -49,12 +49,6 @@ class DetailsLayout extends Rows
                 ->fromModel(Action::class, 'name')
                 ->multiple()
                 ->title(__('action_select_title')),
-
-
-            Relation::make('wealth.formations')
-                ->fromModel(Formation::class, 'name')
-                ->multiple()
-                ->title(__('formation_select_title')),
         ];
     }
 }
