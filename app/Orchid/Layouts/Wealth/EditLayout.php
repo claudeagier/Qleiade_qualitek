@@ -44,8 +44,7 @@ class EditLayout extends Rows
                 ->format('d-m-Y'),
 
             Input::make('wealth.conformity_level')
-                ->title(__('wealth_conformity_level'))
-                ->required(),
+                ->title(__('wealth_conformity_level')),
 
             Relation::make('wealth.wealth_type')
                 ->fromModel(WealthType::class, 'name', 'id')

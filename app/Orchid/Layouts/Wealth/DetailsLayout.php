@@ -32,7 +32,6 @@ class DetailsLayout extends Rows
             Relation::make('wealth.indicators')
                 ->fromModel(Indicator::class, 'name')
                 ->multiple()
-                ->required()
                 ->title(__('indicator_select_title')),
 
             Relation::make('wealth.processus')
@@ -43,15 +42,12 @@ class DetailsLayout extends Rows
             Relation::make('wealth.careers')
                 ->fromModel(Career::class, 'name')
                 ->multiple()
-                ->required()
                 ->popover("Ex.: cap 3 ans")
                 ->title(__('career_select_title')),
                 
             Relation::make('wealth.actions')
                 ->fromModel(Action::class, 'name')
                 ->multiple()
-                ->required()
-
                 ->title(__('action_select_title')),
 
 

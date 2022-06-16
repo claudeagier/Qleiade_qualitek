@@ -34,15 +34,35 @@ class ListLayout extends Table
             ->render(function (Wealth $wealth) {
                 return $wealth->name;
             }),
+
             TD::make('Description', __('wealth_description'))
             ->sort()
             ->render(function (Wealth $wealth) {
                 return $wealth->description;
             }),
+
+            TD::make('conformity_level', __('wealth_conformity_level'))
+            ->sort()
+            ->render(function (Wealth $wealth) {
+                return $wealth->conformity_level;
+            }),
+
+            TD::make('validity_date', __('wealth_validity_date'))
+            ->sort()
+            ->render(function (Wealth $wealth) {
+                return $wealth->validity_date;
+            }),
+
             TD::make('updated_at', __('Last edit'))
                 ->sort()
                 ->render(function (Wealth $wealth) {
                     return $wealth->updated_at->toDateTimeString();
+                }),
+
+            TD::make('has visual', __('has_visual'))
+                ->sort()
+                ->render(function(Wealth $wealth) {
+                    return count($wealth->files);
                 }),
 
             TD::make(__('Actions'))

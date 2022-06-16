@@ -48,11 +48,11 @@ class WealthEditScreen extends Screen
             'wealth' => $wealth,
             'attachment_visibity' => 'public'
         ];
-        
+
         if ($wealth->exists) {
             $wealth->wealth_type = $wealth->wealthType->id;
-            if(count($wealth->files) >= 1 ){
-                $wealth->file = $wealth->files[0]; 
+            if (count($wealth->files) >= 1) {
+                $wealth->file = $wealth->files[0];
             }
 
             $datas = [
@@ -139,7 +139,7 @@ class WealthEditScreen extends Screen
 
         if ($payload['id'] != "") {
             $wealth = Wealth::find($payload['id']);
-        }else{
+        } else {
             $wealth = new Wealth();
         }
 
@@ -173,18 +173,23 @@ class WealthEditScreen extends Screen
             ->save();
 
         //si l'indicateur exist et 
-        $indicators = Indicator::find($wealthData['indicators']);
-        $wealth->indicators()->sync($indicators);
+        if (isset($wealthData['indicators'])) {
+            $indicators = Indicator::find($wealthData['indicators']);
+            $wealth->indicators()->sync($indicators);
+        }
+        if (isset($wealthData['actions'])) {
+            $actions = Action::find($wealthData['actions']);
+            $wealth->actions()->sync($actions);
+        }
 
-        $actions = Action::find($wealthData['actions']);
-        $wealth->actions()->sync($actions);
-
-        $careers = Career::find($wealthData['careers']);
-        $wealth->careers()->sync($careers);
-
-        $formations = Formation::find($wealthData['formations']);
-        $wealth->formations()->sync($formations);
-
+        if (isset($wealthData['careers'])) {
+            $careers = Career::find($wealthData['careers']);
+            $wealth->careers()->sync($careers);
+        }
+        if (isset($wealthData['formations'])) {
+            $formations = Formation::find($wealthData['formations']);
+            $wealth->formations()->sync($formations);
+        }
         //upload data and save in bdd
         if (isset($wealthData['file'])) {
             $fileId = $this->saveFile($wealthData['file'], $wealth);
@@ -239,7 +244,7 @@ class WealthEditScreen extends Screen
         // récuperer le processus pour le copier au bon endroit
         $processus = $wealth->processus->name;
         $processusDirectoryId = $this->getDirectoryId($this->formatUrlPart($processus));
-        
+
         // sur le drive
         try {
             $res = $file->storeAs($processusDirectoryId, $file->getClientOriginalName());
@@ -251,9 +256,9 @@ class WealthEditScreen extends Screen
         //gdrive meta datas
         $info = $this->getMetaData($res);
         $sharedLink = "https://drive.google.com/file/d/"
-                      .explode('/', $info['path'])[1].
-                      "/view?usp=sharing";
-        
+            . explode('/', $info['path'])[1] .
+            "/view?usp=sharing";
+
         // save in db 
         $fileToStore = new FileModel();
         $fileToStore->fill([
@@ -274,18 +279,19 @@ class WealthEditScreen extends Screen
         return $fileToStore->id;
     }
 
-     /**
+    /**
      * @param Wealth $wealth
      *
      * @throws \Exception
      *
      *
      */
-    public function removeFile(Wealth $wealth){
+    public function removeFile(Wealth $wealth)
+    {
         // récupérer le fichier
         //mettre une boucle si on veut plusieurs fichiers
         $file = $wealth->files[0];
-        
+
         //buter le lien avec wealth
         $wealth->files()->detach();
 
@@ -294,7 +300,7 @@ class WealthEditScreen extends Screen
 
         // supprimer File dans la db
         $file->delete();
-        
+
         Toast::success(__('file_deleted'));
         //refresh de la page
     }
