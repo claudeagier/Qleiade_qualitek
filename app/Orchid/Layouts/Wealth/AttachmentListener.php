@@ -59,7 +59,6 @@ class AttachmentListener extends Listener
                     ($this->query['whoShouldSee'] === 'file') && (count($wealth->files) < 1)
                 ),
             //show
-            // $this->fileLegend(),
             $fileCard->title(__('file_details'))
                 ->canSee(($this->query['whoShouldSee'] === 'file') && ($this->query['wealth']->exists && count($this->query['wealth']->files) > 0)),
     
@@ -78,53 +77,5 @@ class AttachmentListener extends Listener
                     ($this->query['whoShouldSee'] === 'ypareo')
                 ),
         ];
-    }
-
-    protected function fileLegend()
-    {
-        return Layout::legend(
-            'wealth.file',
-            [
-                Sight::make(__('actions'))->render(function () {
-                    return Group::make(
-                        [
-                            Button::make(__('file_archive'))
-                                ->icon('database')
-                                ->confirm(__('confirm_archive_file'))
-                                ->method('removeFile', [
-                                    'wealth' =>  $this->query['wealth'],
-                                    'action' => "archive"
-                                ]),
-
-                            Button::make(__('remove_db'))
-                                ->icon('trash')
-                                ->confirm(__('confirm_delete_db_file'))
-                                ->method('removeFile', [
-                                    'wealth' =>  $this->query['wealth'],
-                                    "action" => "logical"
-                                ])->right(),
-
-                            Button::make(__('remove_drive'))
-                                ->icon('trash')
-                                ->confirm(__('confirm_delete_file'))
-                                ->method('removeFile', [
-                                    'wealth' =>  $this->query['wealth'],
-                                    'action' => 'eradicate'
-                                ]),
-                        ]
-                    );
-                }),
-                Sight::make('original_name', __('original_name')),
-                Sight::make('mime_type', __('mime_type')),
-                Sight::make('gdrive_shared_link', __('gdrive_shared_link'))->render(function () {
-                    $link = $this->query['wealth']->file->gdrive_shared_link;
-                    return Link::make($link)
-                        ->href($link);
-                    // ->class('my-link');
-                }),
-                Sight::make('created_at', __('created_at')),
-            ]
-        )->title(__('file_details'))
-            ->canSee(($this->query['whoShouldSee'] === 'file') && ($this->query['wealth']->exists && count($this->query['wealth']->files) > 0));
     }
 }
