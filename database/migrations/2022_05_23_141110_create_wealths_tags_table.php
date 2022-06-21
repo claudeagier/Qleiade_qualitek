@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWealthsCareersTable extends Migration
+class CreateWealthsTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateWealthsCareersTable extends Migration
      */
     public function up()
     {
-        Schema::create('wealths_careers', function (Blueprint $table) {
+        Schema::create('wealths_tags', function (Blueprint $table) {
             $table->id();
             $table->string('wealth_id');
             $table->foreign('wealth_id')
                 ->references('id')
                 ->on('wealth') ->onDelete('cascade');
-            $table->string('career_id');
-            $table->foreign('career_id')
+            $table->string('tag_id');
+            $table->foreign('tag_id')
                 ->references('id')
-                ->on('career') ->onDelete('cascade');
+                ->on('tag') ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ class CreateWealthsCareersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wealths_careers');
+        Schema::dropIfExists('wealths_tags');
     }
 }

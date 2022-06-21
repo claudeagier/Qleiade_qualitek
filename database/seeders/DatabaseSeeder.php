@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(WealthTypeSeeder::class);
         $this->call(QualitylabelSeeder::class);
         $this->call(ProcessusSeeder::class);
-        $this->call(CareerSeeder::class);
+        $this->call(TagSeeder::class);
     }
 }

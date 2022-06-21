@@ -14,14 +14,26 @@ class WealthTypeSeeder extends Seeder
      */
     public function run()
     {
-        $type = new WealthType();
-        $type->fill([
+        $fileType = new WealthType();
+        $fileType->fill([
             'name' => 'file',
             'label' => 'file',
             'description' => 'the ressource is a file'
         ])->save();
-
         
-        WealthType::factory(10)->create();
+        $linktype = new WealthType();
+        $linktype->fill([
+            'name' => 'link',
+            'label' => 'lien',
+            'description' => 'the ressource is a link'
+        ])->save();
+
+        $linktype = new WealthType();
+        $linktype->fill([
+            'name' => 'ypareo',
+            'label' => 'ypareo',
+            'description' => 'the ressource is an ypareo process'
+        ])->save();
+        
     }
 }

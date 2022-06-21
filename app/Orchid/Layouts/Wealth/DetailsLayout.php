@@ -4,7 +4,7 @@ namespace App\Orchid\Layouts\Wealth;
 
 use App\Models\Indicator;
 use App\Models\Processus;
-use App\Models\Career;
+use App\Models\Tag;
 use App\Models\Action;
 
 use Orchid\Screen\Field;
@@ -39,11 +39,11 @@ class DetailsLayout extends Rows
                 ->required()
                 ->title(__('processus_select_title')),
 
-            Relation::make('wealth.careers')
-                ->fromModel(Career::class, 'name')
+            Relation::make('wealth.tags')
+                ->fromModel(Tag::class, 'name')
                 ->multiple()
                 ->popover("Ex.: cap 3 ans")
-                ->title(__('career_select_title')),
+                ->title(__('tag_select_title')),
                 
             Relation::make('wealth.actions')
                 ->fromModel(Action::class, 'name')

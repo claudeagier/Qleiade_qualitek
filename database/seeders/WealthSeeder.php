@@ -15,7 +15,7 @@ class WealthSeeder extends Seeder
      */
     public function run()
     {
-        // wealthType, processus, careers, actions
+        // wealthType, processus, tags, actions
         Wealth::factory(10)->create();
     }
 }

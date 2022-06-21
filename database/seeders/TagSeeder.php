@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Career;
+use App\Models\Tag;
 
-class CareerSeeder extends Seeder
+class TagSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class CareerSeeder extends Seeder
      */
     public function run()
     {
-        Career::factory(7)->create();
+        Tag::factory(7)->create();
     }
 }

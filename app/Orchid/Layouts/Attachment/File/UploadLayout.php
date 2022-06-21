@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Orchid\Layouts\Wealth;
+namespace App\Orchid\Layouts\Attachment\File;
 
 use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Input;
@@ -9,7 +9,7 @@ use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Relation;
 use App\Models\File as FileModel;
 
-class UploadCustomLayout extends Rows
+class UploadLayout extends Rows
 {
     /**
      * Used to create the title of a group of form elements.

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Screen\AsSource;
 
-class Career extends Model
+class Tag extends Model
 {
     use HasFactory;
     use AsSource;    
@@ -16,7 +16,7 @@ class Career extends Model
      *
      * @var string
      */
-    protected $table = 'career';
+    protected $table = 'tag';
 
     /**
      * The attributes that are mass assignable.
@@ -33,8 +33,8 @@ class Career extends Model
     {
         return $this->belongsToMany(
             Wealth::class,
-            "wealths_careers",
-            "career_id",
+            "wealths_tags",
+            "tag_id",
             "wealth_id"
         );
     }

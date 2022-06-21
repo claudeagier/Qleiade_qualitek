@@ -1,11 +1,3 @@
-<!-- <div class="bg-light p-5 rounded">
-    <x-orchid-icon path="cloud-upload" class="h3"/>
-    <h1 class="text-muted w-b-k d-block">{{__('Add file')}}</h1>
-    <div class="form-group mt-4">
-        <input type="file" name="file" class="form-control" accept=".jpg,.jpeg,.bmp,.png,.gif,.doc,.docx,.csv,.rtf,.xlsx,.xls,.txt,.pdf,.zip">
-    </div>
-</div> -->
-
 <div id="dropzone-{{$id}}" class="dropzone-wrapper">
     <div class="fallback">
         <input type="file" value="" multiple/>
