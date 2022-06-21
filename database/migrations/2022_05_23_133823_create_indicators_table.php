@@ -25,7 +25,7 @@ class CreateIndicatorsTable extends Migration
                 ->nullable();
             $table->string('description')
                 ->nullable();
-            $table->string('conformity_level', 2)
+            $table->unsignedTinyInteger('conformity_level')
                 ->nullable();
             $table->timestamps();
         });

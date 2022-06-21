@@ -5,6 +5,7 @@ namespace App\Orchid\Layouts\Wealth;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 use App\Models\Wealth;
+use App\View\Components\ConformityColorized;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\Button;
@@ -29,39 +30,54 @@ class ListLayout extends Table
     protected function columns(): iterable
     {
         return [
-            TD::make( __('name'))
-            ->sort()
-            ->render(function (Wealth $wealth) {
-                return $wealth->name;
-            }),
+            TD::make(__('name'))
+                ->sort()
+                ->render(function (Wealth $wealth) {
+                    return view('components.conformity-colorized', [
+                        'value' => $wealth->name,
+                        'conformityLevel' => $wealth->conformity_level
+                    ]);
+                }),
 
             TD::make('Description', __('wealth_description'))
-            ->sort()
-            ->render(function (Wealth $wealth) {
-                return $wealth->description;
-            }),
+                ->sort()
+                ->render(function (Wealth $wealth) {
+                    return view('components.conformity-colorized', [
+                        'value' => $wealth->description,
+                        'conformityLevel' => $wealth->conformity_level
+                    ]);
+                }),
 
             TD::make('conformity_level', __('wealth_conformity_level'))
-            ->sort()
-            ->render(function (Wealth $wealth) {
-                return $wealth->conformity_level;
-            }),
+                ->sort()
+                ->render(function (Wealth $wealth) {
+                    return view('components.conformity-colorized', [
+                        'value' => $wealth->conformity_level,
+                        'conformityLevel' => $wealth->conformity_level
+                    ]);
+                }),
 
             TD::make('validity_date', __('wealth_validity_date'))
-            ->sort()
-            ->render(function (Wealth $wealth) {
-                return $wealth->validity_date;
-            }),
+                ->sort()
+                ->render(function (Wealth $wealth) {
+                    return view('components.conformity-colorized', [
+                        'value' => $wealth->validity_date,
+                        'conformityLevel' => $wealth->conformity_level
+                    ]);
+                }),
 
             TD::make('updated_at', __('Last edit'))
                 ->sort()
                 ->render(function (Wealth $wealth) {
-                    return $wealth->updated_at->toDateTimeString();
+                    return view('components.conformity-colorized', [
+                        'value' => $wealth->updated_at,
+                        'conformityLevel' => $wealth->conformity_level
+                    ]);
                 }),
 
             TD::make('has visual', __('has_visual'))
                 ->sort()
-                ->render(function(Wealth $wealth) {
+                ->render(function (Wealth $wealth) {
                     return count($wealth->files);
                 }),
 
@@ -79,11 +95,11 @@ class ListLayout extends Table
                             Button::make(__('Delete'))
                                 ->icon('trash')
                                 ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
-                                ->method('remove',[
-                                    'id'=>$wealth->id,
+                                ->method('remove', [
+                                    'id' => $wealth->id,
                                 ]),
                         ]);
                 }),
-            ];
+        ];
     }
 }

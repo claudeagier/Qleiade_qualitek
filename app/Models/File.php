@@ -18,6 +18,19 @@ class File extends Model
      */
     protected $table = 'files';
 
+
+        /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+        'archived_at', 
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,6 +41,8 @@ class File extends Model
         'gdrive_shared_link',
         'gdrive_path_id',
         'mime_type',
+        'archived_at',
+        'deleted_at',
         'size',
         'user_id'
     ];

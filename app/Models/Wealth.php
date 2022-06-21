@@ -30,6 +30,8 @@ class Wealth extends Model
         // 0 a 99
         'conformity_level',
         'validity_date',
+        // json les visuelles de la preuve file, link, ypareo
+        'attachment',
     ];
 
     // /**
@@ -49,6 +51,7 @@ class Wealth extends Model
      */
     protected $casts = [
         'validity_date' => 'datetime',
+        'attachment' => 'array'
     ];
 
     public function actions()
@@ -91,13 +94,13 @@ class Wealth extends Model
         return $this->belongsTo(Processus::class);
     }
 
-    public function careers()
+    public function tags()
     {
         return $this->belongsToMany(
-            Career::class,
-            "wealths_careers",
+            Tag::class,
+            "wealths_tags",
             "wealth_id",
-            "career_id"
+            "tag_id"
         );
     }
 }

@@ -24,6 +24,10 @@ class CreateFilesTable extends Migration
                 ->references('id')
                 ->on('users');
             $table->string('mime_type');
+            $table->dateTime('archived_at')
+                ->nullable();
+            $table->dateTime('deleted_at')
+                ->nullable();
             $table->timestamps();
         });
     }

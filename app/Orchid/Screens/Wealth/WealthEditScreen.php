@@ -5,7 +5,7 @@ namespace App\Orchid\Screens\Wealth;
 use App\Models\Wealth;
 use App\Models\WealthType;
 use App\Models\Indicator;
-use App\Models\Career;
+use App\Models\Tag;
 use App\Models\Action;
 use App\Models\File as FileModel;
 use App\Http\Traits\FileManagement;
@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Storage;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\Link;
 use Orchid\Support\Facades\Toast;
 
 
@@ -91,6 +92,14 @@ class WealthEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
+            Link::make(__('Cancel'))
+                ->icon('action-undo')
+                ->route('platform.quality.wealths'),
+
+            Button::make(__('Save'))
+                ->icon('check')
+                ->method('save'),
+                
             Button::make(__('Remove'))
                 ->icon('trash')
                 ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
@@ -99,9 +108,6 @@ class WealthEditScreen extends Screen
                 ])
                 ->canSee($this->wealth->exists),
 
-            Button::make(__('Save'))
-                ->icon('check')
-                ->method('save'),
         ];
     }
 
@@ -181,9 +187,9 @@ class WealthEditScreen extends Screen
             $wealth->actions()->sync($actions);
         }
 
-        if (isset($wealthData['careers'])) {
-            $careers = Career::find($wealthData['careers']);
-            $wealth->careers()->sync($careers);
+        if (isset($wealthData['tags'])) {
+            $tags = Tag::find($wealthData['tags']);
+            $wealth->tags()->sync($tags);
         }
 
         //upload data and save in bdd
@@ -213,7 +219,7 @@ class WealthEditScreen extends Screen
     {
         //gérer les relations
         $wealth->actions()->detach();
-        $wealth->careers()->detach();
+        $wealth->tags()->detach();
         $wealth->indicators()->detach();
 
         //supprimer les fichiers oui ou non ?
@@ -281,29 +287,37 @@ class WealthEditScreen extends Screen
      *
      *
      */
-    public function removeFile(Wealth $wealth, $action)
+    public function removeFile(Wealth $wealth, Request $request)
     {
+        $action = $request->query("action");
         foreach ($wealth->files as $file) {
             switch ($action) {
                 case 'archive':
                     $archId = $this->getDirectoryId('archive');
-                    Storage::cloud()->move($file->gdrive_path_id, $archId . "/" . $file->gdrive_path_id);
+                    $archDirId = $this->getDirectoryId($this->formatUrlPart($wealth->processus->name), $archId);
+                    $newFilePath = $archDirId . "/" . $file->original_name;
+                    Storage::cloud()->move($file->gdrive_path_id, $newFilePath);
 
                     $wealth->files()->detach($file->id);
 
                     $file->archived_at = now();
+                    $file->gdrive_shared_link = null;
+                    $file->gdrive_path_id = $newFilePath;
                     $file->save();
 
-                    Toast::success(__('file_archive'));
+                    Toast::success(__('file_archived'));
                     break;
 
-                case 'logic':
+                case 'logical':
                     Storage::cloud()->delete($file->gdrive_path_id);
 
                     $wealth->files()->detach($file->id);
 
                     $file->deleted_at = now();
+                    $file->gdrive_shared_link = null;
+                    $file->gdrive_path_id = null;
                     $file->save();
+
                     Toast::success(__('file_deleted_logic'));
                     break;
 

@@ -24,10 +24,11 @@ class CreateWealthsTable extends Migration
                 ->nullable();
             $table->string('tracking')
                 ->nullable();
-            $table->string('conformity_level', 2)
+            $table->unsignedTinyInteger('conformity_level')
                 ->nullable();
             $table->dateTime('validity_date')
                 ->nullable();
+            $table->jsonb('attachment')->nullable();
             $table->timestamps();
         });
     }
