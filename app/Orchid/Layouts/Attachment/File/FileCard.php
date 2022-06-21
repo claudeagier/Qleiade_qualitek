@@ -8,22 +8,18 @@ use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Group;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Layouts\Legend;
 
-class FileCardLayout extends Rows
+class FileCard Extends Legend
 {
-    /**
+        /**
      * Used to create the title of a group of form elements.
      *
      * @var string|null
      */
     protected $title;
-
-    /**
-     * Get the fields elements to be displayed.
-     *
-     * @return Field[]
-     */
-    protected function fields(): iterable
+    
+    protected function columns(): array
     {
         return  [
             Sight::make(__('actions'))->render(function () {
@@ -55,15 +51,21 @@ class FileCardLayout extends Rows
                     ]
                 );
             }),
-            Sight::make(__('original_name')),
-            Sight::make(__('mime_type')),
-            Sight::make(__('gdrive_shared_link'))->render(function () {
+            Sight::make('original_name', __('original_name'))->render(function (){
+                return $this->query['wealth']->file->original_name;
+            }),
+            Sight::make('mime_type', __('mime_type'))->render(function (){
+                return $this->query['wealth']->file->mime_type;
+            }),
+            Sight::make('gdrive_shared_link', __('gdrive_shared_link'))->render(function () {
                 $link = $this->query['wealth']->file->gdrive_shared_link;
                 return Link::make($link)
                     ->href($link);
                 // ->class('my-link');
             }),
-            Sight::make(__('created_at')),
+            Sight::make('created_at', __('created_at'))->render(function () {
+                return $this->query['wealth']->file->created_at;
+            }),
         ];
     }
 }

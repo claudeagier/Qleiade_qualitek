@@ -16,6 +16,7 @@ use App\Orchid\Layouts\Wealth\DetailsLayout;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -46,7 +47,6 @@ class WealthEditScreen extends Screen
     {
         $datas = [
             'wealth' => $wealth,
-            'attachment_visibity' => 'public'
         ];
 
         if ($wealth->exists) {
@@ -59,6 +59,13 @@ class WealthEditScreen extends Screen
                 'wealth' => $wealth,
                 'whoShouldSee' => $wealth->wealthType->name,
             ];
+
+            //add attachment if exists in db
+            if(!is_null($wealth->attachment)){
+                $attachmentArray = json_decode($wealth->attachment, true);
+                $datas['attachment'] = $attachmentArray;
+            }
+
         }
 
         return $datas;
@@ -99,7 +106,7 @@ class WealthEditScreen extends Screen
             Button::make(__('Save'))
                 ->icon('check')
                 ->method('save'),
-                
+
             Button::make(__('Remove'))
                 ->icon('trash')
                 ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
@@ -170,6 +177,13 @@ class WealthEditScreen extends Screen
         ]);
 
         $wealthData = $request->all('wealth')['wealth'];
+        
+        if (isset($request->all('attachment')['attachment'])) {
+            //data's attachment
+            $dataAttachment = new Collection($request->all('attachment')['attachment']);
+            $wealth->attachment = $dataAttachment->toJson();
+        }
+
 
         $wealth
             ->fill($wealthData)
@@ -201,6 +215,7 @@ class WealthEditScreen extends Screen
                 Toast::error(__('File_not_uploaded'));
             }
         }
+
 
         Toast::success(__('Wealth_was_saved'));
 

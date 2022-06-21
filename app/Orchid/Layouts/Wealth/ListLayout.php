@@ -78,7 +78,17 @@ class ListLayout extends Table
             TD::make('has visual', __('has_visual'))
                 ->sort()
                 ->render(function (Wealth $wealth) {
-                    return count($wealth->files);
+                    return count($wealth->files) > 0 || !is_null($wealth->attachment);
+                }),
+
+
+            TD::make(__('wealth_type'))
+                ->sort()
+                ->render(function (Wealth $wealth) {
+                    return view('components.conformity-colorized', [
+                        'value' => $wealth->wealthType->name,
+                        'conformityLevel' => $wealth->conformity_level
+                    ]);
                 }),
 
             TD::make(__('Actions'))

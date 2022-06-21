@@ -34,8 +34,7 @@ class EditLayout extends Rows
             Input::make('wealth.name')
                 ->title(__('wealth_name'))
                 ->placeholder('proof_toto')
-                ->required()
-                ->help(__('wealth_name_help')),
+                ->required(),
 
             DateTimer::make('wealth.validity_date')
                 ->title(__('wealth_validity_date'))
