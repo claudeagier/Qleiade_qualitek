@@ -25,10 +25,10 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerMainMenu(): array
     {
         return [
-            Menu::make(__('quality_labels'))
-            ->icon('diamond')
-            ->route('platform.quality.labels')
-            ->title(__('Quality')),
+            // Menu::make(__('quality_labels'))
+            // ->icon('diamond')
+            // ->route('platform.quality.labels')
+            // ->title(__('Quality')),
             
             Menu::make(__('wealths'))
             ->icon('note')

@@ -36,6 +36,7 @@ class AttachmentListener extends Listener
     protected function layouts(): iterable
     {
         $uploadFile = new UploadLayout();
+
         $showFile =  [
             Sight::make(__('actions'))->render(function () {
                 return Group::make(
@@ -76,6 +77,7 @@ class AttachmentListener extends Listener
             }),
             Sight::make(__('created_at')),
         ];
+        
         $wealth = $this->query['wealth'];
 
         return [
