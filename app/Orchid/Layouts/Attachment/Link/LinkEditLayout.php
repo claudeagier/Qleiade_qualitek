@@ -34,12 +34,12 @@ class LinkEditLayout extends Rows
             // "link_type": "web",
             // "url": "https://www.cite-formations-tours.fr/",
             // "created_at": "2022-06-22"
-            Select::make(__('attachment.link.type'))
+            Select::make('attachment.link.type', __('attachment.link.type'))
                 ->options($options)
                 ->title(__('select_link_type'))
                 ->empty(__('select_link_type')),
                 
-            Input::make(__("attachment.link.url"))
+            Input::make('attachment.link.url', __("attachment.link.url"))
                 ->type('url')
                 ->title(__('url'))
                 ->placeholder("https://example.com")

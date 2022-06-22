@@ -46,5 +46,8 @@
     "select_link_type" : "Type de lien",
     "url" : "adresse",
     "link_edit" : "Informations du lien",
+    "link_type" : "Type de lien",
+    "link_url" : "Adresse",
     "ypareo_edit" : "Informations ypareo"
+
 }
