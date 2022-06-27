@@ -192,6 +192,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\PermissionServiceProvider::class,
         App\Providers\GoogleDriveServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*
