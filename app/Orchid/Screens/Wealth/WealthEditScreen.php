@@ -104,12 +104,12 @@ class WealthEditScreen extends Screen
 
             Button::make('Save', __('Save'))
                 ->icon('check')
-                ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                ->confirm(__('wealth_save_confirmation'))
                 ->method('save'),
 
             Button::make(__('Remove'))
                 ->icon('trash')
-                ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                ->confirm(__('wealth_remove_confirmation'))
                 ->method('remove', [
                     'wealth' => $this->wealth,
                 ])

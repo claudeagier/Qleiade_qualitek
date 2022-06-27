@@ -15,9 +15,11 @@
     "Wealth_was_saved" : "Ressource enregistrée !",
     "Wealth_was_removed" : "Ressource supprimée !",
     "wealth.files.filename" : "Fichier lié",
-    "has_visual" : "Element de preuve",
     "wealth_type" : "Type de preuve",
     "wealth_type_help" : "Si grisé,  Merci d'aller dans l'onglet visualisation pour modifier l'élement de preuve",
+    "wealth_save_confirmation" : "Voulez-vous enregistrer les modifications apportées",
+    "wealth_remove_confirmation" : "Attenion, une fois cette action éffectuée, la preuve sera supprimée définitivement",
+    "has_visual" : "Element de preuve",
     "file_details" : "Informations du fichier lié",
     "file_upload" : "Télécharger le fichier",
     "indicator" : "Indicateur",
@@ -51,5 +53,6 @@
     "link_type" : "Type de lien",
     "link_url" : "Adresse",
     "ypareo_edit" : "Informations ypareo",
-    "wealth_processus" : "Processus"
+    "wealth_processus" : "Processus",
+    "Are you sure?" : "Etes vous sûrs?"
 }
