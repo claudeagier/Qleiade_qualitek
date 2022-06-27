@@ -34,8 +34,7 @@ class YpareoEditlayout extends Rows
             Select::make(__('attachment.ypareo.type'))
                 ->options($options)
                 ->title(__('select_ypareo_type'))
-                ->empty(__('select_ypareo_type'))
-                ->disabled(true),
+                ->empty(__('select_ypareo_type')),
 
             SimpleMDE::make('attachment.ypareo.process')
                 ->title(__('how_to_find_ypareo_info'))

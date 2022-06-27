@@ -16,8 +16,10 @@ class CreateFilesTable extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->string('original_name');
-            $table->string('gdrive_shared_link');
-            $table->string('gdrive_path_id');
+            $table->string('gdrive_shared_link')
+                ->nullable();
+            $table->string('gdrive_path_id')
+                ->nullable();
             $table->string('user_id');
             $table->bigInteger('size');
             $table->foreign('user_id')

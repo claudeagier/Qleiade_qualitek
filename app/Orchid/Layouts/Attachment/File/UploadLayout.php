@@ -26,9 +26,8 @@ class UploadLayout extends Rows
     protected function fields(): iterable
     {
         return [
-            Input::make('wealth.file')
-                ->type('file')
-                ->canSee(count($this->query['wealth']->files) < 1),
+            Input::make('attachment.file')
+                ->type('file'),
         ];
     }
 }

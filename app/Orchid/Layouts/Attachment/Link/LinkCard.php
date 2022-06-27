@@ -23,29 +23,12 @@ class LinkCard extends Legend
             Sight::make(__('actions'))->render(function () {
                 return Group::make(
                     [
-                        Button::make(__('file_archive'))
+                        Button::make(__('Remove'))
                             ->icon('database')
-                            ->confirm(__('confirm_archive_file'))
+                            ->confirm(__('confirm_delete_attachment'))
                             ->method('removeAttachment', [
-                                'wealth' =>  $this->query['wealth'],
-                                'action' => "archive"
-                            ]),
-
-                        Button::make(__('remove_db'))
-                            ->icon('trash')
-                            ->confirm(__('confirm_delete_db_file'))
-                            ->method('removeAttachment', [
-                                'wealth' =>  $this->query['wealth'],
-                                "action" => "logic"
+                                'wealth' =>  $this->query['wealth']
                             ])->right(),
-
-                        Button::make(__('remove_drive'))
-                            ->icon('trash')
-                            ->confirm(__('confirm_delete_file'))
-                            ->method('removeAttachment', [
-                                'wealth' =>  $this->query['wealth'],
-                                'action' => 'eradicate'
-                            ]),
                     ]
                 );
             }),

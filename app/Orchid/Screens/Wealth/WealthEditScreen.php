@@ -8,17 +8,17 @@ use App\Models\Indicator;
 use App\Models\Tag;
 use App\Models\Action;
 use App\Models\File as FileModel;
-use App\Http\Traits\FileManagement;
+use App\Http\Traits\DriveManagement;
 
 use App\Orchid\Layouts\Wealth\EditLayout;
 use App\Orchid\Layouts\Wealth\AttachmentListener;
 use App\Orchid\Layouts\Wealth\DetailsLayout;
-
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+
 
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
@@ -29,7 +29,7 @@ use Orchid\Support\Facades\Toast;
 
 class WealthEditScreen extends Screen
 {
-    use FileManagement;
+    use DriveManagement;
 
     /**
      * @var Wealth
@@ -61,11 +61,10 @@ class WealthEditScreen extends Screen
             ];
 
             //add attachment if exists in db
-            if(!is_null($wealth->attachment)){
+            if (!is_null($wealth->attachment)) {
                 $attachmentArray = json_decode($wealth->attachment, true);
                 $datas['attachment'] = $attachmentArray;
             }
-
         }
 
         return $datas;
@@ -103,8 +102,9 @@ class WealthEditScreen extends Screen
                 ->icon('action-undo')
                 ->route('platform.quality.wealths'),
 
-            Button::make(__('Save'))
+            Button::make('Save', __('Save'))
                 ->icon('check')
+                ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
                 ->method('save'),
 
             Button::make(__('Remove'))
@@ -114,7 +114,6 @@ class WealthEditScreen extends Screen
                     'wealth' => $this->wealth,
                 ])
                 ->canSee($this->wealth->exists),
-
         ];
     }
 
@@ -144,7 +143,7 @@ class WealthEditScreen extends Screen
      *
      * @return string[]
      */
-    public function asyncCanSee($payload)
+    public function asyncAttachmentData($payload)
     {
         //get wealthTypeName according to id
         $type = WealthType::find($payload['wealth_type']);
@@ -177,13 +176,22 @@ class WealthEditScreen extends Screen
         ]);
 
         $wealthData = $request->all('wealth')['wealth'];
-        
-        if (isset($request->all('attachment')['attachment'])) {
+
+        $fileToUpload = null;
+        if ($request->has('attachment')) {
             //data's attachment
-            $dataAttachment = new Collection($request->all('attachment')['attachment']);
+            $attachments = $request->all('attachment')['attachment'];
+            $dataAttachment = new Collection($attachments);
+            if (isset($attachments['file'])) {
+                $dataAttachment['file'] = ["type" => 'drive'];
+                $fileToUpload = $attachments['file'];
+            } else {
+                if (count($wealth->files) > 0) {
+                    Toast::info('le fichier lié à cette preuve a été supprimé');
+                }
+            }
             $wealth->attachment = $dataAttachment->toJson();
         }
-
 
         $wealth
             ->fill($wealthData)
@@ -191,7 +199,7 @@ class WealthEditScreen extends Screen
             ->processus()->associate($wealthData['processus'])
             ->save();
 
-        //si l'indicateur exist et 
+        //si l'indicateur existe et 
         if (isset($wealthData['indicators'])) {
             $indicators = Indicator::find($wealthData['indicators']);
             $wealth->indicators()->sync($indicators);
@@ -207,8 +215,8 @@ class WealthEditScreen extends Screen
         }
 
         //upload data and save in bdd
-        if (isset($wealthData['file'])) {
-            $fileId = $this->saveFile($wealthData['file'], $wealth);
+        if (isset($fileToUpload)) {
+            $fileId = $this->saveFile($fileToUpload, $wealth);
             if ($fileId) {
                 $wealth->files()->sync($fileId);
             } else {
@@ -271,9 +279,7 @@ class WealthEditScreen extends Screen
 
         //gdrive meta datas
         $info = $this->getMetaData($res);
-        $sharedLink = "https://drive.google.com/file/d/"
-            . explode('/', $info['path'])[1] .
-            "/view?usp=sharing";
+        $sharedLink = $this->formatSharedLink($info['path']);
 
         // save in db 
         $fileToStore = new FileModel();
@@ -313,7 +319,10 @@ class WealthEditScreen extends Screen
                     $newFilePath = $archDirId . "/" . $file->original_name;
                     Storage::cloud()->move($file->gdrive_path_id, $newFilePath);
 
+                    //update wealth
                     $wealth->files()->detach($file->id);
+                    $wealth->attachment = null;
+                    $wealth->save();
 
                     $file->archived_at = now();
                     $file->gdrive_shared_link = null;
@@ -326,7 +335,10 @@ class WealthEditScreen extends Screen
                 case 'logical':
                     Storage::cloud()->delete($file->gdrive_path_id);
 
+                    //update wealth
                     $wealth->files()->detach($file->id);
+                    $wealth->attachment = null;
+                    $wealth->save();
 
                     $file->deleted_at = now();
                     $file->gdrive_shared_link = null;
@@ -339,7 +351,10 @@ class WealthEditScreen extends Screen
                 case 'eradicate':
                     Storage::cloud()->delete($file->gdrive_path_id);
 
+                    //update wealth
                     $wealth->files()->detach($file->id);
+                    $wealth->attachment = null;
+                    $wealth->save();
 
                     $file->delete();
 
@@ -351,5 +366,11 @@ class WealthEditScreen extends Screen
                     break;
             }
         }
+    }
+
+    public function removeAttachment(Wealth $wealth)
+    {
+        $wealth->attachment = null;
+        $wealth->save();
     }
 }

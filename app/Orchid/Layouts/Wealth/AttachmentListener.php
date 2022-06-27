@@ -29,7 +29,7 @@ class AttachmentListener extends Listener
      *
      * @var string
      */
-    protected $asyncMethod = 'asyncCansee';
+    protected $asyncMethod = 'asyncAttachmentData';
 
     /**
      * @return Layout[]
@@ -37,9 +37,15 @@ class AttachmentListener extends Listener
     protected function layouts(): iterable
     {
 
-        $wealth = $this->query['wealth'];
-        $whoShouldSee = $this->query['whoShouldSee'];
+        if (isset($this->query['wealth'])) {
+            $wealth = $this->query['wealth'];
+        }
 
+        if(isset($this->query['whoShouldSee'])) {
+            $whoShouldSee = $this->query['whoShouldSee'];
+        } else {
+            $whoShouldSee = false;
+        }
 
         //File type attachment
         $uploadFile = new UploadLayout();
@@ -58,14 +64,16 @@ class AttachmentListener extends Listener
             //edit
             $uploadFile->title(__('file_upload'))
                 ->canSee(
-                    ($whoShouldSee === 'file') && (count($wealth->files) < 1)
+                    ($whoShouldSee === 'file')
+                        &&
+                        ($this->editAttachment($this->query))
                 ),
             //show
             $fileCard->title(__('file_show'))
                 ->canSee(
                     ($whoShouldSee === 'file')
                         &&
-                        ($wealth->exists && count($wealth->files) > 0)
+                        ($wealth->exists && !$this->editAttachment($this->query))
                 ),
 
             // link type attachment
@@ -74,7 +82,7 @@ class AttachmentListener extends Listener
                 ->canSee(
                     ($whoShouldSee === 'link')
                         &&
-                        $this->editAttachment($this->query)
+                        ($this->editAttachment($this->query))
                 ),
             // show
             $linkCard->title(__('link_show'))
@@ -88,9 +96,9 @@ class AttachmentListener extends Listener
             //edit  
             $ypareoEdit->title(__('ypareo_edit'))
                 ->canSee(
-                    ($this->query['whoShouldSee'] === 'ypareo')
+                    ($whoShouldSee === 'ypareo')
                         &&
-                        $this->editAttachment($this->query)
+                        ($this->editAttachment($this->query))
                 ),
             //show
             $ypareoCard->title(__('ypareo_show'))
@@ -102,9 +110,9 @@ class AttachmentListener extends Listener
         ];
     }
 
-    protected function isEmptyAttachment($attachment)
+    public static function isEmptyAttachment($attachment)
     {
-        $isEmpty = true;         
+        $isEmpty = true;
         foreach ($attachment as $value) {
             if (is_null($value)) {
                 $isEmpty = true;
@@ -115,18 +123,18 @@ class AttachmentListener extends Listener
         return $isEmpty;
     }
 
-    protected function editAttachment($query): bool
+    public static function editAttachment($query): bool
     {
         $edit = true;
         if (isset($query['attachment'])) {
             foreach ($query['attachment'] as $attachment) {
-                if ($this->isEmptyAttachment($attachment)) {
+                if (AttachmentListener::isEmptyAttachment($attachment)) {
                     $edit = true;
                 } else {
                     $edit = false;
                 }
             }
-        } else {
+        }else {
             $edit = true;
         }
 

@@ -4,11 +4,11 @@ namespace App\Orchid\Screens\Wealth;
 
 use Orchid\Screen\Screen;
 use Orchid\Screen\Actions\Link;
-use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 use App\Models\Wealth;
 use App\Orchid\Layouts\Wealth\ListLayout;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WealthListScreen extends Screen
 {
@@ -64,7 +64,9 @@ class WealthListScreen extends Screen
         return [
             Link::make(__('Add'))
                 ->icon('plus')
-                ->route('platform.quality.wealths.create'),
+                ->route('platform.quality.wealths.create')
+                //it works
+                ->canSee(Auth::user()->hasAccess('platform.quality.wealths.create')),
         ];
     }
 
@@ -79,7 +81,7 @@ class WealthListScreen extends Screen
             ListLayout::class
         ];
     }
-    
+
     /**
      * @param Request $request
      */

@@ -2,10 +2,10 @@
 
 namespace App\Orchid\Layouts\Wealth;
 
+use App\Models\Wealth;
+use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
-use App\Models\Wealth;
-use App\View\Components\ConformityColorized;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\Button;
@@ -33,17 +33,26 @@ class ListLayout extends Table
             TD::make(__('name'))
                 ->sort()
                 ->render(function (Wealth $wealth) {
-                    return view('components.conformity-colorized', [
+                    return view('components.admin.tools.conformity-colorized', [
                         'value' => $wealth->name,
                         'conformityLevel' => $wealth->conformity_level
                     ]);
                 }),
 
-            TD::make('Description', __('wealth_description'))
+            // TD::make('Description', __('wealth_description'))
+            //     ->sort()
+            //     ->render(function (Wealth $wealth) {
+            //         return view('components.admin.tools.conformity-colorized', [
+            //             'value' => $wealth->description,
+            //             'conformityLevel' => $wealth->conformity_level
+            //         ]);
+            //     }),
+
+            TD::make('Processus', __('wealth_processus'))
                 ->sort()
                 ->render(function (Wealth $wealth) {
-                    return view('components.conformity-colorized', [
-                        'value' => $wealth->description,
+                    return view('components.admin.tools.conformity-colorized', [
+                        'value' => $wealth->processus->name,
                         'conformityLevel' => $wealth->conformity_level
                     ]);
                 }),
@@ -51,26 +60,17 @@ class ListLayout extends Table
             TD::make('conformity_level', __('wealth_conformity_level'))
                 ->sort()
                 ->render(function (Wealth $wealth) {
-                    return view('components.conformity-colorized', [
+                    return view('components.admin.tools.conformity-colorized', [
                         'value' => $wealth->conformity_level,
                         'conformityLevel' => $wealth->conformity_level
                     ]);
                 }),
 
-            TD::make('validity_date', __('wealth_validity_date'))
+            TD::make(__('wealth_type'))
                 ->sort()
                 ->render(function (Wealth $wealth) {
-                    return view('components.conformity-colorized', [
-                        'value' => $wealth->validity_date,
-                        'conformityLevel' => $wealth->conformity_level
-                    ]);
-                }),
-
-            TD::make('updated_at', __('Last edit'))
-                ->sort()
-                ->render(function (Wealth $wealth) {
-                    return view('components.conformity-colorized', [
-                        'value' => $wealth->updated_at,
+                    return view('components.admin.tools.conformity-colorized', [
+                        'value' => $wealth->wealthType->name,
                         'conformityLevel' => $wealth->conformity_level
                     ]);
                 }),
@@ -81,12 +81,20 @@ class ListLayout extends Table
                     return count($wealth->files) > 0 || !is_null($wealth->attachment);
                 }),
 
-
-            TD::make(__('wealth_type'))
+            TD::make('validity_date', __('wealth_validity_date'))
                 ->sort()
                 ->render(function (Wealth $wealth) {
-                    return view('components.conformity-colorized', [
-                        'value' => $wealth->wealthType->name,
+                    return view('components.admin.tools.conformity-colorized', [
+                        'value' => $wealth->validity_date,
+                        'conformityLevel' => $wealth->conformity_level
+                    ]);
+                }),
+
+            TD::make('updated_at', __('Last edit'))
+                ->sort()
+                ->render(function (Wealth $wealth) {
+                    return view('components.admin.tools.conformity-colorized', [
+                        'value' => $wealth->updated_at,
                         'conformityLevel' => $wealth->conformity_level
                     ]);
                 }),
@@ -108,7 +116,8 @@ class ListLayout extends Table
                                 ->method('remove', [
                                     'id' => $wealth->id,
                                 ]),
-                        ]);
+                        ])
+                        ->canSee(Auth::user()->hasAccess('platform.quality.wealths.edit'));
                 }),
         ];
     }

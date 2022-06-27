@@ -43,6 +43,7 @@ class EditLayout extends Rows
                 ->format('d-m-Y'),
 
             Input::make('wealth.conformity_level')
+                ->type('number')
                 ->title(__('wealth_conformity_level'))
                 ->required(),
 
@@ -50,7 +51,9 @@ class EditLayout extends Rows
                 ->fromModel(WealthType::class, 'name', 'id')
                 // ->fromQuery(User::where('balance', '!=', '0'), 'email')
                 ->title(__('wealth_type_select_title'))
-                ->required(),
+                ->required()
+                ->disabled(!AttachmentListener::editAttachment($this->query))
+                ->help(__('wealth_type_help')),
 
             SimpleMDE::make('wealth.description')
                 ->title('Description')
