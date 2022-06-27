@@ -6,11 +6,11 @@ use Illuminate\Console\Command;
 
 use App\Models\Processus;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Traits\FileManagement;
+use App\Http\Traits\DriveManagement;
 
 class InitStorage extends Command
 {
-    use FileManagement;
+    use DriveManagement;
 
     /**
      * The name and signature of the console command.

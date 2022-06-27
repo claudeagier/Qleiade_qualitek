@@ -1,14 +1,11 @@
 <?php
 
 namespace App\Http\Traits;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\UploadedFile;
-use App\Models\FileModel;
-use App\Models\Wealth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 
-trait FileManagement {
+trait DriveManagement {
 
     public function putOnDrive(){
         return true;
@@ -18,6 +15,13 @@ trait FileManagement {
         //get drive meta data gdrive file or directory
         //error but it work
         return Storage::cloud()->getAdapter()->getMetadata($itemId);
+    }
+
+    public function formatSharedLink($path)
+    {
+        return "https://drive.google.com/file/d/"
+            . explode('/', $path)[1] .
+            "/view?usp=sharing";        
     }
 
     protected function listDirectory($dir = null){
