@@ -17,8 +17,10 @@ class CreateProcessusTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('label');
-            $table->string('description');
-            $table->string('manager_name');
+            $table->string('description')
+                ->nullable();
+            $table->string('manager_name')
+                ->nullable();
             $table->timestamps();
         });
     }
