@@ -52,7 +52,7 @@ class ListLayout extends Table
                 ->sort()
                 ->render(function (Wealth $wealth) {
                     return view('components.admin.tools.conformity-colorized', [
-                        'value' => $wealth->processus->name,
+                        'value' => $wealth->processus->label,
                         'conformityLevel' => $wealth->conformity_level
                     ]);
                 }),

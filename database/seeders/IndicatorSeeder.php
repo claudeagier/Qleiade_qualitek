@@ -4,9 +4,12 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Indicator;
+use App\Http\Traits\CSVSeeder;
+use \Illuminate\Support\Facades\DB;
 
 class IndicatorSeeder extends Seeder
 {
+    use CSVSeeder;
     /**
      * Run the database seeds.
      *
@@ -14,6 +17,10 @@ class IndicatorSeeder extends Seeder
      */
     public function run()
     {
-        Indicator::factory(20)->create();
+        $csvFile = storage_path() . '/app/indicateurs-qualiopy-seeder.csv';
+        // dd($csvFile);
+		$data = $this->csv_to_array($csvFile, ";");
+		DB::table('indicator')->truncate();
+		DB::table('indicator')->insert($data);
     }
 }

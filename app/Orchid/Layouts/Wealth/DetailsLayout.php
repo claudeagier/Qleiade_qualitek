@@ -30,6 +30,7 @@ class DetailsLayout extends Rows
         return [
             Relation::make('wealth.indicators')
                 ->fromModel(Indicator::class, 'label')
+                ->displayAppend('full')
                 ->multiple()
                 ->required()
                 ->title(__('indicator_select_title')),

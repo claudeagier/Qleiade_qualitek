@@ -19,7 +19,7 @@ class File extends Model
     protected $table = 'files';
 
 
-        /**
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array

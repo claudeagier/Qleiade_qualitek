@@ -266,7 +266,7 @@ class WealthEditScreen extends Screen
     public function saveFile(UploadedFile $file, Wealth $wealth)
     {
         // récuperer le processus pour le copier au bon endroit
-        $processus = $wealth->processus->name;
+        $processus = $wealth->processus->label;
         $processusDirectoryId = $this->getDirectoryId($this->formatUrlPart($processus));
 
         // sur le drive
@@ -315,7 +315,7 @@ class WealthEditScreen extends Screen
             switch ($action) {
                 case 'archive':
                     $archId = $this->getDirectoryId('archive');
-                    $archDirId = $this->getDirectoryId($this->formatUrlPart($wealth->processus->name), $archId);
+                    $archDirId = $this->getDirectoryId($this->formatUrlPart($wealth->processus->label), $archId);
                     $newFilePath = $archDirId . "/" . $file->original_name;
                     Storage::cloud()->move($file->gdrive_path_id, $newFilePath);
 

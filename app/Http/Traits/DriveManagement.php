@@ -3,6 +3,7 @@
 namespace App\Http\Traits;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 
 trait DriveManagement {
@@ -67,7 +68,7 @@ trait DriveManagement {
         return $this->listFilesInDirectory($dir)[$filename];
     }
 
-    public function formatUrlPart($Name){
-        return strtolower(str_replace(' ', '_', trim($Name)));
+    public function formatUrlPart($name){
+        return Str::slug($name);
     }
 } 

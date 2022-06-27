@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 use Orchid\Screen\AsSource;
+use App\Orchid\Presenters\WealthPresenter;
 
 class Wealth extends Model
 {
-    use HasFactory, AsSource;
+    use HasFactory, AsSource, Searchable;
 
     /**
      * The table associated with the model.
@@ -102,5 +104,29 @@ class Wealth extends Model
             "wealth_id",
             "tag_id"
         );
+    }
+
+    /**
+     * Get the presenter for the model.
+     *
+     * @return WealthPresenter
+     */
+    public function presenter()
+    {
+        return new WealthPresenter($this);
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        // Customize array...
+
+        return $array;
     }
 }

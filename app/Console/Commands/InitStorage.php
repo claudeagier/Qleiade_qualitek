@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 use App\Models\Processus;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Traits\DriveManagement;
+use Illuminate\Support\Str;
 
 class InitStorage extends Command
 {
@@ -54,7 +55,7 @@ class InitStorage extends Command
         }
         
         foreach (Processus::all() as $proc) {
-            $name = strtolower(str_replace(' ', '_', trim($proc->name)));
+            $name = $this->formatName($proc->label);
             Storage::cloud()->makeDirectory($name);
             $this->info( $name.' are created');
         }
@@ -63,11 +64,16 @@ class InitStorage extends Command
             Storage::cloud()->makeDirectory('archive');
             $archId = $this->getDirectoryId('archive');
             foreach (Processus::all() as $proc) {
-                $name = strtolower(str_replace(' ', '_', trim($proc->name)));
+                $name = $this->formatName($proc->label);
                 Storage::cloud()->makeDirectory($archId."/".$name);
                 $this->info( $name.' are created');
             }
         }
         return 0;
+    }
+
+    public function formatName($name)
+    {
+        return  Str::slug($name);
     }
 }

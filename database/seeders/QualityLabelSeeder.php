@@ -15,8 +15,9 @@ class QualityLabelSeeder extends Seeder
      */
     public function run()
     {
-        QualityLabel::factory(2)->create()->each(function($qualityLabel){
-            $qualityLabel->indicators()->saveMany(Indicator::factory(10)->make(['quality_label_id'=>$qualityLabel->id]));
-        });
+        QualityLabel::create([
+            "name" => "qualiopi",
+            "label" => "Qualiopi",
+        ]);
     }
 }

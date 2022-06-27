@@ -48,4 +48,12 @@ class Indicator extends Model
     {
         return $this->belongsTo(QualityLabel::class);
     }
+
+        /**
+     * @return string
+     */
+    public function getFullAttribute(): string
+    {
+        return $this->attributes['criteria_number'] . '.' . $this->attributes['indicater_number'] . " . " . $this->attributes['label'];
+    }
 }
