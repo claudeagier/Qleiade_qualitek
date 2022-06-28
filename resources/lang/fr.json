@@ -60,5 +60,6 @@
     "link_url" : "Adresse",
     "ypareo_edit" : "Informations ypareo",
     "wealth_processus" : "Processus",
-    "Are you sure?" : "Etes vous sûrs?"
+    "Are you sure?" : "Etes vous sûrs?",
+    "empty_wealth_type_card" : "Veuillez renseigner un type de preuve pour afficher cet section"
 }
