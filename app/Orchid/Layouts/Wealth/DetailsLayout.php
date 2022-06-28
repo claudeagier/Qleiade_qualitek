@@ -33,22 +33,26 @@ class DetailsLayout extends Rows
                 ->displayAppend('full')
                 ->multiple()
                 ->required()
+                ->chunk(50)
                 ->title(__('indicator_select_title')),
 
             Relation::make('wealth.processus')
                 ->fromModel(Processus::class, 'label')
                 ->required()
+                ->chunk(50)
                 ->title(__('processus_select_title')),
 
             Relation::make('wealth.tags')
                 ->fromModel(Tag::class, 'label')
                 ->multiple()
+                ->chunk(50)
                 ->popover("Ex.: cap 3 ans")
                 ->title(__('tag_select_title')),
                 
             Relation::make('wealth.actions')
                 ->fromModel(Action::class, 'label')
                 ->multiple()
+                ->chunk(50)
                 ->title(__('action_select_title')),
         ];
     }

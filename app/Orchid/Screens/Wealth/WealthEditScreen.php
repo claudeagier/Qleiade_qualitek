@@ -47,6 +47,7 @@ class WealthEditScreen extends Screen
     {
         $datas = [
             'wealth' => $wealth,
+            'whoshouldSee' => ""
         ];
 
         if ($wealth->exists) {

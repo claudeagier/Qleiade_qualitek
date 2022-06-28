@@ -10,6 +10,7 @@ use App\Orchid\Layouts\Attachment\Link\LinkCard;
 use App\Orchid\Layouts\Attachment\Ypareo\YpareoCard;
 use App\Orchid\Layouts\Attachment\Link\LinkEditLayout;
 use App\Orchid\Layouts\Attachment\Ypareo\YpareoEditlayout;
+use Orchid\Screen\Sight;
 
 class AttachmentListener extends Listener
 {
@@ -62,6 +63,16 @@ class AttachmentListener extends Listener
         return [
             //File type attachment
             //edit
+            Layout::legend('empty wealth type',[
+                Sight::make('Avertissement')->render(function () {
+                    return __('empty_wealth_type_card');
+                })
+            ])
+            ->canSee(
+                ($whoShouldSee == '')
+                    &&
+                    ($this->editAttachment($this->query))
+            ),
             $uploadFile->title(__('file_upload'))
                 ->canSee(
                     ($whoShouldSee === 'file')
