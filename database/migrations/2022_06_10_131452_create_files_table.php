@@ -28,8 +28,7 @@ class CreateFilesTable extends Migration
             $table->string('mime_type');
             $table->dateTime('archived_at')
                 ->nullable();
-            $table->dateTime('deleted_at')
-                ->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -340,10 +340,7 @@ class WealthEditScreen extends Screen
                     $wealth->attachment = null;
                     $wealth->save();
 
-                    $file->deleted_at = now();
-                    $file->gdrive_shared_link = null;
-                    $file->gdrive_path_id = null;
-                    $file->save();
+                    $file->delete();
 
                     Toast::success(__('file_deleted_logic'));
                     break;
@@ -356,13 +353,13 @@ class WealthEditScreen extends Screen
                     $wealth->attachment = null;
                     $wealth->save();
 
-                    $file->delete();
+                    $file->forceDelete();
 
                     Toast::success(__('file_deleted_permanently'));
                     break;
 
                 default:
-                    Toast::warning('File not deleted there are no actions', __('file_deleted_permanently'));
+                    Toast::warning('File not deleted there are no actions', __('file_not_deleted'));
                     break;
             }
         }

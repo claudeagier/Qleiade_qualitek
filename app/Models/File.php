@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Orchid\Screen\AsSource;
 
 class File extends Model
 {
-    use HasFactory, AsSource;
+    use HasFactory, AsSource, SoftDeletes;
 
 
     /**
@@ -27,7 +28,6 @@ class File extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'deleted_at',
         'archived_at', 
     ];
 
@@ -42,7 +42,6 @@ class File extends Model
         'gdrive_path_id',
         'mime_type',
         'archived_at',
-        'deleted_at',
         'size',
         'user_id'
     ];

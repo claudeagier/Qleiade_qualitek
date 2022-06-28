@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(QualitylabelSeeder::class);
         $this->call(ProcessusSeeder::class);
         $this->call(TagSeeder::class);
+        $this->call(IndicatorSeeder::class);
     }
 }

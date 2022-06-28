@@ -21,7 +21,7 @@ Artisan::command('inspire', function () {
 Artisan::command('project:fresh_db', function(){
     Artisan::call('migrate:fresh');
     if ($this->confirm('Do you want to seed db ? [yes|no]', true)) {
-        Artisan::call('db:seed TestSeeder');
+        Artisan::call('db:seed DatabaseSeeder');
     }
     Artisan::call('orchid:admin', ['name'=>env('ORCHID_USER_ADMIN_NAME'), 'email'=>env('ORCHID_USER_ADMIN_MAIL'), 'password'=>env('ORCHID_USER_ADMIN_PASSWORD')]);
 })->describe('fresh db seeded and admin user ready for dev env');

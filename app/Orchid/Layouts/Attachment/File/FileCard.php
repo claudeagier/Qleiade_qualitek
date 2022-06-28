@@ -38,7 +38,7 @@ class FileCard Extends Legend
                             ->confirm(__('confirm_delete_db_file'))
                             ->method('removeFile', [
                                 'wealth' =>  $this->query['wealth'],
-                                "action" => "logic"
+                                "action" => "logical"
                             ])->right(),
 
                         Button::make(__('remove_drive'))

@@ -8,8 +8,7 @@ use Orchid\Screen\AsSource;
 
 class Processus extends Model
 {
-    use HasFactory;
-    use AsSource;
+    use HasFactory, AsSource;
 
     /**
      * The table associated with the model.
