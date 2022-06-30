@@ -16,3 +16,4 @@ yarn-error.log
 /.vscode
 creds.json
 attachment_payload.json
+_ide_helper.php
