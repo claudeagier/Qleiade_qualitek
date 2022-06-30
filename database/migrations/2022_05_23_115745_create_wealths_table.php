@@ -20,9 +20,9 @@ class CreateWealthsTable extends Migration
             $table->bigInteger('processus_id');
             $table->foreign('processus_id')->references('id')->on('processus');
             $table->string('name');
-            $table->string('description')
+            $table->string('description', 1500)
                 ->nullable();
-            $table->string('tracking')
+            $table->string('tracking', 1500)
                 ->nullable();
             $table->unsignedTinyInteger('conformity_level')
                 ->nullable();

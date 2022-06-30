@@ -23,7 +23,7 @@ class CreateIndicatorsTable extends Migration
                 ->nullable();
             $table->string('criteria_number', 2)
                 ->nullable();
-            $table->string('description')
+            $table->string('description', 1500)
                 ->nullable();
             $table->unsignedTinyInteger('conformity_level')
                 ->nullable();
