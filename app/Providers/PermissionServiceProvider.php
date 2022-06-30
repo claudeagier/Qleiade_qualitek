@@ -29,7 +29,8 @@ class PermissionServiceProvider extends ServiceProvider
         $permissions = ItemPermission::group('quality')
             ->addPermission('platform.quality.wealths', __('wealths'))
             ->addPermission('platform.quality.wealths.create', __('wealth_create'))
-            ->addPermission('platform.quality.wealths.edit', __('wealth_edit'));
+            ->addPermission('platform.quality.wealths.edit', __('wealth_edit'))    
+            ->addpermission('platform.search', __('search'));
 
         $dashboard->registerPermissions($permissions);
     }

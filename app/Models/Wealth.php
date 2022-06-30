@@ -124,8 +124,11 @@ class Wealth extends Model
     public function toSearchableArray()
     {
         $array = $this->toArray();
-
+        
         // Customize array...
+        $array['name'] = $this->name;
+        $array['description'] = $this->description;
+
 
         return $array;
     }

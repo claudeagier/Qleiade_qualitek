@@ -25,21 +25,22 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerMainMenu(): array
     {
         return [
-            // Menu::make(__('quality_labels'))
-            // ->icon('diamond')
-            // ->route('platform.quality.labels')
-            // ->title(__('Quality')),
-            
+
+            Menu::make(__('Search'))
+                ->icon('magnifier')
+                ->route('platform.quality.search'),
+
             Menu::make(__('wealths'))
-            ->icon('note')
-            ->route('platform.quality.wealths'),
-            
+                ->icon('note')
+                ->route('platform.quality.wealths')
+                ->title(__('Administer')),
+
             Menu::make(__('Utilisateurs'))
                 ->icon('user')
                 ->route('platform.systems.users')
                 ->permission('platform.systems.users')
                 ->title(__("Droits d'accès")),
-    
+
             Menu::make(__('Roles'))
                 ->icon('lock')
                 ->route('platform.systems.roles')

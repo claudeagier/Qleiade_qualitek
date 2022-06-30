@@ -25,10 +25,3 @@ Artisan::command('project:fresh_db', function(){
     }
     Artisan::call('orchid:admin', ['name'=>env('ORCHID_USER_ADMIN_NAME'), 'email'=>env('ORCHID_USER_ADMIN_MAIL'), 'password'=>env('ORCHID_USER_ADMIN_PASSWORD')]);
 })->describe('fresh db seeded and admin user ready for dev env');
-
-Artisan::command('project:init', function(){
-    Artisan::call('project:fresh_db');
-    if ($this->confirm('Do you want to init storage ? [yes|no]', true)) {
-        Artisan::call('project:init_storage');
-    }
-})->describe('Init db and file system structure');

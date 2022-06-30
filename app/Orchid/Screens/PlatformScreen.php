@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace App\Orchid\Screens;
 
-use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Actions\ModalToggle;
-use Orchid\Screen\Fields\Input;
 
 class PlatformScreen extends Screen
 {
@@ -29,7 +27,7 @@ class PlatformScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Get Started';
+        return __('Home');
     }
 
     /**
@@ -39,7 +37,7 @@ class PlatformScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Welcome to your Orchid application.';
+        return __('Welcome to your Qleiade application.');
     }
 
     /**

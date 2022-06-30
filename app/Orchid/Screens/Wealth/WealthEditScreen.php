@@ -78,7 +78,7 @@ class WealthEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->wealth->exists ? __('wealth_edit :label', ['label' => $this->wealth->label]) : __('wealth_create');
+        return $this->wealth->exists ? __('wealth_edit :name', ['name' => $this->wealth->name]) : __('wealth_create');
     }
 
     /**

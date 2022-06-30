@@ -2,15 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Orchid\Screens\Examples\ExampleCardsScreen;
-use App\Orchid\Screens\Examples\ExampleChartsScreen;
-use App\Orchid\Screens\Examples\ExampleFieldsAdvancedScreen;
-use App\Orchid\Screens\Examples\ExampleFieldsScreen;
-use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
-use App\Orchid\Screens\Examples\ExampleScreen;
-use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
 use App\Orchid\Screens\PlatformScreen;
-// use App\Orchid\Screens\QualityLabel\QualityLabelScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -18,6 +10,8 @@ use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
 use App\Orchid\Screens\Wealth\WealthListScreen;
 use App\Orchid\Screens\Wealth\WealthEditScreen;
+use App\Orchid\Screens\Search\SearchScreen;
+use App\Orchid\Screens\Search\ResultScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 
@@ -99,6 +93,24 @@ Route::screen('roles', RoleListScreen::class)
             ->push(__('Roles'), route('platform.systems.roles'));
     });
 
+//platform > quality > search
+Route::screen('quality/search', SearchScreen::class)
+    ->name('platform.quality.search')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.index')
+            ->push(__('search'), route('platform.quality.search'));
+    });
+
+//platform > quality > search > result
+Route::screen('quality/search/result/{wealths?}', ResultScreen::class)
+    ->name('platform.quality.search.result')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.quality.search')
+            ->push(__('result'), route('platform.quality.search.result'));
+    });
+
 // Platform > quality > wealths
 Route::screen('wealths', WealthListScreen::class)
     ->name('platform.quality.wealths')
@@ -125,12 +137,3 @@ Route::screen('wealths/create', WealthEditScreen::class)
             ->parent('platform.quality.wealths')
             ->push(__('Create'), route('platform.quality.wealths.create'));
     });
-
-// //platform > quality > labels
-// Route::screen('quality/labels', QualityLabelScreen::class)
-// ->name('platform.quality.labels')
-// ->breadcrumbs(function (Trail $trail) {
-//     return $trail
-//         ->parent('platform.index')
-//         ->push(__('quality_labels'), route('platform.quality.labels'));
-// });
