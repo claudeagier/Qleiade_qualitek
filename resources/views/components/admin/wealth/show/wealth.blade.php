@@ -12,7 +12,13 @@
                     <x-orchid-icon path="task" />
                 @endif
 
-                <span class="ms-3 text-dark">{{ $wealth->name}}</span>
+                <span class="ms-3 text-dark">{{ $wealth->name }}</span>
+
+                <div class="progress conformity-level-bg-progress_bar">
+                    <div class="progress-bar conformity-level-badge-{{ $wealth->conformity_level }}" role="progressbar"
+                        style="width: {{ $wealth->conformity_level }}%"
+                        aria-valuenow="{{ $wealth->conformity_level }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
             </h3>
             <div class="ps-4 pb-3 d-flex flex-wrap">
                 @foreach ($wealth->tags as $tag)
@@ -24,35 +30,38 @@
             </div>
         </div>
         <p class="ms-md-2 ps-md-1">
-            {{ $wealth->description}}
+            {!! $wealth->description !!}
         </p>
     </div>
     <div class="col-md-6 my-2">
         <h4 class="text-muted fw-light">
             <x-orchid-icon path="module" />
-            <span class="ms-3 text-grey">{{__('result_set_attachment_info')}}</span>
+            <span class="ms-3 text-grey">{{ __('result_set_attachment_info') }}</span>
         </h4>
         <p class="ms-md-5 ps-md-1">
             @if ($wealth->wealthType->name === 'file')
-                @if( count($wealth->files) > 0)
+                @if (count($wealth->files) > 0)
                     @foreach ($wealth->files as $file)
                         <span>
                             Voir le fichier
-                            <a href='{{ $file->gdrive_shared_link}}' target="_blank" class="text-u-l">{{$file->original_name}}</a>
+                            <a href='{{ $file->gdrive_shared_link }}' target="_blank"
+                                class="text-u-l">{{ $file->original_name }}</a>
                         </span>
                     @endforeach
                 @endif
             @endif
             @if ($wealth->wealthType->name === 'link')
                 <span>
-                    les éléments de preuve sont accessible sur la page {{ json_decode($wealth->attachment, true)['link']['type'] }}
-                    <a href="https://laravel.com/docs" target="_blank" class="text-u-l">{{ json_decode($wealth->attachment, true)['link']['url'] }}</a>
+                    les éléments de preuve sont accessible sur la page
+                    {{ json_decode($wealth->attachment, true)['link']['type'] }}
+                    <a href="https://laravel.com/docs" target="_blank"
+                        class="text-u-l">{{ json_decode($wealth->attachment, true)['link']['url'] }}</a>
                 </span>
             @endif
             @if ($wealth->wealthType->name === 'ypareo')
                 <span>
                     Le process ypareo est le suivant: <br>
-                    {{ json_decode($wealth->attachment, true)['ypareo']['process'] }}
+                    {!! json_decode($wealth->attachment, true)['ypareo']['process'] !!}
                 </span>
             @endif
         </p>
@@ -61,39 +70,40 @@
     <div class="col-md-6 my-2">
         <h4 class="text-muted fw-light">
             <x-orchid-icon path="people" />
-            <span class="ms-3 text-grey">{{__('result_set_processus_title')}}</span>
+            <span class="ms-3 text-grey">{{ __('result_set_processus_title') }}</span>
         </h4>
         <p class="ms-md-5 ps-md-1">
-            {{ $wealth->processus->label}}
+            {{ $wealth->processus->label }}
         </p>
     </div>
-    
+
     @if ($wealth->indicators)
-    <div class="col-md-8 my-2">
-        <h4 class="text-muted fw-light">
-            <x-orchid-icon path="equalizer" />
-            <span class="ms-3 text-grey">{{__('result_set_indicators_title')}}</span>
-        </h4>
-        @foreach ($wealth->indicators as $indicator)
-        <div class="d-flex ps-5 border-top justify-content-evenly">
-            <span class="d-flex">
-                <h5 class="text-muted fw-light">
-                    <x-orchid-icon path="graduation" />
-                    <span class="ms-1 text-grey">{{$indicator->qualityLabel->label}}</span>
-                </h5>
-                <!-- <span class="ps-3 text-black">{{$indicator->qualityLabel->label}}</span> -->
+        <div class="col-md-8 my-2">
+            <h4 class="text-muted fw-light">
+                <x-orchid-icon path="equalizer" />
+                <span class="ms-3 text-grey">{{ __('result_set_indicators_title') }}</span>
+            </h4>
+            @foreach ($wealth->indicators as $indicator)
+                <div class="d-flex ps-5 border-top justify-content-evenly">
+                    <span class="d-flex">
+                        <h5 class="text-muted fw-light">
+                            <x-orchid-icon path="graduation" />
+                            <span class="ms-1 text-grey">{{ $indicator->qualityLabel->label }}</span>
+                        </h5>
+                        <!-- <span class="ps-3 text-black">{{ $indicator->qualityLabel->label }}</span> -->
 
-            </span>
-            <span class="d-flex">
-                <h5 class="text-muted fw-light">
-                    <x-orchid-icon path="compass" />
-                    <span class="ms-md-1 text-grey">{{ $indicator->criteria_number."-".$indicator->indicater_number." : ".$indicator->label}}</span>
-                </h5>
-                <!-- <span class="ms-1 text-black">{{ $indicator->criteria_number."-".$indicator->indicater_number." : ".$indicator->label}}</span> -->
-            </span>
+                    </span>
+                    <span class="d-flex">
+                        <h5 class="text-muted fw-light">
+                            <x-orchid-icon path="compass" />
+                            <span
+                                class="ms-md-1 text-grey">{{ $indicator->criteria_number . '-' . $indicator->indicater_number . ' : ' . $indicator->label }}</span>
+                        </h5>
+                        <!-- <span class="ms-1 text-black">{{ $indicator->criteria_number . '-' . $indicator->indicater_number . ' : ' . $indicator->label }}</span> -->
+                    </span>
 
+                </div>
+            @endforeach
         </div>
-        @endforeach
-    </div>
     @endif
 </div>

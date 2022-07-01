@@ -170,13 +170,15 @@ class WealthEditScreen extends Screen
     public function save(Wealth $wealth, Request $request)
     {
         $request->validate([
-            // 'wealth.email' => [
-            //     'required',
-            //     Rule::unique(Wealth::class, 'email')->ignore($wealth),
-            // ],
+            'wealth.conformity_level' => [
+                'numeric',
+                'min:0',
+                'max:100'
+            ],
         ]);
 
         $wealthData = $request->all('wealth')['wealth'];
+        // dd($wealthData);
 
         $fileToUpload = null;
         if ($request->has('attachment')) {
@@ -195,12 +197,21 @@ class WealthEditScreen extends Screen
         }
 
         $wealth
-            ->fill($wealthData)
-            ->wealthType()->associate($wealthData['wealth_type'])
-            ->processus()->associate($wealthData['processus'])
-            ->save();
+            ->fill($wealthData);
 
-        //si l'indicateur existe et 
+        if (isset($wealthData['wealth_type'])) {
+            $wealth
+                ->wealthType()->associate($wealthData['wealth_type']);
+        }
+
+        if (isset($wealthData['wealth_type'])) {
+            $wealth
+                ->processus()->associate($wealthData['processus']);
+        }
+
+        $wealth->save();
+
+        //si l'indicateur existe et
         if (isset($wealthData['indicators'])) {
             $indicators = Indicator::find($wealthData['indicators']);
             $wealth->indicators()->sync($indicators);
@@ -282,7 +293,7 @@ class WealthEditScreen extends Screen
         $info = $this->getMetaData($res);
         $sharedLink = $this->formatSharedLink($info['path']);
 
-        // save in db 
+        // save in db
         $fileToStore = new FileModel();
         $fileToStore->fill([
             'original_name' => $info['name'],

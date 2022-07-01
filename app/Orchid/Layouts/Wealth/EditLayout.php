@@ -9,17 +9,17 @@ use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Layouts\Rows;
 use Orchid\Screen\Fields\DateTimer;
-use Orchid\Screen\Fields\SimpleMDE;
+use Orchid\Screen\Fields\Quill;
 use Orchid\Screen\Fields\Relation;
 
 class EditLayout extends Rows
 {
     /**
-    * Data source.
-    *
-    * @var string
-    */
-   public $target = 'wealth';
+     * Data source.
+     *
+     * @var string
+     */
+    public $target = 'wealth';
 
     /**
      * Views.
@@ -55,7 +55,7 @@ class EditLayout extends Rows
                 ->disabled(!AttachmentListener::editAttachment($this->query))
                 ->help(__('wealth_type_help')),
 
-            SimpleMDE::make('wealth.description')
+            Quill::make('wealth.description')
                 ->title('Description')
                 ->popover("Soyez concis s'il vous plait"),
         ];

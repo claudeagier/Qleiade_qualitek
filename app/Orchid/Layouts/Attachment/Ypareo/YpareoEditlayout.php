@@ -5,7 +5,7 @@ namespace App\Orchid\Layouts\Attachment\Ypareo;
 use Orchid\Screen\Field;
 use Orchid\Screen\Layouts\Rows;
 use Orchid\Screen\Fields\Select;
-use Orchid\Screen\Fields\SimpleMDE;
+use Orchid\Screen\Fields\Quill;
 
 class YpareoEditlayout extends Rows
 {
@@ -36,9 +36,10 @@ class YpareoEditlayout extends Rows
                 ->title(__('select_ypareo_type'))
                 ->empty(__('select_ypareo_type')),
 
-            SimpleMDE::make('attachment.ypareo.process')
+            Quill::make('attachment.ypareo.process')
                 ->title(__('how_to_find_ypareo_info'))
                 ->popover('Détaillez votre procédure')
+                ->toolbar(["text", "color", "header", "list", "format"])
         ];
     }
 }

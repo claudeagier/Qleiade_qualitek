@@ -32,9 +32,16 @@ class YpareoCard extends Legend
             Sight::make(__('actions'))->render(function () {
                 return Group::make(
                     [
+                        Button::make(__('Edit'))
+                            ->icon('pencil')
+                            ->confirm(__('confirm_update_ypareo'))
+                            ->method('editAttachment', [
+                                'wealth' =>  $this->query['wealth'],
+                            ]),
+
                         Button::make(__('Remove'))
                             ->icon('database')
-                            ->confirm(__('confirm_archive_file'))
+                            ->confirm(__('confirm_delete_ypareo'))
                             ->method('removeAttachment', [
                                 'wealth' =>  $this->query['wealth'],
                             ]),
@@ -42,7 +49,15 @@ class YpareoCard extends Legend
                 );
             }),
             Sight::make('attachment.ypareo.type', __('attachment_ypareo_type')),
-            Sight::make('attachment.ypareo.process', __('attachment_ypareo_url')),
+            Sight::make('attachment.ypareo.process', __('attachment_ypareo_process'))
+                ->render(function ($query) {
+                    // render not escape string, you can show html formated like this
+                    $text = "";
+                    if (isset($query['attachment']['ypareo']['process'])) {
+                        $text = $query['attachment']['ypareo']['process'];
+                    }
+                    return $text;
+                }),
             Sight::make('attachment.ypareo.created_at', __('created_at')),
         ];
     }
