@@ -15,9 +15,9 @@ class CreateWealthsTable extends Migration
     {
         Schema::create('wealth', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('wealth_type_id');
+            $table->unsignedBigInteger('wealth_type_id');
             $table->foreign('wealth_type_id')->references('id')->on('wealth_type');
-            $table->bigInteger('processus_id');
+            $table->unsignedBigInteger('processus_id');
             $table->foreign('processus_id')->references('id')->on('processus');
             $table->string('name');
             $table->string('description', 1500)

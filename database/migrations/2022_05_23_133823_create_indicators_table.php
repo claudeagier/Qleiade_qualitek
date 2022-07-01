@@ -15,7 +15,7 @@ class CreateIndicatorsTable extends Migration
     {
         Schema::create('indicator', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('quality_label_id');
+            $table->unsignedBigInteger('quality_label_id');
             $table->foreign('quality_label_id')->references('id')->on('quality_label')->onDelete('cascade');
             $table->string('name');
             $table->string('label');

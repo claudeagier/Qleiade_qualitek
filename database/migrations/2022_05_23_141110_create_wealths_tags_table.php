@@ -15,14 +15,14 @@ class CreateWealthsTagsTable extends Migration
     {
         Schema::create('wealths_tags', function (Blueprint $table) {
             $table->id();
-            $table->string('wealth_id');
+            $table->unsignedBigInteger('wealth_id');
             $table->foreign('wealth_id')
                 ->references('id')
-                ->on('wealth') ->onDelete('cascade');
-            $table->string('tag_id');
+                ->on('wealth')->onDelete('cascade');
+            $table->unsignedBigInteger('tag_id');
             $table->foreign('tag_id')
                 ->references('id')
-                ->on('tag') ->onDelete('cascade');
+                ->on('tag')->onDelete('cascade');
             $table->timestamps();
         });
     }

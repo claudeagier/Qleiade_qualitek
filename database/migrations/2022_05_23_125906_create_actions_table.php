@@ -15,7 +15,7 @@ class CreateActionsTable extends Migration
     {
         Schema::create('action', function (Blueprint $table) {
             $table->id();
-            $table->integer('stage_id');
+            $table->unsignedBigInteger('stage_id');
             $table->foreign('stage_id')->references('id')->on('stage');
             $table->string('name');
             $table->string('label');

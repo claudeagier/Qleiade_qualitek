@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(StageSeeder::class);
         $this->call(WealthTypeSeeder::class);
-        $this->call(QualitylabelSeeder::class);
+        $this->call(QualityLabelSeeder::class);
         $this->call(ProcessusSeeder::class);
         $this->call(TagSeeder::class);
         $this->call(IndicatorSeeder::class);

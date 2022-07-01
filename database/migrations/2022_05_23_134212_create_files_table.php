@@ -20,8 +20,8 @@ class CreateFilesTable extends Migration
                 ->nullable();
             $table->string('gdrive_path_id')
                 ->nullable();
-            $table->string('user_id');
             $table->bigInteger('size');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users');

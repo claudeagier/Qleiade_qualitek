@@ -15,14 +15,14 @@ class WealthFile extends Migration
     {
         Schema::create('wealths_files', function (Blueprint $table) {
             $table->id();
-            $table->string('wealth_id');
+            $table->unsignedBigInteger('wealth_id');
             $table->foreign('wealth_id')
                 ->references('id')
-                ->on('wealth') ->onDelete('cascade');
-            $table->string('file_id');
+                ->on('wealth')->onDelete('cascade');
+            $table->unsignedBigInteger('file_id');
             $table->foreign('file_id')
                 ->references('id')
-                ->on('files') ->onDelete('cascade');
+                ->on('files')->onDelete('cascade');
             $table->timestamps();
         });
     }

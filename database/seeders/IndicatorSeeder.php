@@ -17,10 +17,10 @@ class IndicatorSeeder extends Seeder
      */
     public function run()
     {
-        $csvFile = storage_path() . '/app/indicateurs-qualiopy-seeder.csv';
+        $csvFile = storage_path() . '/app/indicateurs-qualiopi-seeder.csv';
         // dd($csvFile);
-		$data = $this->csv_to_array($csvFile, ";");
-		DB::table('indicator')->truncate();
-		DB::table('indicator')->insert($data);
+        $data = $this->csv_to_array($csvFile, ";");
+        // DB::table('indicator')->truncate();
+        DB::table('indicator')->insert($data);
     }
 }

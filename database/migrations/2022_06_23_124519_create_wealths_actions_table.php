@@ -15,15 +15,14 @@ class CreateWealthsActionsTable extends Migration
     {
         Schema::create('wealths_actions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('wealth_id');
+            $table->unsignedBigInteger('wealth_id');
             $table->foreign('wealth_id')
                 ->references('id')
-                ->on('wealth') ->onDelete('cascade');
-            $table->string('action_id');
+                ->on('wealth')->onDelete('cascade');
+            $table->unsignedBigInteger('action_id');
             $table->foreign('action_id')
                 ->references('id')
-                ->on('action') ->onDelete('cascade');
-            
+                ->on('action')->onDelete('cascade');
         });
     }
 

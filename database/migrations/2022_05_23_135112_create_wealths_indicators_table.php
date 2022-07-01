@@ -15,14 +15,14 @@ class CreateWealthsIndicatorsTable extends Migration
     {
         Schema::create('wealths_indicators', function (Blueprint $table) {
             $table->id();
-            $table->string('wealth_id');
+            $table->unsignedBigInteger('wealth_id');
             $table->foreign('wealth_id')
                 ->references('id')
-                ->on('wealth') ->onDelete('cascade');
-            $table->string('indicator_id');
+                ->on('wealth')->onDelete('cascade');
+            $table->unsignedBigInteger('indicator_id');
             $table->foreign('indicator_id')
                 ->references('id')
-                ->on('indicator') ->onDelete('cascade');
+                ->on('indicator')->onDelete('cascade');
             $table->timestamps();
         });
     }
