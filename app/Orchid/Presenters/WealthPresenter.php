@@ -6,17 +6,9 @@ use Laravel\Scout\Builder;
 use Orchid\Support\Presenter;
 // use Orchid\Screen\Contracts\Searchable;
 
+//not used
 class WealthPresenter extends Presenter
 {
-    // 'name',
-    // 'description',
-    // //suivi de la preuve
-    // 'tracking',
-    // // 0 a 99
-    // 'conformity_level',
-    // 'validity_date',
-    // // json les visuelles de la preuve file, link, ypareo
-    // 'attachment',
     /**
      * @return string
      */
@@ -75,13 +67,6 @@ class WealthPresenter extends Presenter
      */
     protected function makeAllSearchableUsing($query)
     {
-        //         SELECT * FROM `wealth` 
-        // INNER JOIN wealths_indicators
-        // ON wealth.id = wealths_indicators.wealth_id
-        // INNER JOIN indicator
-        // ON wealths_indicators.indicator_id = indicator.id
-        // INNER join quality_label
-        // ON indicator.quality_label_id = quality_label.id
         return $query->with('indicators');
     }
 
@@ -95,7 +80,7 @@ class WealthPresenter extends Presenter
         $myquery = $this->entity->search($a_query)
         ->query(function ($query){return $query->with('indicators');})
         ->orderBy('created_at', "asc");
-        // dd($query);
+
         return $myquery;
     }
 

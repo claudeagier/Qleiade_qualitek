@@ -3,14 +3,15 @@
 namespace App\Orchid\Layouts\Wealth;
 
 use App\Orchid\Layouts\Attachment\File\FileCard;
-use Orchid\Support\Facades\Layout;
-use Orchid\Screen\Layouts\Listener;
-use App\Orchid\Layouts\Attachment\File\UploadLayout;
 use App\Orchid\Layouts\Attachment\Link\LinkCard;
+use App\Orchid\Layouts\Attachment\File\UploadLayout;
 use App\Orchid\Layouts\Attachment\Ypareo\YpareoCard;
 use App\Orchid\Layouts\Attachment\Link\LinkEditLayout;
 use App\Orchid\Layouts\Attachment\Ypareo\YpareoEditlayout;
+
 use Orchid\Screen\Sight;
+use Orchid\Support\Facades\Layout;
+use Orchid\Screen\Layouts\Listener;
 
 class AttachmentListener extends Listener
 {
@@ -61,8 +62,7 @@ class AttachmentListener extends Listener
         $ypareoCard = new YpareoCard();
 
         return [
-            //File type attachment
-            //edit
+            //empty wealth type
             Layout::legend('empty wealth type',[
                 Sight::make('Avertissement')->render(function () {
                     return __('empty_wealth_type_card');
@@ -73,13 +73,16 @@ class AttachmentListener extends Listener
                     &&
                     ($this->editAttachment($this->query))
             ),
+
+            //File type attachment
+            //edit
             $uploadFile->title(__('file_upload'))
                 ->canSee(
                     ($whoShouldSee === 'file')
                         &&
                         ($this->editAttachment($this->query))
                 ),
-            //show
+            //File show card
             $fileCard->title(__('file_show'))
                 ->canSee(
                     ($whoShouldSee === 'file')

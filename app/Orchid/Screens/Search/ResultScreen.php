@@ -32,14 +32,13 @@ class ResultScreen extends Screen
         }
         
         try {
-        // recherche avec scout
+        // Search with scout
         $this->wealths = Wealth::search($keyWord)
         ->query(
-            function ($query) use ($needs) {
-                return $this->fillWealthQuery($query, $needs);
-            }
-            )
-            ->get();
+                function ($query) use ($needs) {
+                    return $this->fillWealthQuery($query, $needs);
+                }
+            )->get();
         } catch (\Throwable $th) {
             //TODO : j'en fais quoi de mon erreur ?
             throw $th;
@@ -87,6 +86,7 @@ class ResultScreen extends Screen
      */
     public function layout(): iterable
     {
+        //TODO : ajouter une pop up dans le template pour afficher le niveau de preuve sur la jauge
         return [
             Layout::view(
                 'components.admin.wealth.show.list'

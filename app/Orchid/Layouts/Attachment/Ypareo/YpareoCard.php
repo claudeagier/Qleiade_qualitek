@@ -16,16 +16,6 @@ class YpareoCard extends Legend
      */
     protected $title;
 
-    //     /**
-    //  * Data source.
-    //  *
-    //  * The name of the key to fetch it from the query.
-    //  * The results of which will be elements of the table.
-    //  *
-    //  * @var string
-    //  */
-    // protected $target = 'attachment';
-
     protected function columns(): array
     {
         return  [

@@ -5,9 +5,6 @@ namespace App\Orchid\Layouts\Attachment\File;
 use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Layouts\Rows;
-use Orchid\Screen\Actions\Link;
-use Orchid\Screen\Fields\Relation;
-use App\Models\File as FileModel;
 
 class UploadLayout extends Rows
 {

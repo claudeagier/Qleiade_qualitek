@@ -16,8 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        ////it works
         if ($this->app->isLocal()) {
+            //DOC: register ideHelper
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
     }
@@ -29,16 +30,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Corrige  SQLSTATE[42000]: Syntax error or access violation: 1071 La clé est trop longue. Longueur maximale: 1000
+        //DOC: Corrige  SQLSTATE[42000]: Syntax error or access violation: 1071 La clé est trop longue. Longueur maximale: 1000
         Schema::defaultStringLength(191);
         
-        // to switch beetween languages
+        //DOC: to switch beetween languages
         view()->composer('partials.language_switcher', function ($view) {
             $view->with('current_locale', app()->getLocale());
             $view->with('available_locales', config('app.available_locales'));
         });
 
-        // to register observer
+        //DOC: to register observer
         Wealth::observe(WealthObserver::class);
     }
 }

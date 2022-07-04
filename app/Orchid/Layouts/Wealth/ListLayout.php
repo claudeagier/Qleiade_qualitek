@@ -2,13 +2,15 @@
 
 namespace App\Orchid\Layouts\Wealth;
 
-use App\Models\Wealth;
 use Illuminate\Support\Facades\Auth;
-use Orchid\Screen\Layouts\Table;
+
+use App\Models\Wealth;
+
 use Orchid\Screen\TD;
-use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
+use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\DropDown;
 
 class ListLayout extends Table
 {
@@ -30,6 +32,7 @@ class ListLayout extends Table
     protected function columns(): iterable
     {
         return [
+            //TODO : afficher en rouge quand les infos de la piece jointe ne sont pas renseignés
             TD::make(__('name'))
                 ->sort()
                 ->render(function (Wealth $wealth) {
@@ -38,15 +41,6 @@ class ListLayout extends Table
                         'conformityLevel' => $wealth->conformity_level
                     ]);
                 }),
-
-            // TD::make('Description', __('wealth_description'))
-            //     ->sort()
-            //     ->render(function (Wealth $wealth) {
-            //         return view('components.admin.tools.conformity-colorized', [
-            //             'value' => $wealth->description,
-            //             'conformityLevel' => $wealth->conformity_level
-            //         ]);
-            //     }),
 
             TD::make('Processus', __('wealth_processus'))
                 ->sort()

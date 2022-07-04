@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Orchid\Layouts\Wealth;
 
 use App\Models\WealthType;
+
 use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Input;
-use Orchid\Screen\Layouts\Rows;
-use Orchid\Screen\Fields\DateTimer;
 use Orchid\Screen\Fields\Quill;
+use Orchid\Screen\Layouts\Rows;
 use Orchid\Screen\Fields\Relation;
+use Orchid\Screen\Fields\DateTimer;
 
 class EditLayout extends Rows
 {
@@ -31,6 +32,7 @@ class EditLayout extends Rows
         return [
             Input::make('wealth.id')
                 ->hidden(),
+                
             Input::make('wealth.name')
                 ->title(__('wealth_name'))
                 ->placeholder('proof_toto')

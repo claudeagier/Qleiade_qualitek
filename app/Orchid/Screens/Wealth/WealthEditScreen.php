@@ -2,30 +2,28 @@
 
 namespace App\Orchid\Screens\Wealth;
 
-use App\Models\Wealth;
-use App\Models\WealthType;
-use App\Models\Indicator;
-use App\Models\Tag;
-use App\Models\Action;
-use App\Models\File as FileModel;
-use App\Http\Traits\DriveManagement;
-
-use App\Orchid\Layouts\Wealth\EditLayout;
-use App\Orchid\Layouts\Wealth\AttachmentListener;
-use App\Orchid\Layouts\Wealth\DetailsLayout;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+use App\Models\Tag;
+use App\Models\Action;
+use App\Models\Wealth;
+use App\Models\Indicator;
+use App\Models\WealthType;
+use App\Models\File as FileModel;
+use App\Http\Traits\DriveManagement;
+use App\Orchid\Layouts\Wealth\EditLayout;
+use App\Orchid\Layouts\Wealth\DetailsLayout;
+use App\Orchid\Layouts\Wealth\AttachmentListener;
 
 use Orchid\Screen\Screen;
-use Orchid\Support\Facades\Layout;
-use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
+use Orchid\Screen\Actions\Button;
 use Orchid\Support\Facades\Toast;
-
+use Orchid\Support\Facades\Layout;
 
 class WealthEditScreen extends Screen
 {
@@ -35,7 +33,6 @@ class WealthEditScreen extends Screen
      * @var Wealth
      */
     public $wealth;
-
 
     /**
      * Query data.
@@ -91,6 +88,17 @@ class WealthEditScreen extends Screen
         return __('wealth_description');
     }
 
+    //DOC: orchid add permission to a screen
+    /**
+     * @return iterable|null
+     */
+    public function permission(): ?iterable
+    {
+        return [
+            'platform.quality.wealths.edit',
+        ];
+    }
+
     /**
      * Button commands.
      *
@@ -125,19 +133,15 @@ class WealthEditScreen extends Screen
      */
     public function layout(): iterable
     {
-        $canSee = false;
-
-        $tabs = [
-            __('wealth') => EditLayout::class,
-            __('details') => DetailsLayout::class,
-            __('Visualisation') => AttachmentListener::class,
+        return [
+            Layout::tabs(
+                [
+                    __('wealth') => EditLayout::class,
+                    __('details') => DetailsLayout::class,
+                    __('Visualisation') => AttachmentListener::class,
+                ]
+            )->activeTab(__('wealth'))
         ];
-
-        $layout = [
-            Layout::tabs($tabs)->activeTab(__('wealth')),
-        ];
-
-        return $layout;
     }
 
     /**
@@ -169,17 +173,21 @@ class WealthEditScreen extends Screen
      */
     public function save(Wealth $wealth, Request $request)
     {
+        //TODO : ajouter un controle de date pour la date de validité
+        //TODO : ajouter un controle sur l'unicité du nom ?
         $request->validate([
             'wealth.conformity_level' => [
                 'numeric',
                 'min:0',
                 'max:100'
             ],
+            "wealth.processus" =>"required"
         ]);
 
+        //Datas from request
         $wealthData = $request->all('wealth')['wealth'];
-        // dd($wealthData);
 
+        //Attachments
         $fileToUpload = null;
         if ($request->has('attachment')) {
             //data's attachment
@@ -196,37 +204,40 @@ class WealthEditScreen extends Screen
             $wealth->attachment = $dataAttachment->toJson();
         }
 
+        //Create Wealth model
         $wealth
             ->fill($wealthData);
-
+        //with Wealth type
         if (isset($wealthData['wealth_type'])) {
             $wealth
                 ->wealthType()->associate($wealthData['wealth_type']);
         }
-
-        if (isset($wealthData['wealth_type'])) {
+        //with processus
+        if (isset($wealthData['processus'])) {
             $wealth
                 ->processus()->associate($wealthData['processus']);
         }
-
         $wealth->save();
 
-        //si l'indicateur existe et
+        //DOC: update accross relationships
         if (isset($wealthData['indicators'])) {
             $indicators = Indicator::find($wealthData['indicators']);
             $wealth->indicators()->sync($indicators);
         }
+
+        //Actions
         if (isset($wealthData['actions'])) {
             $actions = Action::find($wealthData['actions']);
             $wealth->actions()->sync($actions);
         }
 
+        //Tags
         if (isset($wealthData['tags'])) {
             $tags = Tag::find($wealthData['tags']);
             $wealth->tags()->sync($tags);
         }
 
-        //upload data and save in bdd
+        //upload file and save in db
         if (isset($fileToUpload)) {
             $fileId = $this->saveFile($fileToUpload, $wealth);
             if ($fileId) {
@@ -235,7 +246,6 @@ class WealthEditScreen extends Screen
                 Toast::error(__('File_not_uploaded'));
             }
         }
-
 
         Toast::success(__('Wealth_was_saved'));
 
@@ -252,12 +262,10 @@ class WealthEditScreen extends Screen
      */
     public function remove(Wealth $wealth)
     {
-        //gérer les relations
+        //DOC: Delete and relationships
         $wealth->actions()->detach();
         $wealth->tags()->detach();
         $wealth->indicators()->detach();
-
-        //supprimer les fichiers oui ou non ?
 
         $wealth->delete();
         $wealth->delete();
@@ -277,11 +285,13 @@ class WealthEditScreen extends Screen
      */
     public function saveFile(UploadedFile $file, Wealth $wealth)
     {
-        // récuperer le processus pour le copier au bon endroit
+        //DOC: Store file on google drive
+
+        // get processus
         $processus = $wealth->processus->label;
         $processusDirectoryId = $this->getDirectoryId($this->formatUrlPart($processus));
 
-        // sur le drive
+        //try to stor
         try {
             $res = $file->storeAs($processusDirectoryId, $file->getClientOriginalName());
         } catch (\Throwable $th) {
@@ -302,12 +312,8 @@ class WealthEditScreen extends Screen
             'mime_type' => $info['mimetype'],
             'size' => $info['size'],
             'user_id' => Auth::id(),
-        ]);
+        ])->save();
 
-        // enregistrement en bdd
-        $fileToStore->save();
-
-        // faire le lien avec la ressource
         Toast::success(__('file_is_added'));
 
         return $fileToStore->id;
@@ -322,10 +328,14 @@ class WealthEditScreen extends Screen
      */
     public function removeFile(Wealth $wealth, Request $request)
     {
+        // DOC: Remove Files
         $action = $request->query("action");
         foreach ($wealth->files as $file) {
             switch ($action) {
+                
+                //Archiving
                 case 'archive':
+                    //move file in archive directory in Qleiade
                     $archId = $this->getDirectoryId('archive');
                     $archDirId = $this->getDirectoryId($this->formatUrlPart($wealth->processus->label), $archId);
                     $newFilePath = $archDirId . "/" . $file->original_name;
@@ -336,6 +346,7 @@ class WealthEditScreen extends Screen
                     $wealth->attachment = null;
                     $wealth->save();
 
+                    //update file model
                     $file->archived_at = now();
                     $file->gdrive_shared_link = null;
                     $file->gdrive_path_id = $newFilePath;
@@ -344,7 +355,9 @@ class WealthEditScreen extends Screen
                     Toast::success(__('file_archived'));
                     break;
 
+                // Archiving with delete file on drive
                 case 'logical':
+                    //delete file in gDrive
                     Storage::cloud()->delete($file->gdrive_path_id);
 
                     //update wealth
@@ -352,12 +365,15 @@ class WealthEditScreen extends Screen
                     $wealth->attachment = null;
                     $wealth->save();
 
+                    //soft delete (complet deleted_at columns)
                     $file->delete();
 
                     Toast::success(__('file_deleted_logic'));
                     break;
 
+                //Eradicate file
                 case 'eradicate':
+                    //delete file definitly in g drive
                     Storage::cloud()->delete($file->gdrive_path_id);
 
                     //update wealth
@@ -365,6 +381,7 @@ class WealthEditScreen extends Screen
                     $wealth->attachment = null;
                     $wealth->save();
 
+                    //delet file definitly in
                     $file->forceDelete();
 
                     Toast::success(__('file_deleted_permanently'));
@@ -379,6 +396,7 @@ class WealthEditScreen extends Screen
 
     public function removeAttachment(Wealth $wealth)
     {
+        //DOC: Remove Attachment
         $wealth->attachment = null;
         $wealth->save();
     }

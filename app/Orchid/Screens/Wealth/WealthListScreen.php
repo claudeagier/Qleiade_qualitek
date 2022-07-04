@@ -2,13 +2,16 @@
 
 namespace App\Orchid\Screens\Wealth;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\Wealth;
+use App\Orchid\Layouts\Wealth\ListLayout;
+
 use Orchid\Screen\Screen;
 use Orchid\Screen\Actions\Link;
 use Orchid\Support\Facades\Toast;
-use App\Models\Wealth;
-use App\Orchid\Layouts\Wealth\ListLayout;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 class WealthListScreen extends Screen
 {

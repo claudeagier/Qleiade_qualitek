@@ -2,17 +2,15 @@
 
 namespace App\Orchid\Screens\Search;
 
-use App\Models\Tag;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 
-use Orchid\Screen\Actions\Button;
+use Orchid\Support\Color;
 use Orchid\Screen\Screen;
-use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Actions\Link;
-use Orchid\Support\Color;
-use Illuminate\Support\Arr;
-use Orchid\Screen\Fields\Relation;
+use Orchid\Screen\Actions\Button;
+use Orchid\Support\Facades\Layout;
 
 class SearchScreen extends Screen
 {

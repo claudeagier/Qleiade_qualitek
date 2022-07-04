@@ -28,18 +28,19 @@ class GoogleDriveServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //DOC: Configure google drive adapter to interacte with
         Storage::extend('google', function ($app, $config) {
             $credentials_file = base_path($config['credentialsFile']);
 
             $client = new GoogleClient();
-            //error but it work
+            //ide error no namespace in file but it work
             $client->setScopes(DriveService::DRIVE);
             $client->setAuthConfig($credentials_file);
             $client->useApplicationDefaultCredentials();
             $client->setAuthConfig($credentials_file);
             $client->setAccessType('offline');
 
-
+            //ide error no namespace in file but it work
             $service = new DriveService($client);
 
             $options = [];

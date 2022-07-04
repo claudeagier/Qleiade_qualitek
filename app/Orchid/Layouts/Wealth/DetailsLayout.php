@@ -2,10 +2,10 @@
 
 namespace App\Orchid\Layouts\Wealth;
 
-use App\Models\Indicator;
-use App\Models\Processus;
 use App\Models\Tag;
 use App\Models\Action;
+use App\Models\Indicator;
+use App\Models\Processus;
 
 use Orchid\Screen\Field;
 use Orchid\Screen\Layouts\Rows;

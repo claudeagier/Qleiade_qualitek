@@ -24,6 +24,7 @@ class PlatformProvider extends OrchidServiceProvider
      */
     public function registerMainMenu(): array
     {
+        //DOC: add menu item
         return [
 
             Menu::make(__('Search'))
