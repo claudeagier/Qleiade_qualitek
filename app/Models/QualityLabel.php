@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Orchid\Screen\AsSource;
 
 class QualityLabel extends Model
 {
-    use HasFactory;
-    use AsSource;
+    use HasFactory, AsSource;
+    
     /**
      * The table associated with the model.
      *
