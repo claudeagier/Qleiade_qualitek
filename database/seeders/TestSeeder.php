@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
+//TODO : make seeder to test suite
 class TestSeeder extends Seeder
 {
     /**

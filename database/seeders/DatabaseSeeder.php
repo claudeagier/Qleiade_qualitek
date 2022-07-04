@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    //DOC: All seeders are for production
     /**
      * Seed the application's database.
      *
