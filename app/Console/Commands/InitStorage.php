@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Traits\DriveManagement;
 use Illuminate\Support\Str;
 
+//DOC: artisan Cmd for project:init_storage
 class InitStorage extends Command
 {
     use DriveManagement;

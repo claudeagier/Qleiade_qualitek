@@ -18,6 +18,7 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
+//DOC: artisan command project:fresh_db
 Artisan::command('project:fresh_db', function(){
     Artisan::call('migrate:fresh');
     if ($this->confirm('Do you want to seed db ? [yes|no]', true)) {
