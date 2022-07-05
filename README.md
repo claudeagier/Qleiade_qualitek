@@ -1,5 +1,7 @@
 # Qleiade
 
+https://img.shields.io/badge/Author-Claude%20Agier-blue
+
 ## liens utiles
 
 Documentation Orchid admin panel : https://orchid.software/en/docs/   
