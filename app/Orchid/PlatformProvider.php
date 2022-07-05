@@ -24,7 +24,7 @@ class PlatformProvider extends OrchidServiceProvider
      */
     public function registerMainMenu(): array
     {
-        //DOC: add menu item
+        //DOC: NEW FORM add menu item
         return [
 
             Menu::make(__('Search'))
@@ -35,6 +35,10 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('note')
                 ->route('platform.quality.wealths')
                 ->title(__('Administer')),
+
+            Menu::make(__('tags'))
+                ->icon('tag')
+                ->route('platform.quality.tags'),
 
             Menu::make(__('Utilisateurs'))
                 ->icon('user')

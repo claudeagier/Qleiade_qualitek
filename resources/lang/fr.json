@@ -72,5 +72,16 @@
     "result_set_indicators_title": "Indicateurs",
     "result_set_quality_label_title": "Label Qualité",
     "result_set_attachment_info": "Element de preuve",
-    "Update": "Modifier"
+    "Update": "Modifier",
+    "label":"nom",
+    "tags":"Libellés",
+    "tags_list_description" : "Liste des libellés actifs",
+    "tag_create": "Créer un nouveau tag",
+    "tag_description": "Un libellé pertinent premettra un classement pertinent",
+    "tag_label" : "Nom",
+    "tag_save_confirmation" : "Voulez-vous enregistrer ce libellés ?",
+    "Tag_was_saved": "Libellé enregistrée !",
+    "tag_remove_confirmation": "Attenion, une fois cette action éffectuée, le libellés sera supprimée définitivement",
+    "Tag_was_removed": "Libellé supprimée !",
+    "tag_edit :label" : "Modifier le libellé :label"
 }

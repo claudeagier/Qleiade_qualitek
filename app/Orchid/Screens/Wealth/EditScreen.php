@@ -25,7 +25,7 @@ use Orchid\Screen\Actions\Button;
 use Orchid\Support\Facades\Toast;
 use Orchid\Support\Facades\Layout;
 
-class WealthEditScreen extends Screen
+class EditScreen extends Screen
 {
     use DriveManagement;
 

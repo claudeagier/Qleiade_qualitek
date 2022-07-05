@@ -13,7 +13,7 @@ use Orchid\Screen\Actions\Link;
 use Orchid\Support\Facades\Toast;
 
 
-class WealthListScreen extends Screen
+class ListScreen extends Screen
 {
     /**
      * Query data.

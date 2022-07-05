@@ -2,18 +2,21 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Route;
+use Tabuna\Breadcrumbs\Trail;
+
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
-use App\Orchid\Screens\Wealth\WealthListScreen;
-use App\Orchid\Screens\Wealth\WealthEditScreen;
+use App\Orchid\Screens\Wealth\ListScreen as WealthListScreen;
+use App\Orchid\Screens\Wealth\EditScreen as WealthEditScreen;
+use App\Orchid\Screens\Tag\ListScreen as TagListScreen;
+use App\Orchid\Screens\Tag\EditScreen as TagEditScreen;
 use App\Orchid\Screens\Search\SearchScreen;
 use App\Orchid\Screens\Search\ResultScreen;
-use Illuminate\Support\Facades\Route;
-use Tabuna\Breadcrumbs\Trail;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,6 +114,10 @@ Route::screen('quality/search/result/{wealths?}', ResultScreen::class)
             ->push(__('result'), route('platform.quality.search.result'));
     });
 
+//###########################################
+//########## GO TO Wealths forms ############
+//###########################################
+
 // Platform > quality > wealths
 Route::screen('wealths', WealthListScreen::class)
     ->name('platform.quality.wealths')
@@ -136,4 +143,35 @@ Route::screen('wealths/create', WealthEditScreen::class)
         return $trail
             ->parent('platform.quality.wealths')
             ->push(__('Create'), route('platform.quality.wealths.create'));
+    });
+
+//################################
+//####### GO TO Tag forms ########
+//################################
+//DOC : NEW FORM add routes
+// Platform > quality > tags
+Route::screen('tags', TagListScreen::class)
+    ->name('platform.quality.tags')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.index')
+            ->push(__('tags'), route('platform.quality.tags'));
+    });
+
+// Platform > Quality > tags > tag
+Route::screen('tags/{tag}/edit', TagEditScreen::class)
+    ->name('platform.quality.tags.edit')
+    ->breadcrumbs(function (Trail $trail, $tag) {
+        return $trail
+            ->parent('platform.quality.tags')
+            ->push(__('tag'), route('platform.quality.tags.edit', $tag));
+    });
+
+// Platform > Quality > tags > Create
+Route::screen('tags/create', TagEditScreen::class)
+    ->name('platform.quality.tags.create')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.quality.tags')
+            ->push(__('Create'), route('platform.quality.tags.create'));
     });
