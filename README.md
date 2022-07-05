@@ -3,23 +3,23 @@
 ## Installation
 
 ```Shell
-    > git clone
+    git clone
 ```
 
 ```Shell
-    > composer install  
+    composer install  
 ```
 permission sur les répertoires
 
 ```Shell
-    > chmod -R 775 storage
-    > chmod -R 775 bootstrap/cache
+    chmod -R 775 storage
+    chmod -R 775 bootstrap/cache
 ``` 
 
 Les assets
 ```Shell
-    > npm install
-    > npm run [environnement]
+    npm install
+    npm run [environnement]
 ```
 compléter le .env  
 
@@ -29,12 +29,12 @@ poser le fichier storage/app/indicateurs-qualiopi-seeder.csv
 Le projet contient IDE Helper pour faciliter la vie du correcteur syntaxique
 
 ```Shell
-    > php artisan ide-helper:generate
+    php artisan ide-helper:generate
 ```
 
 Création de la db
 ```Shell
-    > php artisan project:fresh_db
+    php artisan project:fresh_db
 ```
 le cas échéant pour créer l'arborescence dans le fileSystem
 ```Shell
