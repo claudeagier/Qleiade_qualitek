@@ -73,7 +73,6 @@ class EditScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        //FIXIT : fix example
         return [
             Link::make(__('Cancel'))
                 ->icon('action-undo')
