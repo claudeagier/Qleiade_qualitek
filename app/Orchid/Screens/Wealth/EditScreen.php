@@ -14,10 +14,12 @@ use App\Models\Wealth;
 use App\Models\Indicator;
 use App\Models\WealthType;
 use App\Models\File as FileModel;
+use App\Http\Traits\ModalActions;
 use App\Http\Traits\DriveManagement;
 use App\Orchid\Layouts\Wealth\EditLayout;
 use App\Orchid\Layouts\Wealth\DetailsLayout;
 use App\Orchid\Layouts\Wealth\AttachmentListener;
+use App\Orchid\Layouts\Tag\EditLayout as TagEditlayout;
 
 use Orchid\Screen\Screen;
 use Orchid\Screen\Actions\Link;
@@ -27,7 +29,7 @@ use Orchid\Support\Facades\Layout;
 
 class EditScreen extends Screen
 {
-    use DriveManagement;
+    use DriveManagement, ModalActions;
 
     /**
      * @var Wealth
@@ -140,7 +142,12 @@ class EditScreen extends Screen
                     __('details') => DetailsLayout::class,
                     __('Visualisation') => AttachmentListener::class,
                 ]
-            )->activeTab(__('wealth'))
+            )->activeTab(__('wealth')),
+            Layout::modal('addTagModal', [
+                TagEditLayout::class,
+            ])->applyButton(__("add_new_tag"))
+            ->rawClick()
+                ->closeButton('Close'),
         ];
     }
 
@@ -399,5 +406,10 @@ class EditScreen extends Screen
         //DOC: Remove Attachment
         $wealth->attachment = null;
         $wealth->save();
+    }
+
+    public function addNewTagByModal(Tag $tag, Request $request){
+        $res = $this->saveTag($tag, $request);
+        return redirect()->route('platform.quality.wealths.create');
     }
 }

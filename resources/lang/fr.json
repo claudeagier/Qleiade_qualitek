@@ -76,12 +76,14 @@
     "label":"nom",
     "tags":"Libellés",
     "tags_list_description" : "Liste des libellés actifs",
-    "tag_create": "Créer un nouveau tag",
+    "tag_create": "Créer un nouveau libellés",
     "tag_description": "Un libellé pertinent premettra un classement pertinent",
     "tag_label" : "Nom",
     "tag_save_confirmation" : "Voulez-vous enregistrer ce libellés ?",
     "Tag_was_saved": "Libellé enregistrée !",
     "tag_remove_confirmation": "Attenion, une fois cette action éffectuée, le libellés sera supprimée définitivement",
     "Tag_was_removed": "Libellé supprimée !",
-    "tag_edit :label" : "Modifier le libellé :label"
+    "tag_edit :label" : "Modifier le libellé :label",
+    "add new tag" : "Créer Libellé",
+    "add_new_tag" : "Créer"
 }
