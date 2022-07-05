@@ -4,10 +4,28 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Stage;
-use App\Models\Action;
 
 class StageSeeder extends Seeder
 {
+    protected $data = [
+        [
+            'name' => 'before',
+            'label' =>'Avant',
+            'description' => "avant l'arrivé de l'apprenant"
+        ],
+        [
+            'name' => 'during',
+            'label' =>'Pendant',
+            'description' => 'Pendant la formation'
+        ],
+        [
+            'name' => 'after',
+            'label' =>'Après',
+            'description' => 'Après la formation'
+        ],
+
+    ];
+
     /**
      * Run the database seeds.
      *
@@ -15,8 +33,8 @@ class StageSeeder extends Seeder
      */
     public function run()
     {
-        Stage::factory(3)->create()->each(function($stage){
-            $stage->actions()->saveMany(Action::factory(10)->make(['stage_id'=>$stage->id]));
-        });
+        foreach ($this->data as $values) {
+            Stage::create($values);
+        }
     }
 }

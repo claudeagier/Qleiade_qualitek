@@ -7,14 +7,7 @@ use App\Models\Processus;
 
 class ProcessusSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        // Pilotage des orientations stratégiques (POS) (PS)
+     // Pilotage des orientations stratégiques (POS) (PS)
         // Qualité (QLT) (QT)
         // Veille et SIN (SIN) (SI)
         // Accompagnement des parcours (ACP) (AP)
@@ -30,7 +23,7 @@ class ProcessusSeeder extends Seeder
         // Ressources financières (RFI) (RF)
         // Ressources matérielles et logistique (RML) (RM)
 
-        $enregs = [
+        protected $data = [
             [
                 'name' => "PS",
                 'label' => "Pilotage des orientations stratégiques",
@@ -98,13 +91,15 @@ class ProcessusSeeder extends Seeder
                 'label' => "Ressources matérielles et logistique",
             ]
         ];
-
-        foreach ($enregs as $proc) {
-            $processus = new Processus();
-            $processus->fill([
-                'name' => $proc['name'],
-                'label' => $proc['label']
-            ])->save();
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        foreach ($this->data as $values) {
+            Processus::create($values);
         }
     }
 }

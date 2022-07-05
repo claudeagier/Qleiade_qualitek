@@ -14,12 +14,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        $this->call(StageSeeder::class);
+        //DOC: 3 types added (file, ypareo, link) with array in seeder
         $this->call(WealthTypeSeeder::class);
+        
+        //DOC: 1 label added (Qualiopi)
         $this->call(QualityLabelSeeder::class);
+        
+        //DOC: CFA processus with array in seeder
         $this->call(ProcessusSeeder::class);
-        $this->call(TagSeeder::class);
+        
+        // $this->call(TagSeeder::class);
+        
+        //DOC: Qualiopi indicators with csv file
         $this->call(IndicatorSeeder::class);
+
+        //DOC: 3 stages added (avant, pendant, après) with array in seeder
+        $this->call(StageSeeder::class);
+
     }
 }
