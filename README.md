@@ -30,8 +30,9 @@ le cas échéant pour créer l'arborescence dans le fileSystem
 
 ajouter la nouvelle permission dans PermissionServiceProvider
 puis pour se les ajouter à soi
+```php
 php artisan orchid:admin --id=monIdInt
-
+```
 ## Pour visualiser la doc ainsi que l'avancement du développement
 j'utilise le paquage VS CODE TODO TREE
 
