@@ -148,7 +148,7 @@ Route::screen('wealths/create', WealthEditScreen::class)
 //################################
 //####### GO TO Tag forms ########
 //################################
-//DOC : NEW FORM add routes
+//NEW_FORM add routes
 // Platform > quality > tags
 Route::screen('tags', TagListScreen::class)
     ->name('platform.quality.tags')

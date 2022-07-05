@@ -25,7 +25,7 @@ class PermissionServiceProvider extends ServiceProvider
      */
     public function boot(Dashboard $dashboard)
     {
-        // DOC : NEW FORM register new permissions to show in user edit form
+        // NEW_FORM register new permissions to show in user edit form
         $permissions = ItemPermission::group('quality')
             ->addpermission('platform.search', __('search'))
             // wealths admin form (proof)

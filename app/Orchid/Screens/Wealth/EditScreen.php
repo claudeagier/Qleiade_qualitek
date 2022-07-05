@@ -90,7 +90,6 @@ class EditScreen extends Screen
         return __('wealth_description');
     }
 
-    //DOC: orchid add permission to a screen
     /**
      * @return iterable|null
      */

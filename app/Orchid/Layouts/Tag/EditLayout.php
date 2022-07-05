@@ -9,7 +9,7 @@ use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Quill;
 use Orchid\Screen\Layouts\Rows;
 
-//DOC: NEW FORM add new layout if necessary
+//NEW_FORM: add new layout if necessary
 
 class EditLayout extends Rows
 {

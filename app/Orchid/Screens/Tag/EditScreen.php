@@ -12,7 +12,7 @@ use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\Button;
 use Orchid\Support\Facades\Toast;
 
-//DOC: NEW FORM add new screen (php artisan orchid:screen NameScreen)
+//NEW_FORM add new screen (php artisan orchid:screen NameScreen)
 
 class EditScreen extends Screen
 {
@@ -73,6 +73,7 @@ class EditScreen extends Screen
      */
     public function commandBar(): iterable
     {
+        //FIXIT : fix example
         return [
             Link::make(__('Cancel'))
                 ->icon('action-undo')
