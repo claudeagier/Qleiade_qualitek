@@ -45,7 +45,7 @@ le cas échéant pour créer l'arborescence dans le fileSystem
 ### Pour visualiser la doc ainsi que l'avancement du développement
 
 j'utilise le paquage VScode :  
-TODO TREE: https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree
+``TODO TREE``: https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree
 
 Voici la config à mettre dans config.json (ctrl+shift+p open settings)
 
