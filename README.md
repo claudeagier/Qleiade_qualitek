@@ -1,8 +1,10 @@
 # Qleiade
 
 ## liens utiles
-[Orchid admin panel](https://orchid.software/en/docs/)
-[google drive adapter](https://github.com/nao-pon/flysystem-google-drive)
+
+Documentation Orchid admin panel : (https://orchid.software/en/docs/)  
+Documentation de google drive adapter : https://github.com/nao-pon/flysystem-google-drive  
+
 ## Installation
 
 ```Shell
