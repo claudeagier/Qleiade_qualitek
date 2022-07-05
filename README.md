@@ -2,39 +2,50 @@
 
 ## Installation
 
-git clone
-
-composer install
-
-permission sur les répertoires
 ```Shell
-chmod -R 775 storage
-chmod -R 775 bootstrap/cache
-npm install
-npm run [environnement]
+    > git clone
+```
+
+```Shell
+    > composer install  
+```
+permission sur les répertoires
+
+```Shell
+    > chmod -R 775 storage
+    > chmod -R 775 bootstrap/cache
 ``` 
 
+Les assets
+```Shell
+    > npm install
+    > npm run [environnement]
+```
+compléter le .env  
 
-compléter le .env
+poser le fichier creds.json  
+poser le fichier storage/app/indicateurs-qualiopi-seeder.csv  
 
-poser le fichier creds.json
-poser le fichier storage/app/indicateurs-qualiopi-seeder.csv
+Le projet contient IDE Helper pour faciliter la vie du correcteur syntaxique
 
 ```Shell
-php artisan project:fresh_db
+    > php artisan ide-helper:generate
+```
+
+Création de la db
+```Shell
+    > php artisan project:fresh_db
 ```
 le cas échéant pour créer l'arborescence dans le fileSystem
-
-
-## Ajout de permissions
-
-ajouter la nouvelle permission dans PermissionServiceProvider
-puis pour se les ajouter à soi
-```php
-php artisan orchid:admin --id=monIdInt
+```Shell
+    php artisan project:init_storage
 ```
-## Pour visualiser la doc ainsi que l'avancement du développement
-j'utilise le paquage VS CODE TODO TREE
+## Quelques tips
+
+### Pour visualiser la doc ainsi que l'avancement du développement
+
+j'utilise le paquage VScode :  
+TODO TREE: https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree
 
 Voici la config à mettre dans config.json (ctrl+shift+p open settings)
 
@@ -100,3 +111,10 @@ Voici la config à mettre dans config.json (ctrl+shift+p open settings)
     }
 ```
 
+### Ajout de permissions
+
+Ajouter la nouvelle permission dans PermissionServiceProvider  
+  
+puis pour se les ajouter à soi
+```php
+php artisan orchid:admin --id=monIdInt
