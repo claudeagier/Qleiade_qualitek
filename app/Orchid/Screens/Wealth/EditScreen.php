@@ -179,7 +179,6 @@ class EditScreen extends Screen
      */
     public function save(Wealth $wealth, Request $request)
     {
-        //TODO : ajouter un controle de date pour la date de validité
         //TODO : ajouter un controle sur l'unicité du nom ?
         $request->validate([
             'wealth.conformity_level' => [
@@ -187,7 +186,8 @@ class EditScreen extends Screen
                 'min:0',
                 'max:100'
             ],
-            "wealth.processus" => "required"
+            "wealth.processus" => "required",
+            "wealth.validity_date" => "required|after:yesterday"
         ]);
 
         //Datas from request

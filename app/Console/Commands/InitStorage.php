@@ -10,7 +10,6 @@ use App\Http\Traits\DriveManagement;
 use Illuminate\Support\Str;
 
 //DOC: artisan Cmd for project:init_storage
-//TODO: create cmd to sync repositories according to the db processus list
 class InitStorage extends Command
 {
     use DriveManagement;

@@ -32,7 +32,7 @@ class EditLayout extends Rows
         return [
             Input::make('wealth.id')
                 ->hidden(),
-                
+
             Input::make('wealth.name')
                 ->title(__('wealth_name'))
                 ->placeholder('proof_toto')
@@ -42,7 +42,8 @@ class EditLayout extends Rows
                 ->title(__('wealth_validity_date'))
                 ->required()
                 ->allowInput()
-                ->format('d-m-Y'),
+                ->format('d-m-Y')
+                ->min(now()),
 
             Input::make('wealth.conformity_level')
                 ->type('number')
