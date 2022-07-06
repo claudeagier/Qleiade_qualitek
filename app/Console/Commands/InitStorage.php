@@ -55,8 +55,6 @@ class InitStorage extends Command
 
             $this->info($count . ' directories are deleted');
         }
-        //FIXIT: empêcher la création de répertoires en double
-        //FIXIT: conserver le contenu et ou l'archiver avant création
         foreach (Processus::all() as $proc) {
             $name = $this->formatDirName($proc->label);
             Storage::cloud()->makeDirectory($name);
