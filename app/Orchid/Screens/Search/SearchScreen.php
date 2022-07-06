@@ -91,9 +91,8 @@ class SearchScreen extends Screen
 
     public function search(Request $request)
     {
-        //TODO : search values request validations
         $request->validate([
-            'search.key_word' => 'required|string'
+            'search.key_word' => "required|regex:/^[a-zA-Z0-9\s]+$/"
         ]);
 
         $payload =  $request->all()['search'];

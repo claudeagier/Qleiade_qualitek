@@ -18,7 +18,6 @@ trait ModalActions
      */
     public function saveTag(Tag $tag, Request $request)
     {
-        //TODO : validation pour le tag ?
         $request->validate([
             'tag.label' => "required|regex:/^[a-zA-Z0-9\s]+$/"
         ]);
