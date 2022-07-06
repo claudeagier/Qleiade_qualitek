@@ -145,7 +145,7 @@ class EditScreen extends Screen
             Layout::modal('addTagModal', [
                 TagEditLayout::class,
             ])->applyButton(__("add_new_tag"))
-            ->rawClick()
+                ->rawClick()
                 ->closeButton('Close'),
         ];
     }
@@ -187,7 +187,7 @@ class EditScreen extends Screen
                 'min:0',
                 'max:100'
             ],
-            "wealth.processus" =>"required"
+            "wealth.processus" => "required"
         ]);
 
         //Datas from request
@@ -295,7 +295,7 @@ class EditScreen extends Screen
 
         // get processus
         $processus = $wealth->processus->label;
-        $processusDirectoryId = $this->getDirectoryId($this->formatUrlPart($processus));
+        $processusDirectoryId = $this->getDirectoryId($this->formatDirName($processus));
 
         //try to stor
         try {
@@ -338,12 +338,12 @@ class EditScreen extends Screen
         $action = $request->query("action");
         foreach ($wealth->files as $file) {
             switch ($action) {
-                
-                //Archiving
+
+                    //Archiving
                 case 'archive':
                     //move file in archive directory in Qleiade
                     $archId = $this->getDirectoryId('archive');
-                    $archDirId = $this->getDirectoryId($this->formatUrlPart($wealth->processus->label), $archId);
+                    $archDirId = $this->getDirectoryId($this->formatDirName($wealth->processus->label), $archId);
                     $newFilePath = $archDirId . "/" . $file->original_name;
                     Storage::cloud()->move($file->gdrive_path_id, $newFilePath);
 
@@ -361,7 +361,7 @@ class EditScreen extends Screen
                     Toast::success(__('file_archived'));
                     break;
 
-                // Archiving with delete file on drive
+                    // Archiving with delete file on drive
                 case 'logical':
                     //delete file in gDrive
                     Storage::cloud()->delete($file->gdrive_path_id);
@@ -377,7 +377,7 @@ class EditScreen extends Screen
                     Toast::success(__('file_deleted_logic'));
                     break;
 
-                //Eradicate file
+                    //Eradicate file
                 case 'eradicate':
                     //delete file definitly in g drive
                     Storage::cloud()->delete($file->gdrive_path_id);
@@ -407,7 +407,8 @@ class EditScreen extends Screen
         $wealth->save();
     }
 
-    public function addNewTagByModal(Tag $tag, Request $request){
+    public function addNewTagByModal(Tag $tag, Request $request)
+    {
         $res = $this->saveTag($tag, $request);
         return redirect()->route('platform.quality.wealths.create');
     }

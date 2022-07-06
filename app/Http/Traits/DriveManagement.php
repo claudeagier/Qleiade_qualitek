@@ -1,18 +1,22 @@
 <?php
 
 namespace App\Http\Traits;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 
-trait DriveManagement {
+trait DriveManagement
+{
 
-    public function putOnDrive(){
+    public function putOnDrive()
+    {
         return true;
     }
 
-    public function getMetaData($itemId){
+    public function getMetaData($itemId)
+    {
         //get drive meta data gdrive file or directory
         //error but it work
         return Storage::cloud()->getAdapter()->getMetadata($itemId);
@@ -22,17 +26,18 @@ trait DriveManagement {
     {
         return "https://drive.google.com/file/d/"
             . explode('/', $path)[1] .
-            "/view?usp=sharing";        
+            "/view?usp=sharing";
     }
 
-    protected function listDirectory($dir = null){
+    protected function listDirectory($dir = null)
+    {
         $nameList = [];
         // not recursive
         $idList = Storage::cloud()->directories($dir);
 
         foreach ($idList as $id) {
             $meta = $this->getMetaData($id);
-            if($meta['type'] == 'dir'){
+            if ($meta['type'] == 'dir') {
                 $name = $meta['name'];
                 $path = $meta['path'];
             }
@@ -42,7 +47,8 @@ trait DriveManagement {
         return $nameList;
     }
 
-    protected function listFilesInDirectory($dir = null){
+    protected function listFilesInDirectory($dir = null)
+    {
         $nameList = [];
 
         // not recursive
@@ -50,7 +56,7 @@ trait DriveManagement {
 
         foreach ($idList as $id) {
             $meta = $this->getMetaData($id);
-            if($meta['type'] == 'file'){
+            if ($meta['type'] == 'file') {
                 $name = $meta['filename'];
                 $path = $meta['path'];
             }
@@ -60,15 +66,24 @@ trait DriveManagement {
         return $nameList;
     }
 
-    public function getDirectoryId($name, $dir = null){
-        return $this->listDirectory($dir)[$name];
+    public function getDirectoryId($name, $dir = null)
+    {
+        try {
+            $needle = $this->listDirectory($dir)[$name];
+        } catch (\Throwable $th) {
+            //throw $th;
+            return false;
+        }
+        return $needle;
     }
 
-    public function getFileId($filename, $dir = null){
+    public function getFileId($filename, $dir = null)
+    {
         return $this->listFilesInDirectory($dir)[$filename];
     }
 
-    public function formatUrlPart($name){
-        return Str::slug($name);
+    public function formatDirName($name)
+    {
+        return Str::slug($name, "_");
     }
-} 
+}

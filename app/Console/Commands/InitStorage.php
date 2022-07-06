@@ -20,7 +20,7 @@ class InitStorage extends Command
      *
      * @var string
      */
-    protected $signature = 'project:init_storage';
+    protected $signature = 'project:init_directories';
 
     /**
      * The console command description.
@@ -58,7 +58,7 @@ class InitStorage extends Command
         //FIXIT: empêcher la création de répertoires en double
         //FIXIT: conserver le contenu et ou l'archiver avant création
         foreach (Processus::all() as $proc) {
-            $name = $this->formatName($proc->label);
+            $name = $this->formatDirName($proc->label);
             Storage::cloud()->makeDirectory($name);
             $this->info($name . ' are created');
         }
@@ -67,16 +67,11 @@ class InitStorage extends Command
             Storage::cloud()->makeDirectory('archive');
             $archId = $this->getDirectoryId('archive');
             foreach (Processus::all() as $proc) {
-                $name = $this->formatName($proc->label);
+                $name = $this->formatDirName($proc->label);
                 Storage::cloud()->makeDirectory($archId . "/" . $name);
                 $this->info($name . ' are created');
             }
         }
         return 0;
-    }
-
-    public function formatName($name)
-    {
-        return  Str::slug($name);
     }
 }
