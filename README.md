@@ -1,6 +1,8 @@
 # Qleiade
 
 ![author](https://img.shields.io/badge/Author-Claude%20Agier-blue)
+![filesystem](https://img.shields.io/badge/Filesystem-google%20drive-blueviolet)
+![orchid](public/vendor/orchid/favicon.svg)
 
 ## liens utiles
 
@@ -54,7 +56,7 @@ le cas échéant pour créer l'arborescence dans le fileSystem
 j'utilise le paquage VScode :  
 ``TODO TREE``: https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree
 
-Voici la config à mettre dans config.json (ctrl+shift+p open settings)
+Voici la config à coller dans settings.json (ctrl+shift+p Preferences open settings (JSON))
 
 ```json
     "todo-tree.general.statusBar": "tags",
