@@ -2,7 +2,7 @@
 
 ![author](https://img.shields.io/badge/Author-Claude%20Agier-blue)
 ![filesystem](https://img.shields.io/badge/Filesystem-google%20drive-blueviolet)
-![orchid](public/vendor/orchid/favicon.svg)
+![orchid](https://img.shields.io/badge/Orchid--Platform-V.11.0.1-green)
 
 ## liens utiles
 
