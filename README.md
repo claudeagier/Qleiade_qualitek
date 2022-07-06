@@ -75,9 +75,12 @@
 > Cette commande va générer des répertoires dans google drive à partir des noms de processus de la base de donnée.  
 > On peut choisir de supprimer les répertoires existants ou non , ainsi que générer le répertoire d'archivage.
 
+>**Warning**
+> Lorsque le répertoire existe, un nouveau répertoire est créé avec le même nom.
+
 ## Quelques tips
 
-### TODO tree  
+### Todo tree  
   
 Pour visualiser la doc ainsi que l'avancement du développement, j'utilise le paquage VScode :  
   

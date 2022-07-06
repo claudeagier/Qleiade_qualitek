@@ -10,6 +10,7 @@ use App\Http\Traits\DriveManagement;
 use Illuminate\Support\Str;
 
 //DOC: artisan Cmd for project:init_storage
+//TODO: create cmd to sync repositories according to the db processus list
 class InitStorage extends Command
 {
     use DriveManagement;
@@ -46,28 +47,29 @@ class InitStorage extends Command
     public function handle()
     {
         if ($this->confirm('Do you wish to delete existing directories? [yes|no]', true)) {
-            $count=0;
+            $count = 0;
             foreach (Storage::cloud()->allDirectories() as $dir) {
                 Storage::cloud()->deleteDirectory($dir);
                 $count++;
             }
-            
-            $this->info( $count.' directories are deleted');
+
+            $this->info($count . ' directories are deleted');
         }
-        
+        //FIXIT: empêcher la création de répertoires en double
+        //FIXIT: conserver le contenu et ou l'archiver avant création
         foreach (Processus::all() as $proc) {
             $name = $this->formatName($proc->label);
             Storage::cloud()->makeDirectory($name);
-            $this->info( $name.' are created');
+            $this->info($name . ' are created');
         }
 
-        if($this->confirm('Do you wish to generate archive directory? [yes|no]', true)){
+        if ($this->confirm('Do you wish to generate archive directory? [yes|no]', true)) {
             Storage::cloud()->makeDirectory('archive');
             $archId = $this->getDirectoryId('archive');
             foreach (Processus::all() as $proc) {
                 $name = $this->formatName($proc->label);
-                Storage::cloud()->makeDirectory($archId."/".$name);
-                $this->info( $name.' are created');
+                Storage::cloud()->makeDirectory($archId . "/" . $name);
+                $this->info($name . ' are created');
             }
         }
         return 0;
