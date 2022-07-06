@@ -6,8 +6,9 @@
 
 ## liens utiles
 
-  Documentation Orchid admin panel : https://orchid.software/en/docs  
-  Documentation de google drive adapter : https://github.com/nao-pon/flysystem-google-drive  
+- Documentation Orchid admin panel : https://orchid.software/en/docs
+
+- Documentation de google drive adapter : https://github.com/nao-pon/flysystem-google-drive  
 
 ## Installation
 
@@ -24,7 +25,7 @@
 ```Shell
     chmod -R 775 storage
     chmod -R 775 bootstrap/cache
-``` 
+```
 
 - compléter le .env  
 
@@ -35,7 +36,9 @@
       Suivre la doc : https://support.google.com/a/answer/7378726?hl=fr
 
   - générer un fichier json avec les informations de connection
-        poser le fichier creds.json à la racine du projet
+
+    - renommer le fichier en creds.json
+    - déposer le fichier à la racine du projet
   
 - Installer et compiler les assets
   
@@ -54,19 +57,24 @@
 
 - Création de la db  
 
-**Warning**
-Attention, la commande va supprimer tous les enregistrements de la db !  
-    Faire un dump de la db avant
   
 ```Shell
     php artisan project:fresh_db
 ```
+> **Warning**
+> Attention, la commande va supprimer tous les enregistrements de la db !  
+    Faire un dump de la db avant
 
-le cas échéant pour créer l'arborescence dans le FileSystem
+- Le cas échéant pour créer l'arborescence dans le FileSystem
   
 ```Shell
     php artisan project:init_storage
 ```
+
+> **Info**
+> Cette commande va générer des répertoires dans google drive à partir des noms de processus de la base de donnée.  
+> On peut choisir de supprimer les répertoires existants ou non , ainsi que générer le répertoire d'archivage.
+
 ## Quelques tips
 
 ### TODO tree  
