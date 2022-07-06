@@ -25,15 +25,16 @@ permission sur les répertoires
     chmod -R 775 bootstrap/cache
 ``` 
 
+compléter le .env  
+
+poser le fichier creds.json  
+poser le fichier storage/app/indicateurs-qualiopi-seeder.csv  
+
 Les assets
 ```Shell
     npm install
     npm run [environnement]
 ```
-compléter le .env  
-
-poser le fichier creds.json  
-poser le fichier storage/app/indicateurs-qualiopi-seeder.csv  
 
 Le projet contient IDE Helper pour faciliter la vie du correcteur syntaxique
 
