@@ -93,7 +93,7 @@ class EditScreen extends Screen
         ];
     }
 
-     /**
+    /**
      * Views.
      *
      * @return \Orchid\Screen\Layout[]|string[]
@@ -113,23 +113,17 @@ class EditScreen extends Screen
      */
     public function save(Tag $tag, Request $request)
     {
-        //TODO : ajouter un controle de date pour la date de validité
-        //TODO : ajouter un controle sur l'unicité du nom ?
-        // $request->validate([
-        //     'tag.conformity_level' => [
-        //         'numeric',
-        //         'min:0',
-        //         'max:100'
-        //     ],
-        //     "tag.processus" =>"required"
-        // ]);
+        //TODO : ajouter validation
+        $request->validate([
+            'tag.label' => "required|regex:/^[a-zA-Z0-9\s]+$/"
+        ]);
 
         //Datas from request
         $tagData = $request->all('tag')['tag'];
-        // format name code 
-        
+        // format name code
+
         $tagData["name"] = Str::slug($tagData["label"]);
-        
+
         //Create Tag model
         $tag->fill($tagData)
             ->save();
@@ -155,5 +149,4 @@ class EditScreen extends Screen
 
         return redirect()->route('platform.quality.tags');
     }
-
 }

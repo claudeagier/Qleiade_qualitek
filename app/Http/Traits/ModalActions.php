@@ -8,8 +8,9 @@ use Illuminate\Support\Str;
 use Orchid\Support\Facades\Toast;
 
 
-trait ModalActions {
-        /**
+trait ModalActions
+{
+    /**
      * @param Tag    $tag
      * @param Request $request
      *
@@ -17,23 +18,17 @@ trait ModalActions {
      */
     public function saveTag(Tag $tag, Request $request)
     {
-        //TODO : ajouter un controle de date pour la date de validité
-        //TODO : ajouter un controle sur l'unicité du nom ?
-        // $request->validate([
-        //     'tag.conformity_level' => [
-        //         'numeric',
-        //         'min:0',
-        //         'max:100'
-        //     ],
-        //     "tag.processus" =>"required"
-        // ]);
+        //TODO : validation pour le tag ?
+        $request->validate([
+            'tag.label' => "required|regex:/^[a-zA-Z0-9\s]+$/"
+        ]);
 
         //Datas from request
         $tagData = $request->all('tag')['tag'];
-        // format name code 
-        
+        // format name code
+
         $tagData["name"] = Str::slug($tagData["label"]);
-        
+
         //Create Tag model
         $tag->fill($tagData)
             ->save();
@@ -51,7 +46,7 @@ trait ModalActions {
      * @return \Illuminate\Http\RedirectResponse
      *
      */
-    public function removeTag(Tag $tag) :void
+    public function removeTag(Tag $tag): void
     {
         $tag->delete();
 
