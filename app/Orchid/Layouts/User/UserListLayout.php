@@ -55,7 +55,7 @@ class UserListLayout extends Table
                     return $user->updated_at->toDateTimeString();
                 }),
 
-            TD::make(__('Actions'))
+            TD::make(__('Actions_form'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
                 ->render(function (User $user) {

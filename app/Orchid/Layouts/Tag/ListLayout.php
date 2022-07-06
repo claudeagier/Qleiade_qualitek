@@ -43,13 +43,13 @@ class ListLayout extends Table
                 ->sort()
                 ->render(function (Tag $tag) {
                     //TODO : add function getFirstSentenceOfHtml($html) to a trait if anothers
-                    $truncatedDesc = Str::before(Str::after($tag->description , '<p>'), '</p>').' ...';
+                    $truncatedDesc = Str::before(Str::after($tag->description, '<p>'), '</p>') . ' ...';
 
                     return $truncatedDesc;
                 }),
 
 
-            TD::make(__('Actions'))
+            TD::make(__('Actions_form'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
                 ->render(function (Tag $tag) {

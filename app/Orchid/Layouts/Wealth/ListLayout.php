@@ -93,7 +93,7 @@ class ListLayout extends Table
                     ]);
                 }),
 
-            TD::make(__('Actions'))
+            TD::make(__('Actions_form'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
                 ->render(function (Wealth $wealth) {
