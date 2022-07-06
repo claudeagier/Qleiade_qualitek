@@ -57,11 +57,11 @@
 
 - Création de la db  
 
-  
 ```Shell
     php artisan project:fresh_db
 ```
-> **Warning**
+
+> **Warning**  
 > Attention, la commande va supprimer tous les enregistrements de la db !  
     Faire un dump de la db avant
 
@@ -71,7 +71,7 @@
     php artisan project:init_storage
 ```
 
-> **Info**
+> **Note**  
 > Cette commande va générer des répertoires dans google drive à partir des noms de processus de la base de donnée.  
 > On peut choisir de supprimer les répertoires existants ou non , ainsi que générer le répertoire d'archivage.
 
