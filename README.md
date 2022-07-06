@@ -1,13 +1,13 @@
 # Qleiade
 
-![author](https://img.shields.io/badge/Author-Claude%20Agier-blue)
-![filesystem](https://img.shields.io/badge/Filesystem-google%20drive-blueviolet)
-![orchid](https://img.shields.io/badge/Orchid--Platform-V.11.0.1-green)
+  ![author](https://img.shields.io/badge/Author-Claude%20Agier-blue)
+  ![filesystem](https://img.shields.io/badge/Filesystem-google%20drive-blueviolet)
+  ![orchid](https://img.shields.io/badge/Orchid--Platform-V.11.0.1-green)
 
 ## liens utiles
 
-Documentation Orchid admin panel : https://orchid.software/en/docs  
-Documentation de google drive adapter : https://github.com/nao-pon/flysystem-google-drive  
+  Documentation Orchid admin panel : https://orchid.software/en/docs  
+  Documentation de google drive adapter : https://github.com/nao-pon/flysystem-google-drive  
 
 ## Installation
 
@@ -18,40 +18,51 @@ Documentation de google drive adapter : https://github.com/nao-pon/flysystem-goo
 ```Shell
     composer install  
 ```
-permission sur les répertoires
+  
+- permission sur les répertoires
 
 ```Shell
     chmod -R 775 storage
     chmod -R 775 bootstrap/cache
 ``` 
 
-compléter le .env  
+- compléter le .env  
 
-poser le fichier creds.json  
-poser le fichier storage/app/indicateurs-qualiopi-seeder.csv  
+- Google drive Api
 
-Installer et compiler les assets
+  - créer un compte de service google drive api  
+
+      Suivre la doc : https://support.google.com/a/answer/7378726?hl=fr
+
+  - générer un fichier json avec les informations de connection
+        poser le fichier creds.json à la racine du projet
+  
+- Installer et compiler les assets
+  
 ```Shell
     npm install
     npm run [environnement]
 ```
 
-Le projet contient IDE Helper pour faciliter la vie du correcteur syntaxique
+- IDE Helper pour faciliter la vie du correcteur syntaxique
+
+    lancer la commande suivante pour générer le fichier de mapping _ide_helper.php
 
 ```Shell
     php artisan ide-helper:generate
 ```
 
-Création de la db  
-Attention, la commende va supprimer tous les enregistrements de la db  
-  
-Faire un dump de la db avant
+- Création de la db  
+
+**Warning**
+Attention, la commande va supprimer tous les enregistrements de la db !  
+    Faire un dump de la db avant
   
 ```Shell
     php artisan project:fresh_db
 ```
 
-le cas échéant pour créer l'arborescence dans le fileSystem
+le cas échéant pour créer l'arborescence dans le FileSystem
   
 ```Shell
     php artisan project:init_storage
@@ -133,5 +144,6 @@ Voici la config à coller dans settings.json (ctrl+shift+p Preferences open sett
 Ajouter la nouvelle permission dans PermissionServiceProvider  
   
 puis pour se les ajouter à soi
+  
 ```php
 php artisan orchid:admin --id=monIdInt
