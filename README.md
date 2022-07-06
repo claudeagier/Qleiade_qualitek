@@ -4,7 +4,7 @@
   ![filesystem](https://img.shields.io/badge/Filesystem-google%20drive-blueviolet)
   ![orchid](https://img.shields.io/badge/Orchid--Platform-V.11.0.1-green)
 
-## liens utiles
+## Liens utiles
 
 - Documentation Orchid admin panel : https://orchid.software/en/docs
 
@@ -13,29 +13,29 @@
 ## Installation
 
 ```Shell
-    git clone
+  git clone
 ```
 
 ```Shell
-    composer install  
+  composer install  
 ```
   
-- permission sur les répertoires
+- Permissions sur les répertoires
 
 ```Shell
-    chmod -R 775 storage
-    chmod -R 775 bootstrap/cache
+  chmod -R 775 storage
+  chmod -R 775 bootstrap/cache
 ```
 
-- compléter le .env  
+- Compléter le .env  
 
 - Google drive Api
 
-  - créer un compte de service google drive api  
+  - Créer un compte de service google drive api  
 
       Suivre la doc : https://support.google.com/a/answer/7378726?hl=fr
 
-  - générer un fichier json avec les informations de connection
+  - Générer un fichier json avec les informations de connection
 
     - renommer le fichier en creds.json
     - déposer le fichier à la racine du projet
@@ -43,23 +43,26 @@
 - Installer et compiler les assets
   
 ```Shell
-    npm install
-    npm run [environnement]
+  npm install
+  npm run [environnement]
 ```
 
 - IDE Helper pour faciliter la vie du correcteur syntaxique
-
-    lancer la commande suivante pour générer le fichier de mapping _ide_helper.php
+  - La doc : https://github.com/barryvdh/laravel-ide-helper
+  - Lancer la commande suivante pour générer le fichier de mapping _ide_helper.php
 
 ```Shell
-    php artisan ide-helper:generate
+  php artisan ide-helper:generate
 ```
 
 - Création de la db  
 
 ```Shell
-    php artisan project:fresh_db
+  php artisan project:fresh_db
 ```
+
+>**Note**
+> On peut choisir de seed la base de donnée
 
 > **Warning**  
 > Attention, la commande va supprimer tous les enregistrements de la db !  
@@ -68,7 +71,7 @@
 - Le cas échéant pour créer l'arborescence dans le FileSystem
   
 ```Shell
-    php artisan project:init_storage
+  php artisan project:init_storage
 ```
 
 > **Note**  
@@ -76,7 +79,7 @@
 > On peut choisir de supprimer les répertoires existants ou non , ainsi que générer le répertoire d'archivage.
 
 >**Warning**
-> Lorsque le répertoire existe, un nouveau répertoire est créé avec le même nom.
+> Lorsque le répertoire existe, un second répertoire est créé avec le même nom.
 
 ## Quelques tips
 
@@ -150,11 +153,12 @@ Voici la config à coller dans settings.json (ctrl+shift+p Preferences open sett
     }
 ```
 
-### Permissions
+### Permissions de l'application
 
 Ajouter la nouvelle permission dans PermissionServiceProvider  
   
 puis pour se les ajouter à soi
   
 ```php
-php artisan orchid:admin --id=monIdInt
+    php artisan orchid:admin --id=monIdInt
+```
