@@ -30,7 +30,7 @@ compléter le .env
 poser le fichier creds.json  
 poser le fichier storage/app/indicateurs-qualiopi-seeder.csv  
 
-Les assets
+Installer et compiler les assets
 ```Shell
     npm install
     npm run [environnement]
@@ -42,19 +42,26 @@ Le projet contient IDE Helper pour faciliter la vie du correcteur syntaxique
     php artisan ide-helper:generate
 ```
 
-Création de la db
+Création de la db  
+Attention, la commende va supprimer tous les enregistrements de la db  
+  
+Faire un dump de la db avant
+  
 ```Shell
     php artisan project:fresh_db
 ```
+
 le cas échéant pour créer l'arborescence dans le fileSystem
+  
 ```Shell
     php artisan project:init_storage
 ```
 ## Quelques tips
 
-### Pour visualiser la doc ainsi que l'avancement du développement
-
-j'utilise le paquage VScode :  
+### TODO tree  
+  
+Pour visualiser la doc ainsi que l'avancement du développement, j'utilise le paquage VScode :  
+  
 ``TODO TREE``: https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree
 
 Voici la config à coller dans settings.json (ctrl+shift+p Preferences open settings (JSON))
@@ -121,7 +128,7 @@ Voici la config à coller dans settings.json (ctrl+shift+p Preferences open sett
     }
 ```
 
-### Ajout de permissions
+### Permissions
 
 Ajouter la nouvelle permission dans PermissionServiceProvider  
   
