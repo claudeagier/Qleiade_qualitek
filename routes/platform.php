@@ -15,6 +15,8 @@ use App\Orchid\Screens\Wealth\ListScreen as WealthListScreen;
 use App\Orchid\Screens\Wealth\EditScreen as WealthEditScreen;
 use App\Orchid\Screens\Tag\ListScreen as TagListScreen;
 use App\Orchid\Screens\Tag\EditScreen as TagEditScreen;
+use App\Orchid\Screens\Action\ListScreen as ActionListScreen;
+use App\Orchid\Screens\Action\EditScreen as ActionEditScreen;
 use App\Orchid\Screens\Search\SearchScreen;
 use App\Orchid\Screens\Search\ResultScreen;
 
@@ -174,4 +176,35 @@ Route::screen('tags/create', TagEditScreen::class)
         return $trail
             ->parent('platform.quality.tags')
             ->push(__('Create'), route('platform.quality.tags.create'));
+    });
+
+//################################
+//####### GO TO Action forms ########
+//################################
+
+// Platform > quality > actions
+Route::screen('actions', ActionListScreen::class)
+    ->name('platform.quality.actions')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.index')
+            ->push(__('actions'), route('platform.quality.actions'));
+    });
+
+// Platform > Quality > actions > action
+Route::screen('actions/{action}/edit', ActionEditScreen::class)
+    ->name('platform.quality.actions.edit')
+    ->breadcrumbs(function (Trail $trail, $action) {
+        return $trail
+            ->parent('platform.quality.actions')
+            ->push(__('action'), route('platform.quality.actions.edit', $action));
+    });
+
+// Platform > Quality > actions > Create
+Route::screen('actions/create', ActionEditScreen::class)
+    ->name('platform.quality.actions.create')
+    ->breadcrumbs(function (Trail $trail) {
+        return $trail
+            ->parent('platform.quality.actions')
+            ->push(__('Create'), route('platform.quality.actions.create'));
     });

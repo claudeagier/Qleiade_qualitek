@@ -40,6 +40,10 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('tag')
                 ->route('platform.quality.tags'),
 
+            Menu::make(__('actions_stage'))
+                ->icon('graduation')
+                ->route('platform.quality.actions'),
+
             Menu::make(__('Utilisateurs'))
                 ->icon('user')
                 ->route('platform.systems.users')

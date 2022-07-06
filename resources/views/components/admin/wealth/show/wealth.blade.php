@@ -77,6 +77,7 @@
         </p>
     </div>
 
+
     @if ($wealth->indicators)
         <div class="col-md-8 my-2">
             <h4 class="text-muted fw-light">
@@ -87,7 +88,7 @@
                 <div class="d-flex ps-5 border-top justify-content-evenly">
                     <span class="d-flex">
                         <h5 class="text-muted fw-light">
-                            <x-orchid-icon path="graduation" />
+                            <x-orchid-icon path="building" />
                             <span class="ms-1 text-grey">{{ $indicator->qualityLabel->label }}</span>
                         </h5>
                         <!-- <span class="ps-3 text-black">{{ $indicator->qualityLabel->label }}</span> -->
@@ -106,4 +107,32 @@
             @endforeach
         </div>
     @endif
+    @if ($wealth->actions)
+        <div class="col-md-8 my-2">
+            <h4 class="text-muted fw-light">
+                <x-orchid-icon path="graduation" />
+                <span class="ms-3 text-grey">{{ __('result_set_actions_title') }}</span>
+            </h4>
+            @foreach ($wealth->actions as $action)
+                <div class="d-flex ps-5 border-top justify-content-evenly">
+                    <span class="d-flex">
+                        <h5 class="text-muted fw-light">
+                            <x-orchid-icon path="briefcase" />
+                            <span class="ms-1 text-grey">{{ $action->label }}</span>
+                        </h5>
+                        <!-- <span class="ps-3 text-black">{{ $action->stage->label }}</span> -->
+
+                    </span>
+                    <span class="d-flex">
+                        <h5 class="text-muted fw-light">
+                            <x-orchid-icon path="directions" />
+                            <span class="ms-md-1 text-grey">{{ $action->stage->label }}</span>
+                        </h5>
+                    </span>
+
+                </div>
+            @endforeach
+        </div>
+    @endif
+
 </div>

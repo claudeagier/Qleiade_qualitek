@@ -31,11 +31,15 @@ class PermissionServiceProvider extends ServiceProvider
             // wealths admin form (proof)
             ->addPermission('platform.quality.wealths', __('wealths'))
             ->addPermission('platform.quality.wealths.create', __('wealth_create'))
-            ->addPermission('platform.quality.wealths.edit', __('wealth_edit'))    
+            ->addPermission('platform.quality.wealths.edit', __('wealth_edit'))
             // Tags admin form
             ->addPermission('platform.quality.tags', __('tags'))
             ->addPermission('platform.quality.tags.create', __('tag_create'))
-            ->addPermission('platform.quality.tags.edit', __('tag_edit')) ;
+            ->addPermission('platform.quality.tags.edit', __('tag_edit'))
+            // Actions admin form
+            ->addPermission('platform.quality.actions', __('actions'))
+            ->addPermission('platform.quality.actions.create', __('action_create'))
+            ->addPermission('platform.quality.actions.edit', __('action_edit'));
 
         $dashboard->registerPermissions($permissions);
     }
