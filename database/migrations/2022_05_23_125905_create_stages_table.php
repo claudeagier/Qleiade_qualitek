@@ -17,7 +17,8 @@ class CreateStagesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('label');
-            $table->string('description', 1500);
+            $table->string('description', 1500)
+                ->nullable();
             $table->timestamps();
         });
     }
