@@ -20,16 +20,16 @@
   composer install  
 ```
   
-- Permissions sur les répertoires
+### Permissions sur les répertoires
 
 ```Shell
   chmod -R 775 storage
   chmod -R 775 bootstrap/cache
 ```
 
-- Compléter le .env  
+### Compléter le .env  
 
-- Google drive Api
+### Google drive Api
 
   - Créer un compte de service google drive api  
 
@@ -40,14 +40,14 @@
     - renommer le fichier en creds.json
     - déposer le fichier à la racine du projet
   
-- Installer et compiler les assets
+### Installer et compiler les assets
   
 ```Shell
   npm install
   npm run [environnement]
 ```
 
-- IDE Helper pour faciliter la vie du correcteur syntaxique
+### IDE Helper pour faciliter la vie du correcteur syntaxique
   - La doc : https://github.com/barryvdh/laravel-ide-helper
   - Lancer la commande suivante pour générer le fichier de mapping _ide_helper.php
 
@@ -55,7 +55,7 @@
   php artisan ide-helper:generate
 ```
 
-- Création de la db  
+### Création de la db  
   - Pour permettre aux seeders de remplir la db avec les fixtures de production (indicateurs et étapes),
 Il faut poser les fichiers actions-seeder.csv et indicateurs-qualiopi-seeder.csv dans le répertoire storage
   - Ensuite taper la commande suivante
@@ -71,7 +71,7 @@ Il faut poser les fichiers actions-seeder.csv et indicateurs-qualiopi-seeder.csv
 > Attention, la commande va supprimer tous les enregistrements de la db !  
     Faire un dump de la db avant
 
-- Le cas échéant pour créer l'arborescence dans le FileSystem
+### Le cas échéant pour créer l'arborescence dans le FileSystem
   
 ```Shell
   php artisan project:init_storage
