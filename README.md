@@ -28,7 +28,41 @@
 ```
 
 ### Compléter le .env  
+  - app:
 
+```
+  APP_NAME=Qleiade
+  APP_ENV=local
+  APP_KEY=base64:miA2mmBeqe7m+QanLmjlI/ZzGmCCcYgiaLP6Jzyev4A=
+  APP_DEBUG=true
+  APP_URL=http://qleiade.toto
+```
+  
+  - db:
+  
+```Shell
+  DB_CONNECTION=mysql
+  DB_HOST=127.0.0.1
+  DB_PORT=3307
+  DB_DATABASE=qleiade
+  DB_USERNAME=qleiade
+  DB_PASSWORD=qleiade
+```
+  - filesystem:
+  
+```Shell
+  FILESYSTEM_CLOUD=google
+  GOOGLE_DRIVE_APPLICATION_CREDENTIALS = "creds.json"
+  GOOGLE_DRIVE_TEAM_DRIVE_ID=0AHQg65JbfYtUUk9PVA
+```
+  - information de création de l'administrateur Orchid:
+  
+```Shell
+  # orchid user admin required
+  ORCHID_USER_ADMIN_NAME =admin
+  ORCHID_USER_ADMIN_MAIL =toto.escargot@jardin.com
+  ORCHID_USER_ADMIN_PASSWORD =gcNwJp4aK0Yqfx
+```
 ### Google drive Api
 
   - Créer un compte de service google drive api  
