@@ -56,7 +56,10 @@
 ```
 
 - Création de la db  
-
+  - Pour permettre aux seeders de remplir la db avec les fixtures de production (indicateurs et étapes),
+Il faut poser les fichiers actions-seeder.csv et indicateurs-qualiopi-seeder.csv dans le répertoire storage
+  - Ensuite taper la commande suivante
+  
 ```Shell
   php artisan project:fresh_db
 ```
