@@ -13,6 +13,7 @@ use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
 use App\Orchid\Screens\Wealth\ListScreen as WealthListScreen;
 use App\Orchid\Screens\Wealth\EditScreen as WealthEditScreen;
+use App\Orchid\Screens\Wealth\displayScreen as WealthDisplayScreen;
 use App\Orchid\Screens\Tag\ListScreen as TagListScreen;
 use App\Orchid\Screens\Tag\EditScreen as TagEditScreen;
 use App\Orchid\Screens\Action\ListScreen as ActionListScreen;
@@ -136,6 +137,15 @@ Route::screen('wealths/{wealth}/edit', WealthEditScreen::class)
         return $trail
             ->parent('platform.quality.wealths')
             ->push(__('wealth'), route('platform.quality.wealths.edit', $wealth));
+    });
+
+// Platform > Quality > wealths > Wealth
+Route::screen('wealths/{wealth}/display', WealthDisplayScreen::class)
+    ->name('platform.quality.wealths.display')
+    ->breadcrumbs(function (Trail $trail, $wealth) {
+        return $trail
+            ->parent('platform.quality.wealths')
+            ->push(__('wealth :id', ['id' => $wealth->id]), route('platform.quality.wealths.display', $wealth));
     });
 
 // Platform > Quality > wealths > Create

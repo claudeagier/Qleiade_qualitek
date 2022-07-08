@@ -99,5 +99,6 @@
     "action_remove_confirmation": "Attention, une fois cette action effectuée, le étapes sera supprimée définitivement",
     "Action_was_removed": "Etape supprimée !",
     "action_edit :label": "Modifier le étape :label",
-    "actions_stage":"Etapes"
+    "actions_stage": "Etapes",
+    "wealth :id": "Preuve :id"
 }

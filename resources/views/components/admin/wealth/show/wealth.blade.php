@@ -53,15 +53,15 @@
             @if ($wealth->wealthType->name === 'link')
                 <span>
                     les éléments de preuve sont accessible sur la page
-                    {{ json_decode($wealth->attachment, true)['link']['type'] }}
+                    {{ $wealth->attachment['link']['type'] }}
                     <a href="https://laravel.com/docs" target="_blank"
-                        class="text-u-l">{{ json_decode($wealth->attachment, true)['link']['url'] }}</a>
+                        class="text-u-l">{{ $wealth->attachment['link']['url'] }}</a>
                 </span>
             @endif
             @if ($wealth->wealthType->name === 'ypareo')
                 <span>
                     Le process ypareo est le suivant: <br>
-                    {!! json_decode($wealth->attachment, true)['ypareo']['process'] !!}
+                    {!! $wealth->attachment['ypareo']['process'] !!}
                 </span>
             @endif
         </p>

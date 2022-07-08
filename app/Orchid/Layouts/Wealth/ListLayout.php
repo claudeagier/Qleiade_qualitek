@@ -88,24 +88,23 @@ class ListLayout extends Table
                     return DropDown::make()
                         ->icon('options-vertical')
                         ->list([
-                            Button::make(__('Display'))
+                            Link::make(__('Display'))
                                 ->icon('eye')
-                                ->method('display', [
-                                    'id' => $wealth->id,
-                                ]),
+                                ->route('platform.quality.wealths.display', $wealth->id),
 
                             Link::make(__('Edit'))
                                 ->route('platform.quality.wealths.edit', $wealth->id)
-                                ->icon('pencil'),
+                                ->icon('pencil')
+                                ->canSee(Auth::user()->hasAccess('platform.quality.wealths.edit')),
 
                             Button::make(__('Delete'))
                                 ->icon('trash')
                                 ->confirm(__('wealth_remove_confirmation'))
                                 ->method('remove', [
                                     'id' => $wealth->id,
-                                ]),
-                        ])
-                        ->canSee(Auth::user()->hasAccess('platform.quality.wealths.edit'));
+                                ])
+                                ->canSee(Auth::user()->hasAccess('platform.quality.wealths.edit')),
+                        ]);
                 }),
         ];
     }
