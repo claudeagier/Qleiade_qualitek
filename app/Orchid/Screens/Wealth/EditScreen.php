@@ -110,7 +110,8 @@ class EditScreen extends Screen
         return [
             Link::make(__('Cancel'))
                 ->icon('action-undo')
-                ->route('platform.quality.wealths'),
+                ->route('platform.quality.wealths')
+                ->class("cancel-btn"),
 
             Button::make('Save', __('Save'))
                 ->icon('check')

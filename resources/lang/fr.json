@@ -98,5 +98,6 @@
     "Action_was_saved": "Etape enregistrée !",
     "action_remove_confirmation": "Attention, une fois cette action effectuée, le étapes sera supprimée définitivement",
     "Action_was_removed": "Etape supprimée !",
-    "action_edit :label": "Modifier le étape :label"
+    "action_edit :label": "Modifier le étape :label",
+    "actions_stage":"Etapes"
 }

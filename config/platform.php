@@ -110,7 +110,7 @@ return [
 
     'resource' => [
         'stylesheets' => ['/css/app.css'],
-        'scripts'     => [],
+        'scripts'     => ['/js/app.js'],
     ],
 
     /*
