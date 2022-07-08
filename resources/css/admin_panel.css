@@ -1,28 +1,9 @@
 :root{
-    --conformity-level-color-10:rgba(128, 128, 128, 0.8);
-    --conformity-level-color-30:rgba(255, 0, 0, 0.8);
-    --conformity-level-color-50:rgba(255, 166, 0, 0.8);
-    --conformity-level-color-70:rgba(0, 0, 255, 0.8);
-    --conformity-level-color-90:rgba(0, 128, 0, 0.8);
-}
-.conformity-level-10 {
-    color:var(--conformity-level-color-10);
-}
-
-.conformity-level-30 {
-    color: var(--conformity-level-color-30);
-}
-
-.conformity-level-50 {
-    color: var(--conformity-level-color-50);
-}
-
-.conformity-level-70 {
-    color: var(--conformity-level-color-70);
-}
-
-.conformity-level-90 {
-    color: var(--conformity-level-color-90);
+    --conformity-level-color-10:rgba(128, 128, 128, 0.3);
+    --conformity-level-color-30:rgba(255, 0, 0, 0.3);
+    --conformity-level-color-50:rgba(255, 166, 0, 0.3);
+    --conformity-level-color-70:rgba(0, 0, 255, 0.3);
+    --conformity-level-color-90:rgba(0, 128, 0, 0.3);
 }
 
 .conformity-level-bg-progress_bar{
@@ -70,5 +51,12 @@
 
 .conformity-level-bg-90{
     background-color: var(--conformity-level-color-90);
+}
+
+.empty-attachment-icon{
+    color: rgb(143, 1, 13);
+    border: solid rgb(143, 1, 13);
+    border-radius: 1em;
+    margin: 0.5em;
 }
 

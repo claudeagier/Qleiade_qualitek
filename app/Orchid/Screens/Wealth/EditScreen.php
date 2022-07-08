@@ -62,8 +62,7 @@ class EditScreen extends Screen
 
             //add attachment if exists in db
             if (!is_null($wealth->attachment)) {
-                $attachmentArray = json_decode($wealth->attachment, true);
-                $datas['attachment'] = $attachmentArray;
+                $datas['attachment'] = $wealth->attachment;
             }
         }
 
@@ -208,7 +207,7 @@ class EditScreen extends Screen
                     Toast::info('le fichier lié à cette preuve a été supprimé');
                 }
             }
-            $wealth->attachment = $dataAttachment->toJson();
+            $wealth->attachment = $dataAttachment;
         }
 
         //Create Wealth model

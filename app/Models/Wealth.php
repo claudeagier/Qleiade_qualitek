@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Laravel\Scout\Searchable;
+
+use App\Orchid\Presenters\WealthPresenter;
 
 use Orchid\Screen\AsSource;
 
-use App\Orchid\Presenters\WealthPresenter;
 
 class Wealth extends Model
 {
@@ -46,7 +46,7 @@ class Wealth extends Model
      */
     protected $casts = [
         'validity_date' => 'datetime',
-        'attachment' => 'array'
+        'attachment' => 'array',
     ];
 
     public function actions()
@@ -117,7 +117,7 @@ class Wealth extends Model
     public function toSearchableArray()
     {
         $array = $this->toArray();
-        
+
         // Customize array...
         $array['name'] = $this->name;
         $array['description'] = $this->description;

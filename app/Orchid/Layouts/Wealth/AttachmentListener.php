@@ -43,7 +43,7 @@ class AttachmentListener extends Listener
             $wealth = $this->query['wealth'];
         }
 
-        if(isset($this->query['whoShouldSee'])) {
+        if (isset($this->query['whoShouldSee'])) {
             $whoShouldSee = $this->query['whoShouldSee'];
         } else {
             $whoShouldSee = false;
@@ -63,16 +63,16 @@ class AttachmentListener extends Listener
 
         return [
             //empty wealth type
-            Layout::legend('empty wealth type',[
+            Layout::legend('empty wealth type', [
                 Sight::make('Avertissement')->render(function () {
                     return __('empty_wealth_type_card');
                 })
             ])
-            ->canSee(
-                ($whoShouldSee == '')
-                    &&
-                    ($this->editAttachment($this->query))
-            ),
+                ->canSee(
+                    ($whoShouldSee == '')
+                        &&
+                        ($this->editAttachment($this->query))
+                ),
 
             //File type attachment
             //edit
@@ -107,7 +107,7 @@ class AttachmentListener extends Listener
                 ),
 
             // Ypareo type attachment
-            //edit  
+            //edit
             $ypareoEdit->title(__('ypareo_edit'))
                 ->canSee(
                     ($whoShouldSee === 'ypareo')
@@ -148,7 +148,7 @@ class AttachmentListener extends Listener
                     $edit = false;
                 }
             }
-        }else {
+        } else {
             $edit = true;
         }
 
