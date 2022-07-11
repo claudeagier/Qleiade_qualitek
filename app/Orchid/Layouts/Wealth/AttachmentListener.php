@@ -127,11 +127,17 @@ class AttachmentListener extends Listener
     public static function isEmptyAttachment($attachment)
     {
         $isEmpty = true;
-        foreach ($attachment as $value) {
-            if (is_null($value)) {
-                $isEmpty = true;
-            } else {
-                return false;
+        if (!isset($attachments)) {
+            return true;
+        }
+        foreach ($attachments as $attachment) {
+            // dd($attachment);
+            foreach ($attachment as $key => $value) {
+                if (is_null($value)) {
+                    $isEmpty = true;
+                } else {
+                    return false;
+                }
             }
         }
         return $isEmpty;
