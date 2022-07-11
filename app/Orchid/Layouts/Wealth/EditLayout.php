@@ -49,6 +49,10 @@ class EditLayout extends Rows
 
             Input::make('wealth.conformity_level')
                 ->type('number')
+                ->step(10)
+                ->min(10)
+                ->max(100)
+                ->placeholder(10)
                 ->title(__('wealth_conformity_level'))
                 ->required(),
 

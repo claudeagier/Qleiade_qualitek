@@ -42,7 +42,7 @@ class ListLayout extends Table
                     return view('components.admin.tools.colorized_table_row', [
                         'value' => $wealth->name,
                         'conformityLevel' => $wealth->conformity_level,
-                        'emptyAttachment' => !(count($wealth->files) > 0 || !$this->isEmptyAttachment($wealth->attachment)),
+                        'emptyAttachment' => !(count($wealth->files) > 0 || !$this->isEmptyAttachments($wealth->attachment)),
                     ]);
                 }),
 
@@ -67,7 +67,7 @@ class ListLayout extends Table
             TD::make('has visual', __('has_visual'))
                 ->sort()
                 ->render(function (Wealth $wealth) {
-                    return count($wealth->files) > 0 || !$this->isEmptyAttachment($wealth->attachment);
+                    return count($wealth->files) > 0 || !$this->isEmptyAttachments($wealth->attachment);
                 }),
 
             TD::make('validity_date', __('wealth_validity_date'))

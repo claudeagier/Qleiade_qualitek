@@ -114,7 +114,8 @@ class EditScreen extends Screen
     public function save(Tag $tag, Request $request)
     {
         $request->validate([
-            'tag.label' => "required|regex:/^[a-zA-Z0-9\s]+$/"
+            // 'tag.label' => "required|regex:/^[a-zA-Z0-9\s]+$/"
+            'tag.label' => "required"
         ]);
 
         //Datas from request
