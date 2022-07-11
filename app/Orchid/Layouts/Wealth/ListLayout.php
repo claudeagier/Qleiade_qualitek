@@ -5,6 +5,7 @@ namespace App\Orchid\Layouts\Wealth;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Wealth;
+use App\Http\Traits\WithAttachments;
 
 use Orchid\Screen\TD;
 use Orchid\Screen\Actions\Link;
@@ -12,10 +13,10 @@ use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 
-use function PHPUnit\Framework\isNull;
-
 class ListLayout extends Table
 {
+    use WithAttachments;
+    
     /**
      * Data source.
      *
@@ -107,26 +108,5 @@ class ListLayout extends Table
                         ]);
                 }),
         ];
-    }
-
-    public static function isEmptyAttachment($attachments)
-    {
-        //TODO factories me
-        // dd($attachments);
-        $isEmpty = true;
-        if (!isset($attachments)) {
-            return true;
-        }
-        foreach ($attachments as $attachment) {
-            // dd($attachment);
-            foreach ($attachment as $key => $value) {
-                if (is_null($value)) {
-                    $isEmpty = true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        return $isEmpty;
     }
 }

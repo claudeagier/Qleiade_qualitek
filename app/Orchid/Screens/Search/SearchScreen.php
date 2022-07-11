@@ -88,7 +88,13 @@ class SearchScreen extends Screen
             ])
         ];
     }
-
+    
+    /**
+     * search
+     *
+     * @param  mixed $request
+     * @return void
+     */
     public function search(Request $request)
     {
         $request->validate([

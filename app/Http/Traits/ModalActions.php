@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Orchid\Support\Facades\Toast;
 
-
+/**
+ * to help modal windows
+ */
 trait ModalActions
 {
     /**

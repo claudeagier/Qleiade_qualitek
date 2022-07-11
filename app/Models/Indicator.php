@@ -33,7 +33,12 @@ class Indicator extends Model
         'criteria_number',
         'conformity_level'
     ];
-
+    
+    /**
+     * wealths
+     *
+     * @return void
+     */
     public function wealths()
     {
         return $this->belongsToMany(
@@ -43,13 +48,20 @@ class Indicator extends Model
             "wealth_id"
         );
     }
-
+    
+    /**
+     * qualityLabel
+     *
+     * @return void
+     */
     public function qualityLabel()
     {
         return $this->belongsTo(QualityLabel::class);
     }
-
-        /**
+    
+    /**
+     * getFullAttribute
+     *
      * @return string
      */
     public function getFullAttribute(): string

@@ -28,7 +28,12 @@ class Tag extends Model
         'label',
         'description',
     ];
-
+    
+    /**
+     * wealths
+     *
+     * @return void
+     */
     public function wealths()
     {
         return $this->belongsToMany(

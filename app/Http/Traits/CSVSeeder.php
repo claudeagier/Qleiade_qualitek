@@ -2,7 +2,15 @@
 
 namespace App\Http\Traits;
 
-trait CSVSeeder {
+trait CSVSeeder {	
+	
+	/**
+	 * csv_to_array
+	 *
+	 * @param  String $filename
+	 * @param  String $delimiter
+	 * @return Array
+	 */
 	public function csv_to_array($filename = '', $delimiter = ',') {
 		if (!file_exists($filename) || !is_readable($filename)){
 			return FALSE;

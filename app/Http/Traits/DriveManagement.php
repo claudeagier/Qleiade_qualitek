@@ -9,27 +9,51 @@ use Illuminate\Support\Str;
 
 trait DriveManagement
 {
-
-    public function putOnDrive()
+    
+    
+    /**
+     * putOnDrive
+     *
+     * @return bool
+     */
+    public function putOnDrive(): bool
     {
         return true;
     }
-
-    public function getMetaData($itemId)
+    
+    /**
+     * getMetaData
+     *
+     * @param  String $itemId
+     * @return array
+     */
+    public function getMetaData($itemId): array
     {
         //get drive meta data gdrive file or directory
         //error but it work
         return Storage::cloud()->getAdapter()->getMetadata($itemId);
     }
-
-    public function formatSharedLink($path)
+    
+    /**
+     * formatSharedLink
+     *
+     * @param  String $path
+     * @return String
+     */
+    public function formatSharedLink(String $path): String
     {
         return "https://drive.google.com/file/d/"
             . explode('/', $path)[1] .
             "/view?usp=sharing";
     }
-
-    protected function listDirectory($dir = null)
+    
+    /**
+     * listDirectory
+     *
+     * @param  array $dir
+     * @return array
+     */
+    protected function listDirectory(array $dir = null): array
     {
         $nameList = [];
         // not recursive
@@ -46,8 +70,14 @@ trait DriveManagement
 
         return $nameList;
     }
-
-    protected function listFilesInDirectory($dir = null)
+    
+    /**
+     * listFilesInDirectory
+     *
+     * @param  Array $dir
+     * @return Array
+     */
+    protected function listFilesInDirectory($dir = null): Array
     {
         $nameList = [];
 
@@ -65,8 +95,15 @@ trait DriveManagement
 
         return $nameList;
     }
-
-    public function getDirectoryId($name, $dir = null)
+    
+    /**
+     * getDirectoryId
+     *
+     * @param  String $name
+     * @param  Array $dir
+     * @return String
+     */
+    public function getDirectoryId(string $name, string $dir = null): string
     {
         try {
             $needle = $this->listDirectory($dir)[$name];
@@ -76,13 +113,20 @@ trait DriveManagement
         }
         return $needle;
     }
-
-    public function getFileId($filename, $dir = null)
+    
+    /**
+     * getFileId
+     *
+     * @param  String $filename
+     * @param  Array $dir
+     * @return String
+     */
+    public function getFileId(String $filename, array $dir = null): String
     {
         return $this->listFilesInDirectory($dir)[$filename];
     }
 
-    public function formatDirName($name)
+    public function formatDirName(String $name): String
     {
         return Str::slug($name, "_");
     }

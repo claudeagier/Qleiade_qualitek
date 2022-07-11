@@ -8,13 +8,14 @@ use App\Orchid\Layouts\Attachment\File\UploadLayout;
 use App\Orchid\Layouts\Attachment\Ypareo\YpareoCard;
 use App\Orchid\Layouts\Attachment\Link\LinkEditLayout;
 use App\Orchid\Layouts\Attachment\Ypareo\YpareoEditlayout;
-
+use App\Http\Traits\WithAttachments;
 use Orchid\Screen\Sight;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Layouts\Listener;
 
 class AttachmentListener extends Listener
 {
+    use WithAttachments;
     /**
      * List of field names for which values will be listened.
      *
@@ -122,43 +123,5 @@ class AttachmentListener extends Listener
                         ($wealth->exists && !$this->editAttachment($this->query))
                 ),
         ];
-    }
-
-    public static function isEmptyAttachment($attachment)
-    {
-        //TODO factories me
-        $isEmpty = true;
-        if (!isset($attachments)) {
-            return true;
-        }
-        foreach ($attachments as $attachment) {
-            // dd($attachment);
-            foreach ($attachment as $key => $value) {
-                if (is_null($value)) {
-                    $isEmpty = true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        return $isEmpty;
-    }
-
-    public static function editAttachment($query): bool
-    {
-        $edit = true;
-        if (isset($query['attachment'])) {
-            foreach ($query['attachment'] as $attachment) {
-                if (AttachmentListener::isEmptyAttachment($attachment)) {
-                    $edit = true;
-                } else {
-                    $edit = false;
-                }
-            }
-        } else {
-            $edit = true;
-        }
-
-        return $edit;
     }
 }

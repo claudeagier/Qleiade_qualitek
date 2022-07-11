@@ -38,7 +38,12 @@ class Action extends Model
     //     'password',
     //     'remember_token',
     // ];
-
+    
+    /**
+     * wealths
+     *
+     * @return void
+     */
     public function wealths()
     {
         return $this->belongsToMany(
@@ -48,7 +53,12 @@ class Action extends Model
             "wealth_id"
         );
     }
-
+    
+    /**
+     * stage
+     *
+     * @return void
+     */
     public function stage()
     {
         return $this->belongsTo(Stage::class);

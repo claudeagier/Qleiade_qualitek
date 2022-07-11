@@ -44,7 +44,12 @@ class File extends Model
         'size',
         'user_id'
     ];
-    
+        
+    /**
+     * wealths
+     *
+     * @return void
+     */
     public function wealths()
     {
         return $this->belongsToMany(

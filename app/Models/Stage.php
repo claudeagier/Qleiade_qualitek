@@ -28,8 +28,12 @@ class Stage extends Model
         'label',
         'description',
     ];
-
-    // Une étape a plusieurs actions
+   
+    /**
+     * actions
+     * Une étape a plusieurs actions 
+     * @return void
+     */
     public function actions()
     {
         return $this->hasMany(Action::class);

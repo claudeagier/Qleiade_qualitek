@@ -28,7 +28,12 @@ class WealthType extends Model
         'label',
         'description',
     ];
-
+    
+    /**
+     * wealths
+     *
+     * @return void
+     */
     public function wealths()
     {
         return $this->hasMany(Wealth::class);

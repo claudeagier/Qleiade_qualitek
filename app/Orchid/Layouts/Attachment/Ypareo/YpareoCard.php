@@ -16,6 +16,12 @@ class YpareoCard extends Legend
      */
     protected $title;
 
+        
+    /**
+     * columns
+     *
+     * @return array
+     */
     protected function columns(): array
     {
         return  [

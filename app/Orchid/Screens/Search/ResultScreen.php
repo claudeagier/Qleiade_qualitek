@@ -93,7 +93,14 @@ class ResultScreen extends Screen
             )
         ];
     }
-
+    
+    /**
+     * fillWealthQuery
+     *
+     * @param  mixed $query
+     * @param  mixed $payload
+     * @return void
+     */
     protected function fillWealthQuery($query, $payload)
     {
         $keyWord = $payload['key_word'];

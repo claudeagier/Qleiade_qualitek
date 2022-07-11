@@ -28,7 +28,12 @@ class QualityLabel extends Model
         'label',
         'description',
     ];
-
+    
+    /**
+     * indicators
+     *
+     * @return void
+     */
     public function indicators()
     {
         return $this->hasMany(Indicator::class);

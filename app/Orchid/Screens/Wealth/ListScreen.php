@@ -85,8 +85,12 @@ class ListScreen extends Screen
         ];
     }
 
+       
     /**
-     * @param Request $request
+     * remove
+     *
+     * @param  Request $request
+     * @return void
      */
     public function remove(Request $request): void
     {

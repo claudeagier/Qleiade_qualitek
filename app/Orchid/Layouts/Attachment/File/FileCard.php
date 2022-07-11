@@ -8,6 +8,9 @@ use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Layouts\Legend;
 
+/**
+ * FileCard
+ */
 class FileCard Extends Legend
 {
         /**
@@ -16,7 +19,12 @@ class FileCard Extends Legend
      * @var string|null
      */
     protected $title;
-    
+        
+    /**
+     * columns
+     *
+     * @return array
+     */
     protected function columns(): array
     {
         return  [

@@ -48,7 +48,12 @@ class Wealth extends Model
         'validity_date' => 'datetime',
         'attachment' => 'array',
     ];
-
+    
+    /**
+     * actions
+     *
+     * @return Collection
+     */
     public function actions()
     {
         return $this->belongsToMany(
@@ -58,13 +63,24 @@ class Wealth extends Model
             "action_id"
         );
     }
-
+    
+    /**
+     * wealthType
+     *
+     * @return WealthType
+     */
     public function wealthType()
     {
         return $this->belongsTo(WealthType::class);
     }
-
-    public function indicators()
+    
+    /**
+     * indicators
+     *
+     * @return Collection
+     */
+    
+     public function indicators()
     {
         return $this->belongsToMany(
             Indicator::class,
@@ -73,7 +89,12 @@ class Wealth extends Model
             "indicator_id"
         );
     }
-
+    
+    /**
+     * files
+     *
+     * @return Collection
+     */
     public function files()
     {
         return $this->belongsToMany(
@@ -83,12 +104,22 @@ class Wealth extends Model
             "file_id"
         );
     }
-
+    
+    /**
+     * processus
+     *
+     * @return Collection
+     */
     public function processus()
     {
         return $this->belongsTo(Processus::class);
     }
-
+    
+    /**
+     * tags
+     *
+     * @return Collection
+     */
     public function tags()
     {
         return $this->belongsToMany(

@@ -16,7 +16,12 @@ class LinkCard extends Legend
      * @var string|null
      */
     protected $title;
-
+    
+    /**
+     * columns
+     *
+     * @return array
+     */
     protected function columns(): array
     {
         return  [

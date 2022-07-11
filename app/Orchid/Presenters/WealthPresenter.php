@@ -48,12 +48,22 @@ class WealthPresenter extends Presenter
     {
         return "";
     }
-
+    
+    /**
+     * name
+     *
+     * @return void
+     */
     public function name()
     {
         return $this->entity->name;
     }
-
+    
+    /**
+     * indicators
+     *
+     * @return void
+     */
     public function indicators()
     {
         return $this->entity->indicators;

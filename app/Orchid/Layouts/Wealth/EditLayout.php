@@ -12,9 +12,11 @@ use Orchid\Screen\Fields\Quill;
 use Orchid\Screen\Layouts\Rows;
 use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Fields\DateTimer;
+use App\Http\Traits\WithAttachments;
 
 class EditLayout extends Rows
 {
+    use WithAttachments;
     /**
      * Data source.
      *
@@ -55,7 +57,7 @@ class EditLayout extends Rows
                 // ->fromQuery(User::where('balance', '!=', '0'), 'email')
                 ->title(__('wealth_type_select_title'))
                 ->required()
-                ->disabled(!AttachmentListener::editAttachment($this->query))
+                ->disabled(!$this->editAttachment($this->query))
                 ->help(__('wealth_type_help')),
 
             Quill::make('wealth.description')

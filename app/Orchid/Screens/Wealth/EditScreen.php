@@ -399,14 +399,27 @@ class EditScreen extends Screen
             }
         }
     }
-
+    
+    /**
+     * removeAttachment
+     *
+     * @param  mixed $wealth
+     * @return void
+     */
     public function removeAttachment(Wealth $wealth)
     {
         //DOC: Remove Attachment
         $wealth->attachment = null;
         $wealth->save();
     }
-
+    
+    /**
+     * addNewTagByModal
+     *
+     * @param  mixed $tag
+     * @param  mixed $request
+     * @return void
+     */
     public function addNewTagByModal(Tag $tag, Request $request)
     {
         $res = $this->saveTag($tag, $request);
