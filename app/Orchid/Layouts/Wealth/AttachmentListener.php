@@ -126,6 +126,7 @@ class AttachmentListener extends Listener
 
     public static function isEmptyAttachment($attachment)
     {
+        //TODO factories me
         $isEmpty = true;
         if (!isset($attachments)) {
             return true;

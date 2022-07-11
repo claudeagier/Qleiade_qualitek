@@ -111,6 +111,7 @@ class ListLayout extends Table
 
     public static function isEmptyAttachment($attachments)
     {
+        //TODO factories me
         // dd($attachments);
         $isEmpty = true;
         if (!isset($attachments)) {
