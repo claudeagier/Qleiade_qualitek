@@ -67,7 +67,13 @@ class displayScreen extends Screen
     public function layout(): iterable
     {
         return [
-            Layout::view('components.admin.wealth.show.wealth', ['wealth' => $this->wealth])
+            Layout::view(
+                'components.admin.wealth.show.wealth',
+                [
+                    'wealth' => $this->wealth,
+                    'emptyAttachments' => $this->isEmptyAttachments($this->wealth->attachment)
+                ]
+            )
         ];
     }
 }

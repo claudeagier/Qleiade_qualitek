@@ -8,9 +8,11 @@ use App\Models\Wealth;
 
 use Orchid\Screen\Actions\Link;
 use Orchid\Support\Color;
+use App\Http\Traits\WithAttachments;
 
 class ResultScreen extends Screen
 {
+    use WithAttachments;
         /**
      * @var Wealth
      */

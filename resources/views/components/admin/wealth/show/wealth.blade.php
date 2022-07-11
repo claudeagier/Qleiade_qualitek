@@ -2,6 +2,11 @@
     <div class="col-md-8 my-2">
         <div class="d-flex flex-wrap">
             <h3 class="mb-3 text-muted fw-light">
+                @if (App\Http\Traits\WithAttachments::isEmptyAttachments($wealth->attachment))
+                    <span class="empty-attachment-icon">
+                        <x-orchid-icon path="wrench" />
+                    </span>
+                @endif
                 @if ($wealth->wealthType->name === 'file')
                     <x-orchid-icon path="book-open" />
                 @endif
