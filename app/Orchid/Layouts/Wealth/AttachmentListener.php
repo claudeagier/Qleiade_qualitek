@@ -72,7 +72,7 @@ class AttachmentListener extends Listener
                 ->canSee(
                     ($whoShouldSee == '')
                         &&
-                        ($this->editAttachment($this->query))
+                        ($this->canEditAttachment($this->query))
                 ),
 
             //File type attachment
@@ -81,14 +81,14 @@ class AttachmentListener extends Listener
                 ->canSee(
                     ($whoShouldSee === 'file')
                         &&
-                        ($this->editAttachment($this->query))
+                        ($this->canEditAttachment($this->query))
                 ),
             //File show card
             $fileCard->title(__('file_show'))
                 ->canSee(
                     ($whoShouldSee === 'file')
                         &&
-                        ($wealth->exists && !$this->editAttachment($this->query))
+                        ($wealth->exists && !$this->canEditAttachment($this->query))
                 ),
 
             // link type attachment
@@ -97,14 +97,14 @@ class AttachmentListener extends Listener
                 ->canSee(
                     ($whoShouldSee === 'link')
                         &&
-                        ($this->editAttachment($this->query))
+                        ($this->canEditAttachment($this->query))
                 ),
             // show
             $linkCard->title(__('link_show'))
                 ->canSee(
                     ($whoShouldSee === 'link')
                         &&
-                        ($wealth->exists && !$this->editAttachment($this->query))
+                        ($wealth->exists && !$this->canEditAttachment($this->query))
                 ),
 
             // Ypareo type attachment
@@ -113,14 +113,14 @@ class AttachmentListener extends Listener
                 ->canSee(
                     ($whoShouldSee === 'ypareo')
                         &&
-                        ($this->editAttachment($this->query))
+                        ($this->canEditAttachment($this->query))
                 ),
             //show
             $ypareoCard->title(__('ypareo_show'))
                 ->canSee(
                     ($whoShouldSee === 'ypareo')
                         &&
-                        ($wealth->exists && !$this->editAttachment($this->query))
+                        ($wealth->exists && !$this->canEditAttachment($this->query))
                 ),
         ];
     }

@@ -48,7 +48,7 @@ trait WithAttachments
      * @param  mixed $query
      * @return bool
      */
-    public function editAttachment($query): bool
+    public function canEditAttachment($query): bool
     {
         $edit = true;
         if (isset($query['attachment'])) {

@@ -8,10 +8,11 @@ use Orchid\Screen\Screen;
 
 use Orchid\Screen\Actions\Link;
 use Orchid\Support\Facades\Layout;
+use App\Http\Traits\WithAttachments;
 
 class displayScreen extends Screen
 {
-
+    use WithAttachments;
     /**
      * @var Wealth
      */

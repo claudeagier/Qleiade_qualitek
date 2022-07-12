@@ -61,7 +61,7 @@ class EditLayout extends Rows
                 // ->fromQuery(User::where('balance', '!=', '0'), 'email')
                 ->title(__('wealth_type_select_title'))
                 ->required()
-                ->disabled(!$this->editAttachment($this->query))
+                ->disabled(!$this->canEditAttachment($this->query))
                 ->help(__('wealth_type_help')),
 
             Quill::make('wealth.description')
