@@ -46,6 +46,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application log mode
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+    'log' => env('APP_LOG_MODE', 'daily'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application number of retained files
+    |--------------------------------------------------------------------------
+    | When using the daily log mode, Laravel will only retain five days of log files by default. 
+    | If you want to adjust the number of retained files
+    |
+    */
+    'log_max_files' => env('APP_DEBUG_DAILY_LOG_MAX_FILES', 10),
+    /*
+    |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
     |
