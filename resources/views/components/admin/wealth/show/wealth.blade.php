@@ -3,9 +3,11 @@
         <div class="d-flex flex-wrap">
             <h3 class="mb-3 text-muted fw-light">
                 @if (App\Http\Traits\WithAttachments::isEmptyAttachments($wealth->attachment))
-                    <span class="empty-attachment-icon">
-                        <x-orchid-icon path="wrench" />
-                    </span>
+                    <a href="{{route('platform.quality.wealths.edit', ['wealth' => $wealth])}}" >
+                        <span class="empty-attachment-icon">        
+                            <x-orchid-icon path="wrench" />
+                        </span>
+                    </a>
                 @endif
                 @if ($wealth->wealthType->name === 'file')
                     <x-orchid-icon path="book-open" />
@@ -17,7 +19,9 @@
                     <x-orchid-icon path="task" />
                 @endif
 
-                <span class="ms-3 text-dark">{{ $wealth->name }}</span>
+                <span class="ms-3 text-dark">
+                    {{ $wealth->name }}
+                </span>
 
                 <div class="progress conformity-level-bg-progress_bar">
                     <div class="progress-bar conformity-level-badge-{{ $wealth->conformity_level }}" role="progressbar"
@@ -33,6 +37,7 @@
                     </span>
                 @endforeach
             </div>
+
         </div>
         <p class="ms-md-2 ps-md-1">
             {!! $wealth->description !!}
