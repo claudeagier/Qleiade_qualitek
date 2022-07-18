@@ -35,7 +35,7 @@ class ListLayout extends Table
     protected function columns(): iterable
     {
         return [
-            //TODO : afficher en rouge quand les infos de la piece jointe ne sont pas renseignés
+
             TD::make(__('name'))
                 ->sort()
                 ->render(function (Wealth $wealth) {

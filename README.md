@@ -199,3 +199,7 @@ puis pour se les ajouter à soi
 ```php
     php artisan orchid:admin --id=monIdInt
 ```
+
+### Modification ou ajout de clé dans le fichier des traductions
+
+Aller voir dans le fichier resources/lang/fr.json et resources/lang/en.json 
