@@ -1,5 +1,10 @@
 {
-    "welcome": "Bienvenue sur Qléiade",
+    "welcome_title": "Bienvenue sur Qléiade",
+    "welcome_subtitle": "Page en construction",
+    "welcome_wealths_title":"Les Preuves",
+    "welcome_labels_title" : "Les Libellés",
+    "welcome_actions_title" : "Les Etapes",
+    "go_to_wealth" : "Faire une recherche",
     "select_language": "Choisissez votre langue",
     "details": "Détails",
     "Administer": "Administrer Qléiade",
